@@ -1,10 +1,13 @@
 import ErrorPage from "../pages/ErrorPage";
 
-import HomePage from "../pages/user/HomePage/HomePage";
 import { createBrowserRouter } from "react-router";
 import CartPage from "../pages/user/CartPage/CartPage";
-import SellerPage from "../pages/seller/SellerPage";
-import Layout from "../Layout/user/Layout";
+import HomePage from "../pages/user/HomePage/HomePage";
+
+import UserRoute from "../components/ProtectedRoute/UserRoute";
+import Layout from "../Layout/Layout";
+import CreateStorePage from "../pages/seller/CreateStorePage/CreateStorePage";
+import SellerPage from "../pages/seller/SellerPage/SellerPage";
 
 const router = createBrowserRouter([
   {
@@ -18,14 +21,34 @@ const router = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <CartPage />,
+        element: (
+          <UserRoute>
+            <CartPage />
+          </UserRoute>
+        ),
       },
     ],
   },
 
   {
     path: "/seller",
-    element: <SellerPage />,
+    element: <Layout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <SellerPage />,
+      },
+    ],
+  },
+
+  {
+    path: "/create/store",
+    element: (
+      <UserRoute>
+        <CreateStorePage />
+      </UserRoute>
+    ),
     errorElement: <ErrorPage />,
   },
 ]);

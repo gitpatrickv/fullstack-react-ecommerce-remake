@@ -1,27 +1,47 @@
 import {
+  Avatar,
   Box,
   Divider,
   Flex,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalOverlay,
+  Spacer,
   Text,
 } from "@chakra-ui/react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
+import pic from "../../../assets/profpic.jpeg";
 import { useAuthQueryStore } from "../../../store/auth-store";
+import { useUserStore } from "../../../store/user-store";
 import Login from "./Login";
 import Register from "./Register";
-
 const NavTop = () => {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [isLogin, setIsLogin] = useState<boolean>(false);
-  const { isOpen, onOpen, onClose } = useAuthQueryStore();
+  const { resetUser, name, picture, seller } = useUserStore();
+  const { isOpen, onOpen, onClose, logout } = useAuthQueryStore();
+  const { authStore } = useAuthQueryStore();
+  const jwtToken = authStore.jwtToken;
 
   const handleLoginClick = (value: boolean) => {
     setIsLogin(value);
     onOpen();
+  };
+
+  const handleLogout = () => {
+    logout(navigate);
+    queryClient.setQueryData(["user"], null);
+    resetUser();
   };
 
   const textStyles = {
@@ -32,19 +52,63 @@ const NavTop = () => {
     },
   };
 
+  const handleNavigateSellerPageClick = () => {
+    navigate(seller ? "/seller" : "/create/store");
+  };
+
   return (
     <>
-      <Flex justifyContent="end">
-        <Text mr="20px" {...textStyles}>
-          START SELLING
-        </Text>
-        <Text mr="20px" onClick={() => handleLoginClick(true)} {...textStyles}>
-          LOGIN
-        </Text>
-        <Text onClick={() => handleLoginClick(false)} {...textStyles}>
-          SIGNUP
-        </Text>
-      </Flex>
+      {jwtToken ? (
+        <Flex alignItems="center">
+          <Text
+            mr="10px"
+            {...textStyles}
+            onClick={handleNavigateSellerPageClick}
+          >
+            Seller Centre
+          </Text>
+          <Spacer />
+          <Flex alignItems="center">
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label="menu"
+                icon={<Avatar src={picture || pic} size="xs" />}
+                variant="none"
+              />
+              <MenuButton as={Text} cursor="pointer">
+                {name}
+              </MenuButton>
+              <MenuList>
+                <MenuItem paddingBottom={3} paddingTop={3}>
+                  <Text>My Account</Text>
+                </MenuItem>
+
+                <MenuItem
+                  onClick={handleLogout}
+                  paddingBottom={3}
+                  paddingTop={3}
+                >
+                  <Text>Logout</Text>
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </Flex>
+        </Flex>
+      ) : (
+        <Flex justifyContent="end">
+          <Text
+            mr="20px"
+            onClick={() => handleLoginClick(true)}
+            {...textStyles}
+          >
+            LOGIN
+          </Text>
+          <Text onClick={() => handleLoginClick(false)} {...textStyles}>
+            SIGNUP
+          </Text>
+        </Flex>
+      )}
 
       <Box>
         <Modal isOpen={isOpen} onClose={onClose} size="md" isCentered>

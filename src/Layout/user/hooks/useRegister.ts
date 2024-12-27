@@ -21,7 +21,9 @@ const useRegister = () => {
       apiClient.post("/auth/register", data).then((res) => res.data),
 
     onSuccess: (response) => {
-      // queryClient.invalidateQueries(["user"]);
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
       const jwtToken = response.jwtToken;
       setJwtToken(jwtToken);
       const role = response.role;

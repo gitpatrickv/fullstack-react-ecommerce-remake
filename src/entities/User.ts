@@ -7,7 +7,7 @@ export interface User {
   confirmPassword: string;
   name: string;
   picture?: string;
-  isSeller: boolean;
+  seller: boolean;
   gender: string;
   role: string;
   userModel: string;
