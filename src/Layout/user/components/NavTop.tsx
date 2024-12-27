@@ -28,10 +28,11 @@ const NavTop = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [isLogin, setIsLogin] = useState<boolean>(false);
-  const { resetUser, name, picture, seller } = useUserStore();
+  const { resetUser, name, picture, storeName } = useUserStore();
   const { isOpen, onOpen, onClose, logout } = useAuthQueryStore();
   const { authStore } = useAuthQueryStore();
   const jwtToken = authStore.jwtToken;
+  const role = authStore.role;
 
   const handleLoginClick = (value: boolean) => {
     setIsLogin(value);
@@ -53,7 +54,7 @@ const NavTop = () => {
   };
 
   const handleNavigateSellerPageClick = () => {
-    navigate(seller ? "/seller" : "/create/store");
+    navigate(role === "SELLER" ? `/seller/${storeName}` : "/create/store");
   };
 
   return (

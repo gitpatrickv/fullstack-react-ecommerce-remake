@@ -7,10 +7,10 @@ export interface User {
   confirmPassword: string;
   name: string;
   picture?: string;
-  seller: boolean;
   gender: string;
   role: string;
   userModel: string;
+  storeName?: string;
 }
 
 export const schema = z

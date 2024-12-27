@@ -1,8 +1,9 @@
 import { Flex, Spacer, Text } from "@chakra-ui/react";
-import { useUserStore } from "../../../store/user-store";
-import { useAuthQueryStore } from "../../../store/auth-store";
 import { useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import useGetOne from "../../../hooks/useGetOne";
+import { useAuthQueryStore } from "../../../store/auth-store";
+import { useUserStore } from "../../../store/user-store";
 
 const NavbarSeller = () => {
   const navigate = useNavigate();
@@ -20,9 +21,15 @@ const NavbarSeller = () => {
     navigate("/");
   };
 
+  const params = useParams<{ storeName: string }>();
+  const storeName = params.storeName;
+  const { data: getStoreInfo } = useGetOne({ module: "store", id: storeName! });
+
   return (
     <Flex height="100px" bg="orange.500" alignItems="center" padding={10}>
-      <Text>SELLER PAGE NAVBAR</Text>
+      <Text fontSize="x-large" textTransform="capitalize" fontWeight="semibold">
+        {getStoreInfo?.storeName}
+      </Text>
       <Spacer />
       <Text mr="20px" onClick={handleNavigateClick}>
         Buyer Centre

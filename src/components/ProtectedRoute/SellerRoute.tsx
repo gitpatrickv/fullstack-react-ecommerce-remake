@@ -5,15 +5,10 @@ interface Props {
   children: React.ReactNode;
 }
 
-const UserRoute = ({ children }: Props) => {
+const SellerRoute = ({ children }: Props) => {
   const { authStore } = useAuthQueryStore();
   const role = authStore.role;
-
-  return role === "USER" || role === "SELLER" ? (
-    <>{children}</>
-  ) : (
-    <Unauthorized />
-  );
+  return role === "SELLER" ? <>{children}</> : <Unauthorized />;
 };
 
-export default UserRoute;
+export default SellerRoute;

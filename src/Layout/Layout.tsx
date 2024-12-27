@@ -9,7 +9,7 @@ import NavbarSeller from "./seller/components/NavbarSeller";
 const Layout = () => {
   const location = useLocation();
   const { data: getUserInfo } = useGetCurrentUserInfo();
-  const { setUserId, setName, setPicture, setGender, setEmail, setSeller } =
+  const { setUserId, setName, setPicture, setGender, setEmail, setStoreName } =
     useUserStore();
   useEffect(() => {
     if (getUserInfo) {
@@ -18,7 +18,7 @@ const Layout = () => {
       setPicture(getUserInfo.picture || null);
       setGender(getUserInfo.gender);
       setEmail(getUserInfo.email);
-      setSeller(getUserInfo.seller);
+      setStoreName(getUserInfo.storeName || null);
     }
   }, [getUserInfo]);
 

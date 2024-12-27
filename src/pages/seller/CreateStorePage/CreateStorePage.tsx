@@ -12,13 +12,14 @@ import TextInput from "../../../components/Input/TextInput";
 import useSave from "../../../hooks/useSave";
 import { Store } from "../../../entities/Store";
 import { useNavigate } from "react-router-dom";
+import { useAuthQueryStore } from "../../../store/auth-store";
 const CreateStorePage = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { setRole } = useAuthQueryStore();
   const {
     handleSubmit,
     loading,
-    // onSubmit,
     control,
     mutation: { mutate },
     setLoading,
@@ -28,12 +29,13 @@ const CreateStorePage = () => {
   const onSubmit: SubmitHandler<Store> = (data: any) => {
     setLoading(true);
     mutate(data, {
-      onSuccess: () => {
+      onSuccess: (response) => {
+        setRole("SELLER");
         queryClient.invalidateQueries({
           queryKey: ["user"],
         });
         setLoading(false);
-        navigate("/seller");
+        navigate(`/seller/${response.storeName}`);
       },
       onError: (error: any) => {
         setLoading(false);
