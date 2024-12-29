@@ -8,6 +8,7 @@ import UserRoute from "../components/ProtectedRoute/UserRoute";
 import Layout from "../Layout/Layout";
 import CreateStorePage from "../pages/seller/CreateStorePage/CreateStorePage";
 import SellerPage from "../pages/seller/SellerPage/SellerPage";
+import ProductDetailPage from "../pages/user/ProductDetailPage/ProductDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
+      { path: `/product/:productId`, element: <ProductDetailPage /> },
       {
         path: "/cart",
         element: (

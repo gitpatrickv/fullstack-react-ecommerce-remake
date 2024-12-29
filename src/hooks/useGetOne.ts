@@ -15,7 +15,7 @@ const useGetOne = ({ module, id }: Props) => {
   return useQuery<model>({
     queryKey: ["data", module, id],
     queryFn: async () => {
-      const { data } = await apiClient.get<model>(`/${module}/${id}`);
+      const { data } = await apiClient.get<model>(`/factory/${module}/${id}`);
       return data;
     },
     placeholderData: keepPreviousData,

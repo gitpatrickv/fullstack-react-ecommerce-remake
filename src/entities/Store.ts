@@ -3,5 +3,5 @@ export interface Store {
   storeName: string;
   contactNumber: string;
   picture?: string;
-  active: boolean;
+  status: string;
 }

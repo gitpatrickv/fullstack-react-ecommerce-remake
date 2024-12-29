@@ -11,6 +11,7 @@ export interface User {
   role: string;
   userModel: string;
   storeName?: string;
+  status: string;
 }
 
 export const schema = z

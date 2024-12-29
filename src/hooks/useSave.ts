@@ -21,7 +21,7 @@ const useSave = ({ module }: Props) => {
   const mutation = useMutation({
     mutationFn: (data: FormData) =>
       apiClient
-        .post(`/${module}`, JSON.stringify(data))
+        .post(`/factory/${module}`, JSON.stringify(data))
         .then((res) => res.data),
 
     // onSuccess: (response) => {

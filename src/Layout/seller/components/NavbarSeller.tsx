@@ -28,7 +28,7 @@ const NavbarSeller = () => {
   return (
     <Flex height="100px" bg="orange.500" alignItems="center" padding={10}>
       <Text fontSize="x-large" textTransform="capitalize" fontWeight="semibold">
-        {getStoreInfo?.storeName}
+        {getStoreInfo?.storeName} {getStoreInfo?.status}
       </Text>
       <Spacer />
       <Text mr="20px" onClick={handleNavigateClick}>
