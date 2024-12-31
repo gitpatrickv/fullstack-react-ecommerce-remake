@@ -1,7 +1,8 @@
-import { Box, Card, Center, Flex, Image, Spacer, Text } from "@chakra-ui/react";
+import { Box, Card, Flex, Image, Spacer, Text } from "@chakra-ui/react";
 import { IoIosStar } from "react-icons/io";
-import { ProductModels } from "../../entities/Product";
 import { useNavigate } from "react-router-dom";
+import { ProductModels } from "../../entities/Product";
+import { formatCurrency } from "../../utilities/formatCurrency";
 
 interface Props {
   product: ProductModels;
@@ -12,59 +13,41 @@ const ProductCard = ({ product }: Props) => {
   const navigate = useNavigate();
 
   const handleNavigateClick = () => {
-    navigate(`/product/${product.productId}`);
+    navigate(`/product/${product.productId}/${product.slug}`);
   };
   return (
-    <Center mt="20px">
-      <Card cursor="pointer" borderRadius="none" onClick={handleNavigateClick}>
-        <Image
-          src={
-            "https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp"
-          }
-          h={[150, 200]}
-        />
-        <Box padding={2}>
-          <Text
-            fontSize="large"
-            fontWeight="semibold"
-            textTransform="capitalize"
-            isTruncated={true}
-          >
-            {product.productName}
-          </Text>
-          <Text fontSize="md">P123.00</Text>
-          <Flex alignItems="center" mt="20px">
-            {array.map((s) => (
-              <Box key={s}>
-                <IoIosStar />
-              </Box>
-            ))}
-            {/* {rating?.ratingAverage === 0 ||
-          rating?.overallTotalUserRating === 0 ? (
-            <Box></Box>
-          ) : (
-            <Box display="flex" alignItems="center" whiteSpace="nowrap">
-              {ratings.map((rate) => (
-                <Box
-                  as={IoIosStar}
-                  color={rate <= ratingAvg ? "orange.400" : "gray.600"}
-                  key={rate}
-                />
-              ))}
-
-              <Text ml={1} fontSize="sm">
-                {rating?.ratingAverage || 0} ({rating?.overallTotalUserRating})
-              </Text>
+    <Card cursor="pointer" borderRadius="none" onClick={handleNavigateClick}>
+      <Image
+        src={product.productImages[0].productImage}
+        width="100%"
+        height="100%"
+        boxSize="210px"
+      />
+      <Box padding={2}>
+        <Text
+          fontSize="lg"
+          fontWeight="semibold"
+          textTransform="capitalize"
+          isTruncated={true}
+        >
+          {product.productName}
+        </Text>
+        <Text fontSize="md" color="#E64A19" fontWeight="semibold">
+          {formatCurrency(product.inventories[0].price)}
+        </Text>
+        <Flex alignItems="center" mt="20px">
+          {array.map((s) => (
+            <Box key={s}>
+              <IoIosStar />
             </Box>
-          )} */}
-            <Spacer />
-            <Text ml="5px" whiteSpace="nowrap">
-              0 sold
-            </Text>
-          </Flex>
-        </Box>
-      </Card>
-    </Center>
+          ))}
+          <Spacer />
+          <Text ml="5px" whiteSpace="nowrap">
+            {product.totalSold ?? 0} sold
+          </Text>
+        </Flex>
+      </Box>
+    </Card>
   );
 };
 

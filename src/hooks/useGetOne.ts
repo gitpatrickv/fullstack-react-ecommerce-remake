@@ -1,5 +1,4 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { Store } from "../entities/Store";
 import { axiosInstance } from "../services/api-client";
 
 const apiClient = axiosInstance;
@@ -9,13 +8,11 @@ interface Props {
   id: string;
 }
 
-type model = Store;
-
-const useGetOne = ({ module, id }: Props) => {
-  return useQuery<model>({
+const useGetOne = <T>({ module, id }: Props) => {
+  return useQuery<T>({
     queryKey: ["data", module, id],
     queryFn: async () => {
-      const { data } = await apiClient.get<model>(`/factory/${module}/${id}`);
+      const { data } = await apiClient.get<T>(`/factory/${module}/${id}`);
       return data;
     },
     placeholderData: keepPreviousData,

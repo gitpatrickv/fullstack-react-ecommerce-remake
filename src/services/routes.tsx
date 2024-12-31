@@ -6,7 +6,11 @@ import HomePage from "../pages/user/HomePage/HomePage";
 
 import UserRoute from "../components/ProtectedRoute/UserRoute";
 import Layout from "../Layout/Layout";
+import AccountInfoPage from "../pages/seller/AccountInfoPage/AccountInfoPage";
+import CreateProductPage from "../pages/seller/CreateProductPage/CreateProductPage";
 import CreateStorePage from "../pages/seller/CreateStorePage/CreateStorePage";
+import MyProductsPage from "../pages/seller/MyProductsPage/MyProductsPage";
+import Dashboard from "../pages/seller/SellerPage/Dashboard";
 import SellerPage from "../pages/seller/SellerPage/SellerPage";
 import ProductDetailPage from "../pages/user/ProductDetailPage/ProductDetailPage";
 
@@ -20,7 +24,10 @@ const router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
-      { path: `/product/:productId`, element: <ProductDetailPage /> },
+      {
+        path: `/product/:productId/:slug`,
+        element: <ProductDetailPage />,
+      },
       {
         path: "/cart",
         element: (
@@ -33,13 +40,25 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/seller/:storeName",
-    element: <Layout />,
+    path: "/seller",
+    element: <SellerPage />,
     errorElement: <ErrorPage />,
     children: [
       {
         index: true,
-        element: <SellerPage />,
+        element: <Dashboard />,
+      },
+      {
+        path: "product",
+        element: <MyProductsPage />,
+      },
+      {
+        path: "product/create",
+        element: <CreateProductPage />,
+      },
+      {
+        path: "account/info",
+        element: <AccountInfoPage />,
       },
     ],
   },

@@ -30,9 +30,12 @@ const Search = () => {
             aria-label="Search"
             icon={<BsSearch />}
             type="submit"
-            bg="orange.500"
+            bg="#E64A19"
             borderRadius="none"
-            _hover={{ bg: "orange.600" }}
+            _hover={{ bg: "#FF5722" }}
+            _active={{ bg: "#E64A19" }}
+            borderWidth="2px"
+            borderColor="white"
           />
         </InputRightElement>
       </InputGroup>

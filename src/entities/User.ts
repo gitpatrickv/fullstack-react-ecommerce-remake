@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Store } from "./Store";
 
 export interface User {
   userId: number;
@@ -10,8 +11,8 @@ export interface User {
   gender: string;
   role: string;
   userModel: string;
-  storeName?: string;
   status: string;
+  store?: Store;
 }
 
 export const schema = z

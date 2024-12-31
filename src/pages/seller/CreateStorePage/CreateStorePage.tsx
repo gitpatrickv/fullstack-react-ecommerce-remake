@@ -32,13 +32,13 @@ const CreateStorePage = () => {
   const onSubmit: SubmitHandler<Store> = (data: Store) => {
     setLoading(true);
     mutate(data, {
-      onSuccess: (response) => {
+      onSuccess: () => {
         setRole("SELLER");
         queryClient.invalidateQueries({
           queryKey: ["user"],
         });
         setLoading(false);
-        navigate(`/seller/${response.storeName}`);
+        navigate(`/seller`);
       },
       onError: (error: any) => {
         setLoading(false);

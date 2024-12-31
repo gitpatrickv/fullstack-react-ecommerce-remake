@@ -28,7 +28,7 @@ const NavTop = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [isLogin, setIsLogin] = useState<boolean>(false);
-  const { resetUser, name, picture, storeName } = useUserStore();
+  const { resetUser, name, picture, storeId } = useUserStore();
   const { isOpen, onOpen, onClose, logout } = useAuthQueryStore();
   const { authStore } = useAuthQueryStore();
   const jwtToken = authStore.jwtToken;
@@ -51,10 +51,11 @@ const NavTop = () => {
     _hover: {
       color: "orange.500",
     },
+    color: "white",
   };
 
   const handleNavigateSellerPageClick = () => {
-    navigate(role === "SELLER" ? `/seller/${storeName}` : "/create/store");
+    navigate(role === "SELLER" ? `/seller` : "/create/store");
   };
 
   return (
@@ -77,7 +78,7 @@ const NavTop = () => {
                 icon={<Avatar src={picture || pic} size="xs" />}
                 variant="none"
               />
-              <MenuButton as={Text} cursor="pointer">
+              <MenuButton as={Text} cursor="pointer" color="white">
                 {name}
               </MenuButton>
               <MenuList>
