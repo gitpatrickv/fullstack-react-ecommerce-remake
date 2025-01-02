@@ -11,6 +11,7 @@ export interface Product {
   totalSold: number;
   status: string;
   category: string;
+  createdDate: string;
 }
 
 export interface ProductModels extends Product {

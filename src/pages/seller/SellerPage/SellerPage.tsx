@@ -1,9 +1,9 @@
-import { Box, Card, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { useShopStore } from "../../../../store/shop-store";
-import useGetUserStore from "../hooks/useGetUserStore";
-import Sidebar from "./Sidebar";
+import { useShopStore } from "../../../store/shop-store";
+import Sidebar from "./components/Sidebar";
+import useGetUserStore from "./hooks/useGetUserStore";
 
 const SellerPage = () => {
   const { data: getUserStoreInfo } = useGetUserStore();
@@ -28,16 +28,21 @@ const SellerPage = () => {
   return (
     <Box minWidth="1440px">
       <Grid
-        templateRows={"0.2fr 0.8fr"}
+        // templateRows={"0.2fr 0.8fr"}
         templateColumns="0.2fr 50px 1fr 50px"
         templateAreas={`
-          "sidebar marginLeft top marginRight"
+      
           "sidebar marginLeft main marginRight"
           `}
       >
-        <GridItem area="top" mt="20px" bg="blue">
-          <Card width="100%" borderRadius="none" boxShadow="none"></Card>
-        </GridItem>
+        {/* <GridItem area="top" mt="20px" bg="blue">
+          <Card
+            width="100%"
+            borderRadius="none"
+            boxShadow="none"
+            height="100%"
+          ></Card>
+        </GridItem> */}
         <GridItem area="sidebar">
           <Sidebar />
         </GridItem>

@@ -11,7 +11,7 @@ import CreateProductPage from "../pages/seller/CreateProductPage/CreateProductPa
 import CreateStorePage from "../pages/seller/CreateStorePage/CreateStorePage";
 import MyProductsPage from "../pages/seller/MyProductsPage/MyProductsPage";
 import Dashboard from "../pages/seller/SellerPage/components/Dashboard";
-import SellerPage from "../pages/seller/SellerPage/components/SellerPage";
+import SellerPage from "../pages/seller/SellerPage/SellerPage";
 import ProductDetailPage from "../pages/user/ProductDetailPage/ProductDetailPage";
 
 const router = createBrowserRouter([

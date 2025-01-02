@@ -1,6 +1,8 @@
 import {
   Box,
   Button,
+  Card,
+  Divider,
   Flex,
   FormControl,
   IconButton,
@@ -79,104 +81,112 @@ const CreateProductPage = () => {
   }, [imagePreview]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <TextInput
-        control={control}
-        name="productName"
-        loading={loading}
-        placeholder="Product Name"
-        label="Product Name"
-      />
-      <TextInput
-        control={control}
-        name="description"
-        loading={loading}
-        placeholder="Description"
-        label="Description"
-        mt="10px"
-      />
-
-      <FormControl isRequired mb="10px" mt="10px">
-        <Select id="categories" {...register("category")}>
-          <option value="" hidden>
-            Category
-          </option>
-          {categories.map((category) => (
-            <option key={category.name} value={category.value}>
-              {category.name}
-            </option>
-          ))}
-        </Select>
-      </FormControl>
-      <Variation register={register} control={control} />
-      <Text fontSize="xs" color="gray.500" mb="5px" fontWeight="semibold">
-        Photos {imageFile?.length || 0} / 8 - You can add up to 8 photos.
+    <Card padding={5}>
+      <Text fontSize="lg" fontWeight="semibold">
+        Create new product
       </Text>
-      <Flex gap={1} mt="10px">
-        {imagePreview && (
-          <>
-            {imagePreview?.slice(0, 8).map((image, index) => (
-              <Box key={index} cursor="pointer">
-                <Image
-                  src={image}
-                  key={index}
-                  width="150px"
-                  height="150px"
-                  borderRadius="10px"
+      <Divider color="gray.500" />
+      <Box padding={5}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <TextInput
+            control={control}
+            name="productName"
+            loading={loading}
+            placeholder="Product Name"
+            label="Product Name"
+          />
+          <TextInput
+            control={control}
+            name="description"
+            loading={loading}
+            placeholder="Description"
+            label="Description"
+            mt="10px"
+          />
+
+          <FormControl isRequired mb="10px" mt="10px">
+            <Select id="categories" {...register("category")}>
+              <option value="" hidden>
+                Category
+              </option>
+              {categories.map((category) => (
+                <option key={category.name} value={category.value}>
+                  {category.name}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+          <Variation register={register} control={control} />
+          <Text fontSize="xs" color="gray.500" mb="5px" fontWeight="semibold">
+            Photos {imageFile?.length || 0} / 8 - You can add up to 8 photos.
+          </Text>
+          <Flex gap={1} mt="10px">
+            {imagePreview && (
+              <>
+                {imagePreview?.slice(0, 8).map((image, index) => (
+                  <Box key={index} cursor="pointer">
+                    <Image
+                      src={image}
+                      key={index}
+                      width="150px"
+                      height="150px"
+                      borderRadius="10px"
+                    />
+                  </Box>
+                ))}
+              </>
+            )}
+
+            <Flex
+              width="150px"
+              height="150px"
+              border="1px solid"
+              justifyContent="center"
+              alignItems="center"
+              borderRadius="10px"
+              mb="10px"
+              onClick={handleInputClick}
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
+              cursor="pointer"
+              borderColor="gray.200"
+            >
+              <Box textAlign="center" width="100%">
+                <IconButton
+                  aria-label="image"
+                  icon={<MdOutlineAddPhotoAlternate size="25px" />}
+                  isRound
+                  height="42px"
+                  width="42px"
                 />
+                <Text fontWeight="semibold" mt="5px">
+                  Add Photos
+                </Text>
+                <Text color="gray.500">or drag and drop</Text>
               </Box>
-            ))}
-          </>
-        )}
+            </Flex>
 
-        <Flex
-          width="150px"
-          height="150px"
-          border="1px solid"
-          justifyContent="center"
-          alignItems="center"
-          borderRadius="10px"
-          mb="10px"
-          onClick={handleInputClick}
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
-          cursor="pointer"
-          borderColor="gray.200"
-        >
-          <Box textAlign="center" width="100%">
-            <IconButton
-              aria-label="image"
-              icon={<MdOutlineAddPhotoAlternate size="25px" />}
-              isRound
-              height="42px"
-              width="42px"
+            <input
+              type="file"
+              accept=".jpeg, .png"
+              multiple
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleFileChange}
             />
-            <Text fontWeight="semibold" mt="5px">
-              Add Photos
-            </Text>
-            <Text color="gray.500">or drag and drop</Text>
-          </Box>
-        </Flex>
-
-        <input
-          type="file"
-          accept=".jpeg, .png"
-          multiple
-          ref={fileInputRef}
-          style={{ display: "none" }}
-          onChange={handleFileChange}
-        />
-      </Flex>
-      <Button
-        type="submit"
-        mt="20px"
-        bg="#FF5722"
-        _hover={{ bg: "#E64A19" }}
-        width="100%"
-      >
-        Save Product
-      </Button>
-    </form>
+          </Flex>
+          <Button
+            type="submit"
+            mt="20px"
+            bg="#FF5722"
+            _hover={{ bg: "#E64A19" }}
+            width="100%"
+          >
+            Save Product
+          </Button>
+        </form>
+      </Box>
+    </Card>
   );
 };
 

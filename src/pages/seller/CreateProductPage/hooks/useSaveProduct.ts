@@ -40,11 +40,22 @@ const useSaveProduct = () => {
         })
         .then((res) => res.data),
 
-    onSuccess: () => {
+    onSuccess: (response) => {
+      queryClient.invalidateQueries({
+        queryKey: ["allDate", "store", "createdDate"],
+      });
       setLoading(false);
       reset();
       setImageFile(null);
       setImagePreview(null);
+      toast({
+        position: "top",
+        title: "Success!",
+        description: response,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
     },
     onError: (error: any) => {
       setLoading(false);

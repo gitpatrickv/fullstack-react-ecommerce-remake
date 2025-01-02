@@ -8,7 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
-import { SubmitHandler } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import TextInput from "../../../components/Input/TextInput";
@@ -20,14 +20,12 @@ const CreateStorePage = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { setRole } = useAuthQueryStore();
+  const { handleSubmit, setError, control } = useForm<Store>();
   const {
-    handleSubmit,
     loading,
-    control,
     mutation: { mutate },
     setLoading,
-    setError,
-  } = useSave({ module: "store" });
+  } = useSave<Store>({ module: "store" });
 
   const onSubmit: SubmitHandler<Store> = (data: Store) => {
     setLoading(true);
@@ -36,6 +34,9 @@ const CreateStorePage = () => {
         setRole("SELLER");
         queryClient.invalidateQueries({
           queryKey: ["user"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["store"],
         });
         setLoading(false);
         navigate(`/seller`);
@@ -76,7 +77,7 @@ const CreateStorePage = () => {
         top="2"
       />
       <Center height="100vh">
-        <Card width="400px">
+        <Card width="450px">
           <CardBody>
             <Text textAlign="center" fontWeight="semibold" fontSize="xl">
               Create Store
@@ -107,8 +108,8 @@ const CreateStorePage = () => {
                 isLoading={loading}
                 type="submit"
                 width="100%"
-                bg="orange.500"
-                _hover={{ bg: "orange.600" }}
+                bg="#FF5722"
+                _hover={{ bg: "#E64A19" }}
                 mb="10px"
                 mt={4}
               >
