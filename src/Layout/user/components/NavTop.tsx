@@ -24,11 +24,12 @@ import { useAuthQueryStore } from "../../../store/auth-store";
 import { useUserStore } from "../../../store/user-store";
 import Login from "./Login";
 import Register from "./Register";
+import ColorModeSwitch from "../../../components/ColorModeSwitch";
 const NavTop = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [isLogin, setIsLogin] = useState<boolean>(false);
-  const { resetUser, name, picture, storeId } = useUserStore();
+  const { resetUser, name, picture } = useUserStore();
   const { isOpen, onOpen, onClose, logout } = useAuthQueryStore();
   const { authStore } = useAuthQueryStore();
   const jwtToken = authStore.jwtToken;
@@ -49,7 +50,7 @@ const NavTop = () => {
     cursor: "pointer",
     userSelect: "none" as "none",
     _hover: {
-      color: "orange.500",
+      textDecoration: "underline",
     },
     color: "white",
   };
@@ -57,7 +58,7 @@ const NavTop = () => {
   const handleNavigateSellerPageClick = () => {
     navigate(role === "SELLER" ? `/seller` : "/create/store");
   };
-
+  //TODO: remove dark mode
   return (
     <>
       {jwtToken ? (
@@ -67,10 +68,11 @@ const NavTop = () => {
             {...textStyles}
             onClick={handleNavigateSellerPageClick}
           >
-            Seller Centre
+            Seller Center
           </Text>
           <Spacer />
           <Flex alignItems="center">
+            <ColorModeSwitch />
             <Menu>
               <MenuButton
                 as={IconButton}
@@ -85,7 +87,6 @@ const NavTop = () => {
                 <MenuItem paddingBottom={3} paddingTop={3}>
                   <Text>My Account</Text>
                 </MenuItem>
-
                 <MenuItem
                   onClick={handleLogout}
                   paddingBottom={3}

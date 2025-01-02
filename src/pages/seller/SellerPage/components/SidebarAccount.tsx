@@ -4,20 +4,24 @@ import { useState } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useAuthQueryStore } from "../../../store/auth-store";
-import { useUserStore } from "../../../store/user-store";
+import { useAuthQueryStore } from "../../../../store/auth-store";
+import { useUserStore } from "../../../../store/user-store";
+import { useShopStore } from "../../../../store/shop-store";
 const SidebarAccount = () => {
   const [isAccount, setIsAccount] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
-  const { name, resetUser, storeName } = useUserStore();
+  const { resetUser } = useUserStore();
+  const { resetStore } = useShopStore();
   const { logout } = useAuthQueryStore();
   const queryClient = useQueryClient();
 
   const handleLogout = () => {
     logout(navigate);
     queryClient.setQueryData(["user"], null);
+    queryClient.setQueryData(["store"], null);
     resetUser();
+    resetStore();
   };
 
   const currentLocation = location.pathname.startsWith("/seller/account");
@@ -65,6 +69,7 @@ const SidebarAccount = () => {
                     ? "#FF5722"
                     : "black"
                 }
+                _hover={{ color: "#FF5722" }}
               >
                 Account Info
               </Text>

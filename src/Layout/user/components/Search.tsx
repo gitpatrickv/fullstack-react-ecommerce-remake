@@ -36,6 +36,7 @@ const Search = () => {
             _active={{ bg: "#E64A19" }}
             borderWidth="2px"
             borderColor="white"
+            color="white"
           />
         </InputRightElement>
       </InputGroup>

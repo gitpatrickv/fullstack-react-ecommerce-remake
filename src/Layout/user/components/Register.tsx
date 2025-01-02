@@ -87,8 +87,8 @@ const Register = () => {
           isLoading={loading}
           type="submit"
           width="100%"
-          bg="orange.500"
-          _hover={{ bg: "orange.600" }}
+          bg="#FF5722"
+          _hover={{ bg: "#E64A19" }}
           mb="20px"
         >
           Register

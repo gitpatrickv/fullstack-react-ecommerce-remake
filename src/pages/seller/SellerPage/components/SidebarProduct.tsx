@@ -1,10 +1,8 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
-
-import { FaDollarSign } from "react-icons/fa6";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { Link, useLocation } from "react-router-dom";
-
 const SidebarProduct = () => {
   const [isProductPage, setIsProductPage] = useState(true);
   const location = useLocation();
@@ -19,7 +17,7 @@ const SidebarProduct = () => {
         cursor="pointer"
         userSelect="none"
       >
-        <FaDollarSign
+        <HiOutlineShoppingBag
           size="20px"
           color={currentLocation ? "#FF5722" : "black"}
         />
@@ -31,7 +29,7 @@ const SidebarProduct = () => {
             _hover={{ color: "#FF5722" }}
             color={currentLocation ? "#FF5722" : "black"}
           >
-            Product
+            My Product
           </Text>
         </Link>
 
@@ -52,6 +50,7 @@ const SidebarProduct = () => {
                   location.pathname === "/seller/product" ? "#FF5722" : "black"
                 }
                 cursor="pointer"
+                _hover={{ color: "#FF5722" }}
               >
                 My Products
               </Text>
@@ -64,6 +63,7 @@ const SidebarProduct = () => {
                     : "black"
                 }
                 cursor="pointer"
+                _hover={{ color: "#FF5722" }}
               >
                 Add New Product
               </Text>

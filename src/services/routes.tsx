@@ -10,8 +10,8 @@ import AccountInfoPage from "../pages/seller/AccountInfoPage/AccountInfoPage";
 import CreateProductPage from "../pages/seller/CreateProductPage/CreateProductPage";
 import CreateStorePage from "../pages/seller/CreateStorePage/CreateStorePage";
 import MyProductsPage from "../pages/seller/MyProductsPage/MyProductsPage";
-import Dashboard from "../pages/seller/SellerPage/Dashboard";
-import SellerPage from "../pages/seller/SellerPage/SellerPage";
+import Dashboard from "../pages/seller/SellerPage/components/Dashboard";
+import SellerPage from "../pages/seller/SellerPage/components/SellerPage";
 import ProductDetailPage from "../pages/user/ProductDetailPage/ProductDetailPage";
 
 const router = createBrowserRouter([

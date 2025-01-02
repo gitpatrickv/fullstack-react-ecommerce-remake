@@ -1,4 +1,4 @@
-import { Card, Flex, Grid, GridItem } from "@chakra-ui/react";
+import { Card, Flex, Grid, GridItem, useColorMode } from "@chakra-ui/react";
 import { FiShoppingCart } from "react-icons/fi";
 import { GoHome } from "react-icons/go";
 import { Link } from "react-router-dom";
@@ -6,8 +6,13 @@ import NavTop from "./NavTop";
 import Search from "./Search";
 
 const Navbar = () => {
+  const { colorMode } = useColorMode();
   return (
-    <Card width="100%" bg="#E64A19" borderRadius="none">
+    <Card
+      width="100%"
+      bg={colorMode === "dark" ? "gray.700" : "#E64A19"} //TODO: remove dark mode
+      borderRadius="none"
+    >
       <Grid
         templateColumns="0.4fr 0.2fr 1fr 0.2fr 0.4fr"
         templateRows=" 0.2fr 0.8fr"
