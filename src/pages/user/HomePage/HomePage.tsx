@@ -15,7 +15,7 @@ import Banner from "./components/Banner";
 import Category from "./components/Category";
 const HomePage = () => {
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetAllProducts({
-    pageSize: 30,
+    pageSize: 12,
   });
   const fetchProductData =
     data?.pages.reduce((total, page) => total + page.models.length, 0) || 0;
@@ -50,7 +50,7 @@ const HomePage = () => {
             color="#E64A19"
             textAlign="center"
           >
-            Daily Discover
+            DAILY DISCOVER
           </Text>
         </Card>
         <InfiniteScroll
