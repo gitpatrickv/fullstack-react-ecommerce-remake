@@ -1,8 +1,18 @@
-import { Center, Grid, GridItem, SimpleGrid, Spinner } from "@chakra-ui/react";
+import {
+  Card,
+  Center,
+  Grid,
+  GridItem,
+  SimpleGrid,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroll-component";
+
 import ProductCard from "../../../components/product/ProductCard";
 import useGetAllProducts from "../../../hooks/useGetAllProducts";
-
+import Banner from "./components/Banner";
+import Category from "./components/Category";
 const HomePage = () => {
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetAllProducts({
     pageSize: 30,
@@ -25,6 +35,24 @@ const HomePage = () => {
       mt="10px"
     >
       <GridItem area="main">
+        <Banner />
+        <Category />
+        <Card
+          padding={4}
+          borderRadius="none"
+          borderBottom="4px solid"
+          borderColor="#E64A19"
+          mb="10px"
+        >
+          <Text
+            fontWeight="semibold"
+            fontSize="xl"
+            color="#E64A19"
+            textAlign="center"
+          >
+            Daily Discover
+          </Text>
+        </Card>
         <InfiniteScroll
           dataLength={fetchProductData}
           next={fetchNextPage}

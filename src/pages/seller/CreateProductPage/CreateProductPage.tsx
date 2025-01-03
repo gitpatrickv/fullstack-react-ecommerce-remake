@@ -40,8 +40,12 @@ const CreateProductPage = () => {
     { name: "Office Supplies", value: "Office_Supplies" },
     { name: "Accessories", value: "Accessories" },
     { name: "Computers", value: "Computers" },
-    { name: "Health", value: "Health" },
+    { name: "Personal Care", value: "Personal_Care" },
     { name: "Bags", value: "Bags" },
+    { name: "Cameras", value: "Cameras" },
+    { name: "Shoes", value: "Shoes" },
+    { name: "Audio", value: "Audio" },
+    { name: "Babies & Kids", value: "Babies_And_Kids" },
   ];
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
