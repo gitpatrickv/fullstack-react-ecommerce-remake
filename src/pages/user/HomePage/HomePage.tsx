@@ -1,14 +1,22 @@
-import { Grid, GridItem, SimpleGrid, Spinner } from "@chakra-ui/react";
+import { Center, Grid, GridItem, SimpleGrid, Spinner } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ProductCard from "../../../components/product/ProductCard";
 import useGetAllProducts from "../../../hooks/useGetAllProducts";
 
 const HomePage = () => {
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetAllProducts({
-    pageSize: 20,
+    pageSize: 30,
   });
   const fetchProductData =
     data?.pages.reduce((total, page) => total + page.models.length, 0) || 0;
+
+  if (isLoading) {
+    return (
+      <Center height="100vh">
+        <Spinner size="lg" />
+      </Center>
+    );
+  }
 
   return (
     <Grid

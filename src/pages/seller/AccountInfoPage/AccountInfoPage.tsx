@@ -134,7 +134,7 @@ const AccountInfoPage = () => {
             width="150px"
           />
           <Button
-            color="black"
+            color="white"
             bg="#FF5722"
             _hover={{ bg: "#E64A19" }}
             mt="20px"

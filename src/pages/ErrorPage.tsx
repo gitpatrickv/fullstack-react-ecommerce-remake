@@ -10,7 +10,7 @@ const ErrorPage = () => {
   const navigate = useNavigate();
 
   const handleNavigateClick = () => {
-    navigate("/");
+    navigate(-1);
   };
 
   return (

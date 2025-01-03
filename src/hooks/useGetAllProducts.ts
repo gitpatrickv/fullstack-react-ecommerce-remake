@@ -10,7 +10,7 @@ interface PaginateProps {
 
 const useGetAllProducts = ({ pageSize }: PaginateProps) => {
   return useInfiniteQuery<GetAllProductResponse, Error>({
-    queryKey: ["allProducts"],
+    queryKey: ["allProducts", pageSize],
     queryFn: async ({ pageParam = 0 }) => {
       const { data } = await apiClient.get<GetAllProductResponse>(`/product`, {
         params: {

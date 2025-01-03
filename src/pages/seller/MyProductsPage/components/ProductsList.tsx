@@ -1,16 +1,10 @@
-import {
-  Box,
-  Button,
-  Card,
-  Flex,
-  Grid,
-  GridItem,
-  Image,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Card, Flex, Grid, GridItem, Image, Text } from "@chakra-ui/react";
 
 import { ProductModels } from "../../../../entities/Product";
 import { formatCurrency } from "../../../../utilities/formatCurrency";
+import DeleteModal from "./DeleteButton";
+import DelistButton from "./DelistButton";
+import UpdateButton from "./UpdateButton";
 
 interface Props {
   product: ProductModels;
@@ -75,11 +69,14 @@ const ProductsList = ({ product }: Props) => {
           </Text>
         </GridItem>
         <GridItem area="content5" {...centerFlex}>
-          <Box display="flex" flexDirection="column" alignItems="center">
-            <Button variant="link">Update</Button>
-            <Button variant="link">Delete</Button>
-            <Button variant="link">Delist</Button>
-          </Box>
+          <Flex alignItems="center" gap={5}>
+            <UpdateButton product={product} />
+            <DelistButton
+              productId={product.productId}
+              status={product.status}
+            />
+            <DeleteModal productId={product.productId} />
+          </Flex>
         </GridItem>
       </Grid>
     </Card>

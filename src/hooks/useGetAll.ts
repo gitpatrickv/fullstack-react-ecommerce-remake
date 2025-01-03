@@ -12,7 +12,7 @@ interface Props {
 
 const useGetAll = ({ module, pageSize, sortBy }: Props) => {
   return useInfiniteQuery<GetAllProductResponse, Error>({
-    queryKey: ["allData", module, sortBy],
+    queryKey: ["allData", module, pageSize, sortBy],
     queryFn: async ({ pageParam = 0 }) => {
       const { data } = await apiClient.get<GetAllProductResponse>(
         `/factory/${module}`,
