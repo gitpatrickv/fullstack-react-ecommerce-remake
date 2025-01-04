@@ -1,5 +1,6 @@
-import { Button, Flex, Image } from "@chakra-ui/react";
-import { useRef } from "react";
+import { Box, Flex, Image } from "@chakra-ui/react";
+import { useRef, useState } from "react";
+import NextButton from "../../../../components/Button/NextButton";
 import { ProductImage } from "../../../../entities/ProductImage";
 
 interface Props {
@@ -10,7 +11,7 @@ const ProductImages = ({ images }: Props) => {
   if (!images || images.length === 0) {
     return null;
   }
-
+  const [imageIndex, setImageIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const handleScroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
@@ -23,8 +24,11 @@ const ProductImages = ({ images }: Props) => {
   };
 
   return (
-    <>
-      <Image src={images[0]?.productImage} boxSize="450px" />
+    <Box position="relative">
+      <Box position="absolute" bottom="7">
+        <NextButton direction="left" nextClick={() => handleScroll("left")} />
+      </Box>
+      <Image src={images[imageIndex]?.productImage} boxSize="450px" />
       <Flex
         ref={scrollRef}
         overflowX="auto"
@@ -34,24 +38,27 @@ const ProductImages = ({ images }: Props) => {
           },
           scrollbarWidth: "none",
         }}
+        mt="20px"
       >
-        {images.map((image) => (
+        {images.map((image, index) => (
           <Image
             key={image.imageId}
             src={image.productImage}
             boxSize="100px"
-            border="1px solid"
-            borderColor="#E8E8E8"
             mr="5px"
-            padding={2}
-            _hover={{ borderColor: "#E64A19" }}
+            _hover={{
+              border: "2px solid",
+              borderColor: "#E64A19",
+            }}
             cursor="pointer"
+            onMouseEnter={() => setImageIndex(index)}
           />
         ))}
       </Flex>
-      <Button onClick={() => handleScroll("right")}>right</Button>
-      <Button onClick={() => handleScroll("left")}>left</Button>
-    </>
+      <Box position="absolute" right="0" bottom="7">
+        <NextButton direction="right" nextClick={() => handleScroll("right")} />
+      </Box>
+    </Box>
   );
 };
 

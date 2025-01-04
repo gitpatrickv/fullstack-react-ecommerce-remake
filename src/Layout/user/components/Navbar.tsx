@@ -1,4 +1,11 @@
-import { Card, Flex, Grid, GridItem, useColorMode } from "@chakra-ui/react";
+import {
+  Card,
+  Flex,
+  Grid,
+  GridItem,
+  Text,
+  useColorMode,
+} from "@chakra-ui/react";
 import { FiShoppingCart } from "react-icons/fi";
 import { GoHome } from "react-icons/go";
 import { Link } from "react-router-dom";
@@ -14,7 +21,7 @@ const Navbar = () => {
       borderRadius="none"
     >
       <Grid
-        templateColumns="0.4fr 0.2fr 1fr 0.2fr 0.4fr"
+        templateColumns="0.4fr 175px 1fr 175px 0.4fr"
         templateRows=" 0.2fr 0.8fr"
         templateAreas={`
     "topLeft top top top topRight"
@@ -36,8 +43,28 @@ const Navbar = () => {
           </Link>
         </GridItem>
         <GridItem area="cart" mb="20px" mt="20px">
-          <Flex justifyContent="center" cursor="pointer" color="white">
+          <Flex
+            justifyContent="center"
+            cursor="pointer"
+            color="white"
+            position="relative"
+          >
             <FiShoppingCart size="25px" />
+            <Flex
+              height="20px"
+              width="20px"
+              bg="white"
+              borderRadius="full"
+              alignItems="center"
+              justifyContent="center"
+              position="absolute"
+              top="-8px"
+              right="63px"
+            >
+              <Text color="#E64A19" fontSize="xs" fontWeight="semibold">
+                12
+              </Text>
+            </Flex>
           </Flex>
         </GridItem>
       </Grid>

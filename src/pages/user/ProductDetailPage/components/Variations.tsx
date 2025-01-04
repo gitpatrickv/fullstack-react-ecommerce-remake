@@ -6,6 +6,13 @@ interface Props {
 }
 
 const Variations = ({ inventories }: Props) => {
+  const hasColor = inventories?.some((inv) => inv.color);
+  const hasSize = inventories?.some((inv) => inv.size);
+
+  if (!hasColor && !hasSize) {
+    return <Box height="230px" />;
+  }
+
   const boxStyle = {
     mr: "5px",
     mt: "5px",
@@ -14,9 +21,11 @@ const Variations = ({ inventories }: Props) => {
     padding: "8px",
     minWidth: "100px",
     cursor: "pointer",
+    _hover: { borderColor: "#E64A19" },
   };
+
   return (
-    <>
+    <Box minHeight="230px">
       <Flex mt="10px">
         <Text mr="50px" fontSize="lg" fontWeight="semibold" mt="12px">
           Colors
@@ -45,7 +54,7 @@ const Variations = ({ inventories }: Props) => {
           )}
         </Flex>
       </Flex>
-    </>
+    </Box>
   );
 };
 

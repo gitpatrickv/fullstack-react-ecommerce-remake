@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { MdDeleteOutline } from "react-icons/md";
-import DynamicIconButton from "../../../../components/hover/DynamicIconButton";
+import DynamicIconButton from "../../../../components/Button/DynamicIconButton";
 import useChangeState from "../../../../hooks/useChangeState";
 interface IdProps {
   productId: number;

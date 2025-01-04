@@ -1,4 +1,15 @@
-import { Card, Flex, Grid, GridItem, Stack, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Card,
+  Center,
+  Flex,
+  Grid,
+  GridItem,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
+import { FiMinus, FiShoppingCart } from "react-icons/fi";
+import { GoPlus } from "react-icons/go";
 import { useParams } from "react-router-dom";
 import { ProductModels } from "../../../entities/Product";
 import useGetOne from "../../../hooks/useGetOne";
@@ -14,6 +25,13 @@ const ProductDetailPage = () => {
     module: "product",
     id: productId!,
   });
+
+  const boxStyle = {
+    height: "30px",
+    width: "30px",
+    borderColor: "#E0E0E0",
+    cursor: "pointer",
+  };
 
   return (
     <Grid
@@ -37,6 +55,36 @@ const ProductDetailPage = () => {
                 {formatCurrency(getProductDetail?.inventories[0].price ?? 0)}
               </Text>
               <Variations inventories={getProductDetail?.inventories} />
+              <Flex mt="10px" mb="10px" alignItems="center">
+                <Text mr="62px" fontSize="lg" fontWeight="semibold">
+                  Quantity
+                </Text>
+                <Center border="1px solid" {...boxStyle}>
+                  <FiMinus />
+                </Center>
+                <Center
+                  borderY="1px solid"
+                  {...boxStyle}
+                  width="60px"
+                  color="#E64A19"
+                >
+                  <Text>1</Text>
+                </Center>
+                <Center border="1px solid" {...boxStyle}>
+                  <GoPlus />
+                </Center>
+              </Flex>
+
+              <Button
+                bg="#FF5722"
+                _hover={{ bg: "#E64A19" }}
+                color="white"
+                width="200px"
+                borderRadius="none"
+              >
+                <FiShoppingCart size="25px" />
+                <Text ml="10px">Add To Cart</Text>
+              </Button>
             </Stack>
           </Flex>
         </Card>

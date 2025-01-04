@@ -15,7 +15,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FiEdit } from "react-icons/fi";
-import DynamicIconButton from "../../../../components/hover/DynamicIconButton";
+import DynamicIconButton from "../../../../components/Button/DynamicIconButton";
 import TextInput from "../../../../components/Input/TextInput";
 import { ProductModels } from "../../../../entities/Product";
 import useUpdateOne from "../../../../hooks/useUpdateOne";
