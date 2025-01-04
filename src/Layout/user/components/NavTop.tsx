@@ -18,18 +18,22 @@ import {
 } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { FaRegUser } from "react-icons/fa6";
+import { FiHeart } from "react-icons/fi";
+import { RiStore2Line } from "react-icons/ri";
+import { SlLogout } from "react-icons/sl";
+import { Link, useNavigate } from "react-router-dom";
 import pic from "../../../assets/profpic.jpeg";
+import ColorModeSwitch from "../../../components/ColorModeSwitch";
 import { useAuthQueryStore } from "../../../store/auth-store";
 import { useUserStore } from "../../../store/user-store";
 import Login from "./Login";
 import Register from "./Register";
-import ColorModeSwitch from "../../../components/ColorModeSwitch";
 const NavTop = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const [isLogin, setIsLogin] = useState<boolean>(false);
-  const { resetUser, name, picture } = useUserStore();
+  const [isLogin, setIsLogin] = useState<boolean>(true);
+  const { resetUser, picture } = useUserStore();
   const { isOpen, onOpen, onClose, logout } = useAuthQueryStore();
   const { authStore } = useAuthQueryStore();
   const jwtToken = authStore.jwtToken;
@@ -71,32 +75,39 @@ const NavTop = () => {
             Seller Center
           </Text>
           <Spacer />
-          <Flex alignItems="center">
-            <ColorModeSwitch />
-            <Menu>
-              <MenuButton
-                as={IconButton}
-                aria-label="menu"
-                icon={<Avatar src={picture || pic} size="xs" />}
-                variant="none"
-              />
-              <MenuButton as={Text} cursor="pointer" color="white">
-                {name}
-              </MenuButton>
-              <MenuList>
+          <ColorModeSwitch />
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="menu"
+              icon={<Avatar src={picture || pic} size="xs" />}
+              variant="none"
+            />
+            <MenuList>
+              <Link to="/user/account/profile">
                 <MenuItem paddingBottom={3} paddingTop={3}>
-                  <Text>My Account</Text>
+                  <FaRegUser size="20px" />
+                  <Text ml="10px">My Account</Text>
                 </MenuItem>
-                <MenuItem
-                  onClick={handleLogout}
-                  paddingBottom={3}
-                  paddingTop={3}
-                >
-                  <Text>Logout</Text>
+              </Link>
+              <Link to="/user/favorites">
+                <MenuItem paddingBottom={3} paddingTop={3}>
+                  <FiHeart size="20px" />
+                  <Text ml="10px">My Favorites</Text>
                 </MenuItem>
-              </MenuList>
-            </Menu>
-          </Flex>
+              </Link>
+              <Link to="/user/following">
+                <MenuItem paddingBottom={3} paddingTop={3}>
+                  <RiStore2Line size="20px" />
+                  <Text ml="10px">My Following</Text>
+                </MenuItem>
+              </Link>
+              <MenuItem onClick={handleLogout} paddingBottom={3} paddingTop={3}>
+                <SlLogout size="20px" />
+                <Text ml="10px">Logout</Text>
+              </MenuItem>
+            </MenuList>
+          </Menu>
         </Flex>
       ) : (
         <Flex justifyContent="end">

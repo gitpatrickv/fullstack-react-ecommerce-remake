@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   Center,
   Flex,
@@ -11,6 +10,7 @@ import {
 import { FiMinus, FiShoppingCart } from "react-icons/fi";
 import { GoPlus } from "react-icons/go";
 import { useParams } from "react-router-dom";
+import OrangeButton from "../../../components/Button/OrangeButton";
 import { ProductModels } from "../../../entities/Product";
 import useGetOne from "../../../hooks/useGetOne";
 import { formatCurrency } from "../../../utilities/formatCurrency";
@@ -74,17 +74,10 @@ const ProductDetailPage = () => {
                   <GoPlus />
                 </Center>
               </Flex>
-
-              <Button
-                bg="#FF5722"
-                _hover={{ bg: "#E64A19" }}
-                color="white"
-                width="200px"
-                borderRadius="none"
-              >
+              <OrangeButton width="200px">
                 <FiShoppingCart size="25px" />
                 <Text ml="10px">Add To Cart</Text>
-              </Button>
+              </OrangeButton>
             </Stack>
           </Flex>
         </Card>

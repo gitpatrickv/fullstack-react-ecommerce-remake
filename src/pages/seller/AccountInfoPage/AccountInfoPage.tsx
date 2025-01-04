@@ -1,8 +1,9 @@
-import { Avatar, Box, Button, Card, Flex, Text } from "@chakra-ui/react";
+import { Avatar, Box, Card, Flex, Text } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FaCamera } from "react-icons/fa";
+import OrangeButton from "../../../components/Button/OrangeButton";
 import TextInput from "../../../components/Input/TextInput";
 import { Store } from "../../../entities/Store";
 import useUpdateOne from "../../../hooks/useUpdateOne";
@@ -115,16 +116,14 @@ const AccountInfoPage = () => {
                 width="300px"
               />
             </Flex>
-            <Button
-              isLoading={loading}
-              type="submit"
+            <OrangeButton
+              type={"submit"}
               width="100%"
-              bg="#FF5722"
-              _hover={{ bg: "#E64A19" }}
               mt={4}
+              isLoading={loading}
             >
               Save
-            </Button>
+            </OrangeButton>
           </form>
         </Box>
         <Flex flexDirection="column">
@@ -133,15 +132,10 @@ const AccountInfoPage = () => {
             height="150px"
             width="150px"
           />
-          <Button
-            color="white"
-            bg="#FF5722"
-            _hover={{ bg: "#E64A19" }}
-            mt="20px"
-          >
+          <OrangeButton mt="20px">
             <FaCamera size="20px" />
-            <Text ml="5px">Add Photo</Text>
-          </Button>
+            <Text ml="10px">Add Photo</Text>
+          </OrangeButton>
         </Flex>
       </Flex>
     </Card>

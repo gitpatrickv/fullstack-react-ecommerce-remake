@@ -1,12 +1,14 @@
 import { Box, Button, Center, Heading, Text } from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
+import { useAuthQueryStore } from "../../store/auth-store";
 
 const Unauthorized = () => {
   const navigate = useNavigate();
-
-  const handleNavigateClick = () => {
+  const { onOpen } = useAuthQueryStore();
+  const handleLoginClick = () => {
     navigate("/");
+    onOpen();
   };
 
   return (
@@ -22,12 +24,12 @@ const Unauthorized = () => {
             <Button
               textAlign="center"
               mt="20px"
-              onClick={handleNavigateClick}
+              onClick={handleLoginClick}
               width="120px"
-              bg="orange.500"
-              _hover={{ bg: "orange.600" }}
+              bg="#FF5722"
+              _hover={{ bg: "#E64A19" }}
             >
-              Return
+              Login
             </Button>
           </Center>
         </Box>

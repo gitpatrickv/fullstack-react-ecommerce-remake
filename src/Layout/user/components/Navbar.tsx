@@ -8,12 +8,19 @@ import {
 } from "@chakra-ui/react";
 import { FiShoppingCart } from "react-icons/fi";
 import { GoHome } from "react-icons/go";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NavTop from "./NavTop";
 import Search from "./Search";
+import { useAuthQueryStore } from "../../../store/auth-store";
 
 const Navbar = () => {
   const { colorMode } = useColorMode();
+  const { authStore } = useAuthQueryStore();
+  const jwtToken = authStore.jwtToken;
+  const navigate = useNavigate();
+  const handleNavigateClick = () => {
+    navigate("/cart");
+  };
   return (
     <Card
       width="100%"
@@ -43,29 +50,32 @@ const Navbar = () => {
           </Link>
         </GridItem>
         <GridItem area="cart" mb="20px" mt="20px">
-          <Flex
-            justifyContent="center"
-            cursor="pointer"
-            color="white"
-            position="relative"
-          >
-            <FiShoppingCart size="25px" />
+          {jwtToken && (
             <Flex
-              height="20px"
-              width="20px"
-              bg="white"
-              borderRadius="full"
-              alignItems="center"
               justifyContent="center"
-              position="absolute"
-              top="-8px"
-              right="63px"
+              cursor="pointer"
+              color="white"
+              position="relative"
+              onClick={handleNavigateClick}
             >
-              <Text color="#E64A19" fontSize="xs" fontWeight="semibold">
-                12
-              </Text>
+              <FiShoppingCart size="25px" />
+              <Flex
+                height="20px"
+                width="20px"
+                bg="white"
+                borderRadius="full"
+                alignItems="center"
+                justifyContent="center"
+                position="absolute"
+                top="-8px"
+                right="63px"
+              >
+                <Text color="#E64A19" fontSize="xs" fontWeight="semibold">
+                  12
+                </Text>
+              </Flex>
             </Flex>
-          </Flex>
+          )}
         </GridItem>
       </Grid>
     </Card>

@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Divider,
   Flex,
   Modal,
@@ -16,6 +15,7 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FiEdit } from "react-icons/fi";
 import DynamicIconButton from "../../../../components/Button/DynamicIconButton";
+import OrangeButton from "../../../../components/Button/OrangeButton";
 import TextInput from "../../../../components/Input/TextInput";
 import { ProductModels } from "../../../../entities/Product";
 import useUpdateOne from "../../../../hooks/useUpdateOne";
@@ -156,16 +156,14 @@ const UpdateButton = ({ product }: Props) => {
                     )}
                   </Box>
                   {isEdit && (
-                    <Button
-                      mt="35px"
-                      bg="#FF5722"
-                      _hover={{ bg: "#E64A19" }}
-                      type="submit"
+                    <OrangeButton
+                      type={"submit"}
                       width="100px"
+                      mt="35px"
                       isLoading={loading}
                     >
                       Save
-                    </Button>
+                    </OrangeButton>
                   )}
                 </Flex>
               </form>

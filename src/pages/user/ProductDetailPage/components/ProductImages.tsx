@@ -11,6 +11,7 @@ const ProductImages = ({ images }: Props) => {
   if (!images || images.length === 0) {
     return null;
   }
+
   const [imageIndex, setImageIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const handleScroll = (direction: "left" | "right") => {
@@ -25,9 +26,12 @@ const ProductImages = ({ images }: Props) => {
 
   return (
     <Box position="relative">
-      <Box position="absolute" bottom="7">
-        <NextButton direction="left" nextClick={() => handleScroll("left")} />
-      </Box>
+      {images.length >= 5 && (
+        <Box position="absolute" bottom="7">
+          <NextButton direction="left" nextClick={() => handleScroll("left")} />
+        </Box>
+      )}
+
       <Image src={images[imageIndex]?.productImage} boxSize="450px" />
       <Flex
         ref={scrollRef}
@@ -55,9 +59,14 @@ const ProductImages = ({ images }: Props) => {
           />
         ))}
       </Flex>
-      <Box position="absolute" right="0" bottom="7">
-        <NextButton direction="right" nextClick={() => handleScroll("right")} />
-      </Box>
+      {images.length >= 5 && (
+        <Box position="absolute" right="0" bottom="7">
+          <NextButton
+            direction="right"
+            nextClick={() => handleScroll("right")}
+          />
+        </Box>
+      )}
     </Box>
   );
 };

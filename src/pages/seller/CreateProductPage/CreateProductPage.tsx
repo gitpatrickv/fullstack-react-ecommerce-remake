@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Card,
   Divider,
   Flex,
@@ -12,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useRef } from "react";
 import { MdOutlineAddPhotoAlternate } from "react-icons/md";
+import OrangeButton from "../../../components/Button/OrangeButton";
 import TextInput from "../../../components/Input/TextInput";
 import Variation from "./component/Variation";
 import useSaveProduct from "./hooks/useSaveProduct";
@@ -179,15 +179,14 @@ const CreateProductPage = () => {
               onChange={handleFileChange}
             />
           </Flex>
-          <Button
-            type="submit"
-            mt="20px"
-            bg="#FF5722"
-            _hover={{ bg: "#E64A19" }}
+          <OrangeButton
+            type={"submit"}
             width="100%"
+            mt="20px"
+            isLoading={loading}
           >
             Save Product
-          </Button>
+          </OrangeButton>
         </form>
       </Box>
     </Card>
