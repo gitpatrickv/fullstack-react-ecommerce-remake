@@ -54,7 +54,7 @@ const UpdateButton = ({ product }: Props) => {
     mutate(requestData, {
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: ["allData", "product", 10],
+          queryKey: ["allData", "product", 12],
         });
         setLoading(false);
         setIsEdit(false);

@@ -37,7 +37,7 @@ const UserPage = () => {
             </Flex>
           </Link>
 
-          <Divider mt="15px" mb="15px" borderColor="#BEBEBE" />
+          <Divider mt="16px" mb="15px" borderColor="#BEBEBE" />
 
           <Flex alignItems="center" ml="15px" cursor="pointer">
             <FaRegUser
@@ -131,7 +131,7 @@ const UserPage = () => {
           </Flex>
         </Box>
       </GridItem>
-      <GridItem area="section2">
+      <GridItem area="section2" ml="10px" mt="20px">
         {location.pathname === "/user/favorites" ||
         location.pathname.startsWith("/user/purchase") ||
         location.pathname === "/user/following" ? (

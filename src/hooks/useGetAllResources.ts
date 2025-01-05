@@ -1,32 +1,33 @@
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
-import GetAllProductResponse from "../entities/Product";
+import PageResponse from "../entities/PageResponse";
 import { axiosInstance } from "../services/api-client";
 
 const apiClient = axiosInstance;
 
 interface Props {
   module: string;
-  pageSize: number;
-  sortBy: string;
+  pageSize?: number;
+  sortBy?: string;
 }
 
-const useGetAllResources = ({ module, pageSize, sortBy }: Props) => {
-  return useInfiniteQuery<GetAllProductResponse, Error>({
+const useGetAllResources = <T extends { pageResponse: PageResponse }>({
+  module,
+  pageSize,
+  sortBy,
+}: Props) => {
+  return useInfiniteQuery<T, Error>({
     queryKey: ["allData", module, pageSize, sortBy],
     queryFn: async ({ pageParam = 0 }) => {
-      const { data } = await apiClient.get<GetAllProductResponse>(
-        `/factory/${module}`,
-        {
-          params: {
-            pageNo: pageParam,
-            pageSize: pageSize,
-            sortBy: sortBy,
-          },
-        }
-      );
+      const { data } = await apiClient.get<T>(`/factory/${module}`, {
+        params: {
+          pageNo: pageParam,
+          pageSize: pageSize,
+          sortBy: sortBy,
+        },
+      });
       return data;
     },
-    getNextPageParam: (lastPage) => {
+    getNextPageParam: (lastPage: T) => {
       const { pageResponse } = lastPage;
       const { pageNo, totalPages } = pageResponse;
       return pageNo + 1 < totalPages ? pageNo + 1 : undefined;
