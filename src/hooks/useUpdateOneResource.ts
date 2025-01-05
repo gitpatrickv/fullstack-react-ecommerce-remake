@@ -1,11 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { axiosInstance } from "../services/api-client";
-import { ModuleProps } from "./useSave";
+import { ModuleProps } from "./useSaveResource";
 
 const apiClient = axiosInstance;
 
-const useUpdateOne = <T>({ module }: ModuleProps) => {
+const useUpdateOneResource = <T>({ module }: ModuleProps) => {
   const [loading, setLoading] = useState(false);
   const mutation = useMutation<T, Error, T>({
     mutationFn: (data: T) =>
@@ -20,4 +20,4 @@ const useUpdateOne = <T>({ module }: ModuleProps) => {
   };
 };
 
-export default useUpdateOne;
+export default useUpdateOneResource;

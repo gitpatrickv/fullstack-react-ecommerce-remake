@@ -1,8 +1,8 @@
 import { Box, Card, Text } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { MdOutlinePlaylistRemove, MdOutlinePlaylistAdd } from "react-icons/md";
-import useChangeState from "../../../../hooks/useChangeState";
+import { MdOutlinePlaylistAdd, MdOutlinePlaylistRemove } from "react-icons/md";
+import useChangeResourceStatus from "../../../../hooks/useChangeResourceStatus";
 
 interface Props {
   productId: number;
@@ -11,10 +11,10 @@ interface Props {
 
 const DelistButton = ({ productId, status }: Props) => {
   const queryClient = useQueryClient();
-  const { mutate } = useChangeState({
+  const { mutate } = useChangeResourceStatus({
     module: "product",
     id: productId,
-    status: status === "SUSPENDED" ? "ACTIVE" : "SUSPENDED",
+    status: status === "SUSPENDED" ? "LISTED" : "SUSPENDED",
   });
 
   const handleDeleteClick = () => {

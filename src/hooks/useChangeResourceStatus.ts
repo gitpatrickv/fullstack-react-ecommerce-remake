@@ -9,7 +9,7 @@ interface Props {
   status: string;
 }
 
-const useChangeState = ({ module, id, status }: Props) => {
+const useChangeResourceStatus = ({ module, id, status }: Props) => {
   return useMutation({
     mutationFn: () =>
       apiClient
@@ -18,4 +18,4 @@ const useChangeState = ({ module, id, status }: Props) => {
   });
 };
 
-export default useChangeState;
+export default useChangeResourceStatus;

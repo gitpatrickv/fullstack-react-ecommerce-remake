@@ -5,8 +5,8 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthQueryStore } from "../../../../store/auth-store";
-import { useUserStore } from "../../../../store/user-store";
 import { useShopStore } from "../../../../store/shop-store";
+import { useUserStore } from "../../../../store/user-store";
 const SidebarAccount = () => {
   const [isAccount, setIsAccount] = useState(true);
   const location = useLocation();
@@ -36,7 +36,7 @@ const SidebarAccount = () => {
       >
         <FaRegUserCircle
           size="20px"
-          color={currentLocation ? "#FF5722" : "black"}
+          color={currentLocation ? "#FF5722" : undefined}
         />
         <Link to="/seller/account/info">
           <Text
@@ -44,16 +44,16 @@ const SidebarAccount = () => {
             mr="10px"
             fontWeight="semibold"
             _hover={{ color: "#FF5722" }}
-            color={currentLocation ? "#FF5722" : "black"}
+            color={currentLocation ? "#FF5722" : "white.500"}
           >
             My Account
           </Text>
         </Link>
 
         {isAccount ? (
-          <IoIosArrowDown color={currentLocation ? "#FF5722" : "black"} />
+          <IoIosArrowDown color={currentLocation ? "#FF5722" : undefined} />
         ) : (
-          <IoIosArrowUp color={currentLocation ? "#FF5722" : "black"} />
+          <IoIosArrowUp color={currentLocation ? "#FF5722" : undefined} />
         )}
       </Flex>
       {isAccount && (
@@ -67,7 +67,7 @@ const SidebarAccount = () => {
                 color={
                   location.pathname === "/seller/account/info"
                     ? "#FF5722"
-                    : "black"
+                    : "white.500"
                 }
                 _hover={{ color: "#FF5722" }}
               >

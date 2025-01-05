@@ -10,7 +10,7 @@ interface Props {
   sortBy: string;
 }
 
-const useGetAll = ({ module, pageSize, sortBy }: Props) => {
+const useGetAllResources = ({ module, pageSize, sortBy }: Props) => {
   return useInfiniteQuery<GetAllProductResponse, Error>({
     queryKey: ["allData", module, pageSize, sortBy],
     queryFn: async ({ pageParam = 0 }) => {
@@ -36,4 +36,4 @@ const useGetAll = ({ module, pageSize, sortBy }: Props) => {
   });
 };
 
-export default useGetAll;
+export default useGetAllResources;

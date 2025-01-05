@@ -2,7 +2,7 @@ import { Button, Center, Flex, Spinner, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate } from "react-router-dom";
-import useGetAll from "../../../hooks/useGetAll";
+import useGetAllResources from "../../../hooks/useGetAllResources";
 import Header from "./components/Header";
 import ProductListHeader from "./components/ProductListHeader";
 import ProductsList from "./components/ProductsList";
@@ -15,7 +15,7 @@ const MyProductsPage = () => {
     fetchNextPage,
     hasNextPage,
     isLoading,
-  } = useGetAll({
+  } = useGetAllResources({
     module: "product",
     pageSize: 10,
     sortBy: sortBy,

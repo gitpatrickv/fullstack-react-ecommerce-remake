@@ -19,7 +19,7 @@ const SidebarProduct = () => {
       >
         <HiOutlineShoppingBag
           size="20px"
-          color={currentLocation ? "#FF5722" : "black"}
+          color={currentLocation ? "#FF5722" : undefined}
         />
         <Link to="/seller/product">
           <Text
@@ -27,16 +27,16 @@ const SidebarProduct = () => {
             mr="10px"
             fontWeight="semibold"
             _hover={{ color: "#FF5722" }}
-            color={currentLocation ? "#FF5722" : "black"}
+            color={currentLocation ? "#FF5722" : "white.500"}
           >
             My Product
           </Text>
         </Link>
 
         {isProductPage ? (
-          <IoIosArrowDown color={currentLocation ? "#FF5722" : "black"} />
+          <IoIosArrowDown color={currentLocation ? "#FF5722" : undefined} />
         ) : (
-          <IoIosArrowUp color={currentLocation ? "#FF5722" : "black"} />
+          <IoIosArrowUp color={currentLocation ? "#FF5722" : undefined} />
         )}
       </Flex>
       {isProductPage && (
@@ -47,7 +47,9 @@ const SidebarProduct = () => {
                 mb="3px"
                 mt="3px"
                 color={
-                  location.pathname === "/seller/product" ? "#FF5722" : "black"
+                  location.pathname === "/seller/product"
+                    ? "#FF5722"
+                    : "white.500"
                 }
                 cursor="pointer"
                 _hover={{ color: "#FF5722" }}
@@ -60,7 +62,7 @@ const SidebarProduct = () => {
                 color={
                   location.pathname === "/seller/product/create"
                     ? "#FF5722"
-                    : "black"
+                    : "white.500"
                 }
                 cursor="pointer"
                 _hover={{ color: "#FF5722" }}

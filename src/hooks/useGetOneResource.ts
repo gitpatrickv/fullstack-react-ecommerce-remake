@@ -8,7 +8,7 @@ interface Props {
   id: string;
 }
 
-const useGetOne = <T>({ module, id }: Props) => {
+const useGetOneResource = <T>({ module, id }: Props) => {
   return useQuery<T>({
     queryKey: ["data", module, id],
     queryFn: async () => {
@@ -20,4 +20,4 @@ const useGetOne = <T>({ module, id }: Props) => {
   });
 };
 
-export default useGetOne;
+export default useGetOneResource;

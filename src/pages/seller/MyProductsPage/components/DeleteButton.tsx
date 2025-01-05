@@ -3,14 +3,14 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { MdDeleteOutline } from "react-icons/md";
 import DynamicIconButton from "../../../../components/Button/DynamicIconButton";
-import useChangeState from "../../../../hooks/useChangeState";
+import useChangeResourceStatus from "../../../../hooks/useChangeResourceStatus";
 interface IdProps {
   productId: number;
 }
 
 const DeleteButton = ({ productId }: IdProps) => {
   const queryClient = useQueryClient();
-  const { mutate } = useChangeState({
+  const { mutate } = useChangeResourceStatus({
     module: "product",
     id: productId,
     status: "DELETED",

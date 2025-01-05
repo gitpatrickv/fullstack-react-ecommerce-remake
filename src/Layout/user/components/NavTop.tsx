@@ -138,7 +138,7 @@ const NavTop = () => {
                     textTransform="capitalize"
                     cursor="pointer"
                     onClick={() => setIsLogin(true)}
-                    color={isLogin ? "black" : "gray.500"}
+                    color={isLogin ? "white.500" : "gray.500"}
                     userSelect="none"
                   >
                     Login
@@ -155,7 +155,7 @@ const NavTop = () => {
                     textTransform="capitalize"
                     cursor="pointer"
                     onClick={() => setIsLogin(false)}
-                    color={isLogin ? "gray.500" : "black"}
+                    color={isLogin ? "white.500" : "black"}
                     userSelect="none"
                   >
                     Register

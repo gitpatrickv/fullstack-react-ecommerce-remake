@@ -6,7 +6,7 @@ import { FaCamera } from "react-icons/fa";
 import OrangeButton from "../../../components/Button/OrangeButton";
 import TextInput from "../../../components/Input/TextInput";
 import { Store } from "../../../entities/Store";
-import useUpdateOne from "../../../hooks/useUpdateOne";
+import useUpdateOneResource from "../../../hooks/useUpdateOneResource";
 import { useShopStore } from "../../../store/shop-store";
 
 const AccountInfoPage = () => {
@@ -30,7 +30,7 @@ const AccountInfoPage = () => {
     loading,
     mutation: { mutate },
     setLoading,
-  } = useUpdateOne<Store>({ module: "store" });
+  } = useUpdateOneResource<Store>({ module: "store" });
 
   const onSubmit: SubmitHandler<Store> = (data: Store) => {
     const requestData = {

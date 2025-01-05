@@ -42,14 +42,14 @@ const UserPage = () => {
           <Flex alignItems="center" ml="15px" cursor="pointer">
             <FaRegUser
               size="20px"
-              color={profileLocation ? "#FF5722" : "black"}
+              color={profileLocation ? "#FF5722" : undefined}
             />
             <Link to="/user/account/profile">
               <Text
                 ml="20px"
                 _hover={{ color: "#E64A19" }}
                 fontWeight="semibold"
-                color={profileLocation ? "#FF5722" : "black"}
+                color={profileLocation ? "#FF5722" : "white.500"}
               >
                 My Account
               </Text>
@@ -64,7 +64,7 @@ const UserPage = () => {
                   color={
                     location.pathname === "/user/account/profile"
                       ? "#FF5722"
-                      : "black"
+                      : "white.500"
                   }
                 >
                   Profile
@@ -77,7 +77,7 @@ const UserPage = () => {
                   color={
                     location.pathname === "/user/account/address"
                       ? "#FF5722"
-                      : "black"
+                      : "white.500"
                   }
                 >
                   Address Book
@@ -89,7 +89,7 @@ const UserPage = () => {
             <FiHeart
               size="20px"
               color={
-                location.pathname === "/user/favorites" ? "#E64A19" : "black"
+                location.pathname === "/user/favorites" ? "#E64A19" : undefined
               }
             />
             <Link to="/user/favorites">
@@ -98,7 +98,9 @@ const UserPage = () => {
                 _hover={{ color: "#E64A19" }}
                 fontWeight="semibold"
                 color={
-                  location.pathname === "/user/favorites" ? "#FF5722" : "black"
+                  location.pathname === "/user/favorites"
+                    ? "#FF5722"
+                    : "white.500"
                 }
               >
                 My Favorites
@@ -109,7 +111,7 @@ const UserPage = () => {
             <RiStore2Line
               size="20px"
               color={
-                location.pathname === "/user/following" ? "#E64A19" : "black"
+                location.pathname === "/user/following" ? "#E64A19" : undefined
               }
             />
             <Link to="/user/following">
@@ -118,7 +120,9 @@ const UserPage = () => {
                 _hover={{ color: "#E64A19" }}
                 fontWeight="semibold"
                 color={
-                  location.pathname === "/user/following" ? "#FF5722" : "black"
+                  location.pathname === "/user/following"
+                    ? "#FF5722"
+                    : "white.500"
                 }
               >
                 My Following

@@ -18,7 +18,7 @@ import DynamicIconButton from "../../../../components/Button/DynamicIconButton";
 import OrangeButton from "../../../../components/Button/OrangeButton";
 import TextInput from "../../../../components/Input/TextInput";
 import { ProductModels } from "../../../../entities/Product";
-import useUpdateOne from "../../../../hooks/useUpdateOne";
+import useUpdateOneResource from "../../../../hooks/useUpdateOneResource";
 import InventoryList from "./InventoryList";
 import InventoryListHeader from "./InventoryListHeader";
 
@@ -43,7 +43,7 @@ const UpdateButton = ({ product }: Props) => {
     loading,
     mutation: { mutate },
     setLoading,
-  } = useUpdateOne<ProductProps>({ module: "product" });
+  } = useUpdateOneResource<ProductProps>({ module: "product" });
 
   const onSubmit: SubmitHandler<ProductProps> = (data: ProductProps) => {
     const requestData = {

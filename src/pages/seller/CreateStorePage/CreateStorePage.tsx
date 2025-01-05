@@ -13,7 +13,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import TextInput from "../../../components/Input/TextInput";
 import { Store } from "../../../entities/Store";
-import useSave from "../../../hooks/useSave";
+import useSaveResource from "../../../hooks/useSaveResource";
 import { useAuthQueryStore } from "../../../store/auth-store";
 
 const CreateStorePage = () => {
@@ -25,7 +25,7 @@ const CreateStorePage = () => {
     loading,
     mutation: { mutate },
     setLoading,
-  } = useSave<Store>({ module: "store" });
+  } = useSaveResource<Store>({ module: "store" });
 
   const onSubmit: SubmitHandler<Store> = (data: Store) => {
     setLoading(true);

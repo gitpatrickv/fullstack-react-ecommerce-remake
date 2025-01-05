@@ -42,7 +42,7 @@ const ProductImages = ({ images }: Props) => {
           },
           scrollbarWidth: "none",
         }}
-        mt="20px"
+        mt="10px"
       >
         {images.map((image, index) => (
           <Image

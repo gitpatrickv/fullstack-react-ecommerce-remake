@@ -12,7 +12,7 @@ import { GoPlus } from "react-icons/go";
 import { useParams } from "react-router-dom";
 import OrangeButton from "../../../components/Button/OrangeButton";
 import { ProductModels } from "../../../entities/Product";
-import useGetOne from "../../../hooks/useGetOne";
+import useGetOneResource from "../../../hooks/useGetOneResource";
 import { formatCurrency } from "../../../utilities/formatCurrency";
 import ProductImages from "./components/ProductImages";
 import RatingsAndSold from "./components/RatingsAndSold";
@@ -21,7 +21,7 @@ import Variations from "./components/Variations";
 const ProductDetailPage = () => {
   const params = useParams<{ productId: string }>();
   const productId = params.productId;
-  const { data: getProductDetail } = useGetOne<ProductModels>({
+  const { data: getProductDetail } = useGetOneResource<ProductModels>({
     module: "product",
     id: productId!,
   });

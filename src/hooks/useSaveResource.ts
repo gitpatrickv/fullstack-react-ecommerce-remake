@@ -8,7 +8,7 @@ export interface ModuleProps {
   module: string;
 }
 
-const useSave = <T>({ module }: ModuleProps) => {
+const useSaveResource = <T>({ module }: ModuleProps) => {
   const [loading, setLoading] = useState(false);
 
   const mutation = useMutation<T, Error, T>({
@@ -25,4 +25,4 @@ const useSave = <T>({ module }: ModuleProps) => {
   };
 };
 
-export default useSave;
+export default useSaveResource;

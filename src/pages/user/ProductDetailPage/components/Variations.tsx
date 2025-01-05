@@ -21,7 +21,7 @@ const Variations = ({ inventories }: Props) => {
     padding: "8px",
     minWidth: "100px",
     cursor: "pointer",
-    _hover: { borderColor: "#E64A19" },
+    _hover: { borderColor: "#E64A19", color: "#E64A19" },
   };
 
   return (
