@@ -10,6 +10,7 @@ const OrangeButton = ({ children, type, ...props }: Props) => {
     <Button
       bg="#FF5722"
       _hover={{ bg: "#E64A19" }}
+      _active={{ bg: "#FF5722" }}
       color="white"
       type={type}
       {...props}

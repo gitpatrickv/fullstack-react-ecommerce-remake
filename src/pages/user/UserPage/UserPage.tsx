@@ -1,7 +1,6 @@
 import {
   Avatar,
   Box,
-  Card,
   Divider,
   Flex,
   Grid,
@@ -132,17 +131,7 @@ const UserPage = () => {
         </Box>
       </GridItem>
       <GridItem area="section2" ml="10px" mt="20px">
-        {location.pathname === "/user/favorites" ||
-        location.pathname.startsWith("/user/purchase") ||
-        location.pathname === "/user/following" ? (
-          <Box>
-            <Outlet />
-          </Box>
-        ) : (
-          <Card borderRadius="none">
-            <Outlet />
-          </Card>
-        )}
+        <Outlet />
       </GridItem>
     </Grid>
   );
