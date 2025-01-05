@@ -10,7 +10,7 @@ interface AuthQueryStore {
   authStore: AuthStore;
   setJwtToken: (jwtToken: string) => void;
   setRole: (role: string) => void;
-  logout: (navigate: (path: string) => void) => void;
+  logout: () => void;
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
@@ -32,12 +32,11 @@ export const useAuthQueryStore = create<AuthQueryStore>()(
         set((state) => ({ authStore: { ...state.authStore, role } }));
       },
 
-      logout: (navigate) => {
+      logout: () => {
         localStorage.removeItem("jwtToken");
         set((state) => ({ authStore: { ...state.authStore, jwtToken: "" } }));
         localStorage.removeItem("role");
         set((state) => ({ authStore: { ...state.authStore, role: "" } }));
-        navigate("/");
       },
       isOpen: false,
       onOpen: () => set({ isOpen: true }),

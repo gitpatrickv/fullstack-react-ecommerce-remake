@@ -1,28 +1,13 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useAuthQueryStore } from "../../../../store/auth-store";
-import { useShopStore } from "../../../../store/shop-store";
-import { useUserStore } from "../../../../store/user-store";
+import { Link, useLocation } from "react-router-dom";
+import useHandleLogout from "../../../../hooks/useHandleLogout";
 const SidebarAccount = () => {
   const [isAccount, setIsAccount] = useState(true);
   const location = useLocation();
-  const navigate = useNavigate();
-  const { resetUser } = useUserStore();
-  const { resetStore } = useShopStore();
-  const { logout } = useAuthQueryStore();
-  const queryClient = useQueryClient();
-
-  const handleLogout = () => {
-    logout(navigate);
-    queryClient.setQueryData(["user"], null);
-    queryClient.setQueryData(["store"], null);
-    resetUser();
-    resetStore();
-  };
+  const handleLogout = useHandleLogout();
 
   const currentLocation = location.pathname.startsWith("/seller/account");
 

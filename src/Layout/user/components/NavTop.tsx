@@ -16,7 +16,6 @@ import {
   Spacer,
   Text,
 } from "@chakra-ui/react";
-import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { FaRegUser } from "react-icons/fa6";
 import { FiHeart } from "react-icons/fi";
@@ -25,16 +24,17 @@ import { SlLogout } from "react-icons/sl";
 import { Link, useNavigate } from "react-router-dom";
 import pic from "../../../assets/profpic.jpeg";
 import ColorModeSwitch from "../../../components/ColorModeSwitch";
+import useHandleLogout from "../../../hooks/useHandleLogout";
 import { useAuthQueryStore } from "../../../store/auth-store";
 import { useUserStore } from "../../../store/user-store";
 import Login from "./Login";
 import Register from "./Register";
 const NavTop = () => {
+  const handleLogout = useHandleLogout();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const [isLogin, setIsLogin] = useState<boolean>(true);
-  const { resetUser, picture } = useUserStore();
-  const { isOpen, onOpen, onClose, logout } = useAuthQueryStore();
+  const { picture } = useUserStore();
+  const { isOpen, onOpen, onClose } = useAuthQueryStore();
   const { authStore } = useAuthQueryStore();
   const jwtToken = authStore.jwtToken;
   const role = authStore.role;
@@ -42,12 +42,6 @@ const NavTop = () => {
   const handleLoginClick = (value: boolean) => {
     setIsLogin(value);
     onOpen();
-  };
-
-  const handleLogout = () => {
-    logout(navigate);
-    queryClient.setQueryData(["user"], null);
-    resetUser();
   };
 
   const textStyles = {

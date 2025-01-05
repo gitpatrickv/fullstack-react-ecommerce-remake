@@ -65,7 +65,7 @@ const AccountInfoPage = () => {
   };
 
   return (
-    <Card padding={10}>
+    <Card padding={10} borderRadius="none">
       <Text fontSize="lg" fontWeight="semibold">
         Shop Status:
         <Text as="span" color="#E64A19" ml="10px">

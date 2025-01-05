@@ -7,13 +7,9 @@ interface Props {
 
 const UserRoute = ({ children }: Props) => {
   const { authStore } = useAuthQueryStore();
-  const role = authStore.role;
+  const jwtToken = authStore.jwtToken;
 
-  return role === "USER" || role === "SELLER" ? (
-    <>{children}</>
-  ) : (
-    <Unauthorized />
-  );
+  return jwtToken ? <>{children}</> : <Unauthorized />;
 };
 
 export default UserRoute;

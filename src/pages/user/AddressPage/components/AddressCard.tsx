@@ -1,11 +1,32 @@
 import { Box, Button, Card, Flex, HStack, Text } from "@chakra-ui/react";
+import { useQueryClient } from "@tanstack/react-query";
+import { FiEdit } from "react-icons/fi";
+import { MdDeleteOutline } from "react-icons/md";
 import OrangeButton from "../../../../components/Button/OrangeButton";
 import { Address } from "../../../../entities/Address";
+import useChangeResourceStatus from "../../../../hooks/useChangeResourceStatus";
 interface Props {
   address: Address;
 }
 
 const AddressCard = ({ address }: Props) => {
+  const queryClient = useQueryClient();
+  const { mutate } = useChangeResourceStatus({
+    module: "address",
+    id: address.addressId,
+    status: "ACTIVE",
+  });
+
+  const handleSetDefaultAddressClick = () => {
+    mutate(undefined, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ["allData", "address"],
+        });
+      },
+    });
+  };
+
   return (
     <Card height="300px" borderRadius="none" padding={4} position="relative">
       <Text fontSize="lg" fontWeight="bold">
@@ -49,16 +70,24 @@ const AddressCard = ({ address }: Props) => {
       </Text>
       <Text> {address.contactNumber}</Text>
       <Box position="absolute" bottom="0" left="0" padding={4} width="100%">
-        <Flex mb="5px">
+        <Flex>
           <Button width="100%" mr="5px" borderRadius="none">
-            Edit
+            <FiEdit />
+            <Text ml="5px">Edit</Text>
           </Button>
-          <Button width="100%" borderRadius="none">
-            Delete
+          <Button width="100%" borderRadius="none" color="red">
+            <MdDeleteOutline size="20px" />
+            <Text ml="5px">Delete</Text>
           </Button>
         </Flex>
         {address.status === "INACTIVE" && (
-          <OrangeButton width="100%">Set as default</OrangeButton>
+          <OrangeButton
+            width="100%"
+            onClick={handleSetDefaultAddressClick}
+            mt="5px"
+          >
+            Set as default
+          </OrangeButton>
         )}
       </Box>
     </Card>

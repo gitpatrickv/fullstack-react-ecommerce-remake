@@ -85,7 +85,7 @@ const CreateProductPage = () => {
   }, [imagePreview]);
 
   return (
-    <Card padding={5}>
+    <Card padding={5} borderRadius="none">
       <Text fontSize="lg" fontWeight="semibold">
         Create new product
       </Text>
