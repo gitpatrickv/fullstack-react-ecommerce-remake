@@ -1,24 +1,26 @@
 import { Box, Button, Card, Flex, HStack, Text } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 import OrangeButton from "../../../../components/Button/OrangeButton";
 import { Address } from "../../../../entities/Address";
 import useChangeResourceStatus from "../../../../hooks/useChangeResourceStatus";
+import useDeleteAddress from "../hooks/useDeleteAddress";
 interface Props {
   address: Address;
 }
 
 const AddressCard = ({ address }: Props) => {
   const queryClient = useQueryClient();
-  const { mutate } = useChangeResourceStatus({
+
+  const { mutate: setDefaultAddress } = useChangeResourceStatus({
     module: "address",
     id: address.addressId,
     status: "ACTIVE",
   });
-
   const handleSetDefaultAddressClick = () => {
-    mutate(undefined, {
+    setDefaultAddress(undefined, {
       onSuccess: () => {
         queryClient.invalidateQueries({
           queryKey: ["allData", "address"],
@@ -27,8 +29,25 @@ const AddressCard = ({ address }: Props) => {
     });
   };
 
+  const { mutate: deleteAddress } = useDeleteAddress(address.addressId);
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
+  const handleDeleteClick = () => {
+    setIsLoadingDelete(true);
+    deleteAddress(undefined, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ["allData", "address"],
+        });
+        setIsLoadingDelete(false);
+      },
+      onError: () => {
+        setIsLoadingDelete(false);
+      },
+    });
+  };
+
   return (
-    <Card height="300px" borderRadius="none" padding={4} position="relative">
+    <Card height="290px" borderRadius="none" padding={4} position="relative">
       <Text fontSize="lg" fontWeight="bold">
         {address.fullName}
       </Text>
@@ -75,7 +94,13 @@ const AddressCard = ({ address }: Props) => {
             <FiEdit />
             <Text ml="5px">Edit</Text>
           </Button>
-          <Button width="100%" borderRadius="none" color="red">
+          <Button
+            width="100%"
+            borderRadius="none"
+            color="red"
+            isLoading={isLoadingDelete}
+            onClick={handleDeleteClick}
+          >
             <MdDeleteOutline size="20px" />
             <Text ml="5px">Delete</Text>
           </Button>
