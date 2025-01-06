@@ -1,12 +1,12 @@
 import { Box, Button, Card, Flex, HStack, Text } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 import OrangeButton from "../../../../components/Button/OrangeButton";
 import { Address } from "../../../../entities/Address";
 import useChangeResourceStatus from "../../../../hooks/useChangeResourceStatus";
 import useDeleteAddress from "../hooks/useDeleteAddress";
+import UpdateAddressModal from "./UpdateAddressModal";
 interface Props {
   address: Address;
 }
@@ -90,10 +90,7 @@ const AddressCard = ({ address }: Props) => {
       <Text> {address.contactNumber}</Text>
       <Box position="absolute" bottom="0" left="0" padding={4} width="100%">
         <Flex>
-          <Button width="100%" mr="5px" borderRadius="none">
-            <FiEdit />
-            <Text ml="5px">Edit</Text>
-          </Button>
+          <UpdateAddressModal address={address} />
           <Button
             width="100%"
             borderRadius="none"
