@@ -21,6 +21,15 @@ import useChangeResourceStatus from "../../../../hooks/useChangeResourceStatus";
 import useSaveResource from "../../../../hooks/useSaveResource";
 import { useAddressStore } from "../../../../store/address-store";
 const CreateAddressModal = () => {
+  const errorFields = [
+    "fullName",
+    "streetAddress",
+    "contactNumber",
+    "city",
+    "postCode",
+    "addressType",
+  ];
+
   const buttonStyle = {
     variant: "outline",
     borderRadius: "none",
@@ -29,30 +38,19 @@ const CreateAddressModal = () => {
     _active: { bg: "none" },
     mr: "10px",
   };
-
+  const queryClient = useQueryClient();
   const { isOpen, onClose, onOpen } = useAddressStore();
   const [addressType, setAddressType] = useState("");
   const [isSetAsDefault, setIsSetAsDefault] = useState(false);
   const [addressId, setAddressId] = useState<string | number>("");
-
-  const handleTypeClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const addressType = e.currentTarget.value;
-    setAddressType(addressType);
-    setValue("addressType", addressType);
-  };
-
-  const handleSetDefaultClick = () => {
-    setIsSetAsDefault(!isSetAsDefault);
-  };
+  const { handleSubmit, setError, control, setValue, reset } =
+    useForm<Address>();
 
   const {
     loading,
     mutation: { mutate },
     setLoading,
   } = useSaveResource<Address>({ module: "address" });
-  const queryClient = useQueryClient();
-  const { handleSubmit, setError, control, setValue, reset } =
-    useForm<Address>();
 
   const onSubmit: SubmitHandler<Address> = (data: Address) => {
     setLoading(true);
@@ -72,44 +70,26 @@ const CreateAddressModal = () => {
       onError: (error: any) => {
         setLoading(false);
 
-        if (error.response?.data.fullName) {
-          setError("fullName", {
-            type: "server",
-            message: error.response.data.fullName,
-          });
-        }
-        if (error.response?.data.streetAddress) {
-          setError("streetAddress", {
-            type: "server",
-            message: error.response.data.streetAddress,
-          });
-        }
-        if (error.response?.data.contactNumber) {
-          setError("contactNumber", {
-            type: "server",
-            message: error.response.data.contactNumber,
-          });
-        }
-        if (error.response?.data.city) {
-          setError("city", {
-            type: "server",
-            message: error.response.data.city,
-          });
-        }
-        if (error.response?.data.postCode) {
-          setError("postCode", {
-            type: "server",
-            message: error.response.data.postCode,
-          });
-        }
-        if (error.response?.data.addressType) {
-          setError("addressType", {
-            type: "server",
-            message: error.response.data.addressType,
-          });
-        }
+        errorFields.forEach((field: any) => {
+          if (error.response?.data[field]) {
+            setError(field, {
+              type: "server",
+              message: error.response.data[field],
+            });
+          }
+        });
       },
     });
+  };
+
+  const handleTypeClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const addressType = e.currentTarget.value;
+    setAddressType(addressType);
+    setValue("addressType", addressType);
+  };
+
+  const handleSetDefaultClick = () => {
+    setIsSetAsDefault(!isSetAsDefault);
   };
 
   const { mutate: setDefaultAddress } = useChangeResourceStatus({
@@ -151,7 +131,8 @@ const CreateAddressModal = () => {
                 New Address
               </Text>
               <Text fontSize="sm">
-                To place order, please add a delivery address
+                To place an order, please add a delivery address and set it as
+                default.
               </Text>
               <Divider mb="20px" mt="15px" />
               <TextInput
