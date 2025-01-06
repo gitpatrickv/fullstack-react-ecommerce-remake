@@ -4,6 +4,7 @@ import { Outlet } from "react-router";
 import { useUserStore } from "../store/user-store";
 import Navbar from "./user/components/Navbar";
 import useGetCurrentUserInfo from "./user/hooks/useGetCurrentUserInfo";
+import CreateAddressModal from "../pages/user/AddressPage/components/CreateAddressModal";
 
 const Layout = () => {
   const { data: getUserInfo } = useGetCurrentUserInfo();
@@ -24,6 +25,7 @@ const Layout = () => {
       <Navbar />
       <Box width="full">
         <Outlet />
+        <CreateAddressModal />
       </Box>
     </Box>
   );

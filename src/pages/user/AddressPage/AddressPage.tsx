@@ -3,12 +3,14 @@ import { GoPlus } from "react-icons/go";
 import OrangeButton from "../../../components/Button/OrangeButton";
 import GetAllAddressResponse from "../../../entities/Address";
 import useGetAllResources from "../../../hooks/useGetAllResources";
+import { useAddressStore } from "../../../store/address-store";
 import AddressCard from "./components/AddressCard";
 
 const AddressPage = () => {
   const { data: getAllAddress } = useGetAllResources<GetAllAddressResponse>({
     module: "address",
   });
+  const { onOpen } = useAddressStore();
 
   return (
     <>
@@ -17,7 +19,7 @@ const AddressPage = () => {
           <Text fontSize="xl" fontWeight="semibold">
             My Addresses
           </Text>
-          <OrangeButton>
+          <OrangeButton onClick={onOpen}>
             <GoPlus size="25px" />
             <Text ml="5px">Add New Address</Text>
           </OrangeButton>
