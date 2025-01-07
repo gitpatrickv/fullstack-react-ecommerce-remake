@@ -121,7 +121,7 @@ const NavTop = () => {
       <Box>
         <Modal isOpen={isOpen} onClose={onClose} size="md" isCentered>
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent borderRadius="none">
             <ModalCloseButton />
             <ModalBody mt="10px">
               <Box>

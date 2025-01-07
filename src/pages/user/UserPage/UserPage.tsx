@@ -13,9 +13,11 @@ import { FiHeart } from "react-icons/fi";
 import { RiStore2Line } from "react-icons/ri";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import pic from "../../../assets/profpic.jpeg";
+import { useUserStore } from "../../../store/user-store";
 const UserPage = () => {
   const location = useLocation();
   const profileLocation = location.pathname.startsWith("/user/account");
+  const { picture } = useUserStore();
   return (
     <Grid
       templateColumns="0.3fr 0.2fr 0.8fr 0.3fr"
@@ -25,7 +27,7 @@ const UserPage = () => {
         <Box>
           <Link to="/user/account/profile">
             <Flex>
-              <Avatar src={pic} size="md" />
+              <Avatar src={picture || pic} size="md" />
               <Box ml="10px">
                 <Text textTransform="capitalize">PATRICK</Text>
                 <Flex>

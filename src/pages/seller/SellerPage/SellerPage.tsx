@@ -29,7 +29,7 @@ const SellerPage = () => {
     <Box minWidth="1440px">
       <Grid
         // templateRows={"0.2fr 0.8fr"}
-        templateColumns="0.2fr 50px 1fr 50px"
+        templateColumns="300px 50px 1fr 50px"
         templateAreas={`
       
           "sidebar marginLeft main marginRight"
@@ -43,7 +43,7 @@ const SellerPage = () => {
             height="100%"
           ></Card>
         </GridItem> */}
-        <GridItem area="sidebar">
+        <GridItem area="sidebar" position="fixed" width="300px" height="100%">
           <Sidebar />
         </GridItem>
         <GridItem area="main" mt="20px">

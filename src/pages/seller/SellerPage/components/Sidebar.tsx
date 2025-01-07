@@ -9,7 +9,7 @@ const Sidebar = () => {
   const { storeName, picture } = useShopStore();
   //TODO: remove dark mode
   return (
-    <Card borderRadius="none" minHeight="100vh" height="100%" boxShadow="none">
+    <Card borderRadius="none" minHeight="100%" boxShadow="none">
       <Link to="/seller">
         <Flex mt="20px" alignItems="center" ml="10px">
           <Avatar
