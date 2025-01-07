@@ -26,6 +26,9 @@ const useLogin = () => {
       queryClient.invalidateQueries({
         queryKey: ["user"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["store"],
+      });
       const jwtToken = response.jwtToken;
       setJwtToken(jwtToken);
       const role = response.role;

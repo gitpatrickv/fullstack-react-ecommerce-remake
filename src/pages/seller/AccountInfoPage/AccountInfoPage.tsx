@@ -1,16 +1,19 @@
 import { Avatar, Box, Card, Flex, Text } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FaCamera } from "react-icons/fa";
+import storePic from "../../../assets/storePic.jpg";
 import OrangeButton from "../../../components/Button/OrangeButton";
 import TextInput from "../../../components/Input/TextInput";
 import { Store } from "../../../entities/Store";
 import useUpdateOneResource from "../../../hooks/useUpdateOneResource";
 import { useShopStore } from "../../../store/shop-store";
+import useUploadStoreAvatar from "./hooks/useUploadStoreAvatar";
 
 const AccountInfoPage = () => {
-  const { storeId, storeName, storeContactNumber, status } = useShopStore();
+  const { storeId, storeName, storeContactNumber, status, picture } =
+    useShopStore();
   const queryClient = useQueryClient();
   const { handleSubmit, setError, control, setValue } = useForm<Store>({
     defaultValues: {
@@ -62,6 +65,19 @@ const AccountInfoPage = () => {
         }
       },
     });
+  };
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const uploadAvatar = useUploadStoreAvatar();
+  const handleInputClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleUploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      uploadAvatar.mutate({ file: file });
+    }
   };
 
   return (
@@ -126,16 +142,23 @@ const AccountInfoPage = () => {
             </OrangeButton>
           </form>
         </Box>
-        <Flex flexDirection="column">
-          <Avatar
-            src="https://media.istockphoto.com/id/912819604/vector/storefront-flat-design-e-commerce-icon.jpg?s=612x612&w=0&k=20&c=_x_QQJKHw_B9Z2HcbA2d1FH1U1JVaErOAp2ywgmmoTI="
-            height="150px"
-            width="150px"
-          />
-          <OrangeButton mt="20px">
+        <Flex flexDirection="column" alignItems="center">
+          <Avatar src={picture || storePic} height="150px" width="150px" />
+          <OrangeButton onClick={handleInputClick} mt="20px">
             <FaCamera size="20px" />
-            <Text ml="10px">Add Photo</Text>
+            <Text ml="10px">Select Image</Text>
           </OrangeButton>
+          <Text mt="10px" whiteSpace="nowrap">
+            File size: maximum 1 MB
+          </Text>
+          <Text whiteSpace="nowrap">File extension: .JPEG, .PNG</Text>
+          <input
+            type="file"
+            accept=".jpeg, .png"
+            ref={fileInputRef}
+            onChange={handleUploadImage}
+            style={{ display: "none" }}
+          />
         </Flex>
       </Flex>
     </Card>

@@ -1,5 +1,6 @@
 import { Avatar, Box, Card, Flex, Stack, Text } from "@chakra-ui/react";
 import { useRef } from "react";
+import { FaCamera } from "react-icons/fa";
 import pic from "../../../assets/profpic.jpeg";
 import OrangeButton from "../../../components/Button/OrangeButton";
 import { useUserStore } from "../../../store/user-store";
@@ -55,7 +56,8 @@ const AccountProfilePage = () => {
               style={{ display: "none" }}
             />
             <OrangeButton onClick={handleInputClick} mt="20px">
-              Select Image
+              <FaCamera size="20px" />
+              <Text ml="10px">Select Image</Text>
             </OrangeButton>
             <Text mt="10px" whiteSpace="nowrap">
               File size: maximum 1 MB
