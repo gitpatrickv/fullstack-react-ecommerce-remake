@@ -1,40 +1,48 @@
-import {
-  Card,
-  Center,
-  Flex,
-  Grid,
-  GridItem,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Card, Flex, Grid, GridItem, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { FiMinus, FiShoppingCart } from "react-icons/fi";
-import { GoPlus } from "react-icons/go";
+import { FiShoppingCart } from "react-icons/fi";
 import { useParams } from "react-router-dom";
 import OrangeButton from "../../../components/Button/OrangeButton";
+import { Inventory } from "../../../entities/Inventory";
 import { ProductModels } from "../../../entities/Product";
 import useGetOneResource from "../../../hooks/useGetOneResource";
 import { formatCurrency } from "../../../utilities/formatCurrency";
 import ProductImages from "./components/ProductImages";
+import ProductQuantity from "./components/ProductQuantity";
 import RatingsAndSold from "./components/RatingsAndSold";
 import Variations from "./components/Variations";
 import useAddToCart from "./hooks/useAddToCart";
+import useAddToCartWithVariation from "./hooks/useAddToCartWithVariation";
 
 const ProductDetailPage = () => {
-  const boxStyle = {
-    height: "30px",
-    width: "30px",
-    borderColor: "#E0E0E0",
-    cursor: "pointer",
-  };
-  const [count, setCount] = useState<number>(1);
   const params = useParams<{ productId: string }>();
   const productId = params.productId;
-  const { mutate: addToCart } = useAddToCart();
+
   const { data: getProductDetail } = useGetOneResource<ProductModels>({
     module: "product",
     id: productId!,
   });
+
+  const hasColorsOrSizes = getProductDetail?.inventories.some(
+    (inv) => !!inv.color || !!inv.size
+  );
+
+  const [count, setCount] = useState<number>(1);
+  const [color, setColor] = useState<string>("");
+  const [size, setSize] = useState<string>("");
+
+  useEffect(() => {
+    if (getProductDetail && hasColorsOrSizes) {
+      setColor(getProductDetail?.inventories[0].color || "");
+      setSize(getProductDetail?.inventories[0].size || "");
+    }
+  }, [getProductDetail]);
+
+  useEffect(() => {
+    if (productId) setCount(1);
+  }, [productId, color, size]);
+
+  const { mutate: addToCart } = useAddToCart();
 
   const handleAddToCartClick = () => {
     addToCart({
@@ -43,9 +51,32 @@ const ProductDetailPage = () => {
     });
   };
 
+  const { mutate: addToCartWithVariation } = useAddToCartWithVariation({
+    color: color,
+    size: size,
+  });
+
+  const handleAddToCartWithVariationClick = () => {
+    addToCartWithVariation({
+      productId: productId!,
+      quantity: count,
+    });
+  };
+
+  const [filteredInventory, setFilteredInventory] = useState<Inventory | null>(
+    null
+  );
+
+  const filterInventory = (color: string, size: string) => {
+    const inventory = getProductDetail?.inventories.find(
+      (inv) => inv.color === color && inv.size === size
+    );
+    setFilteredInventory(inventory || null);
+  };
+
   useEffect(() => {
-    if (productId) setCount(1);
-  }, [productId]);
+    filterInventory(color, size);
+  }, [color, size]);
 
   return (
     <Grid
@@ -61,42 +92,47 @@ const ProductDetailPage = () => {
             </Stack>
 
             <Stack ml="30px">
-              <Text fontSize="xl" fontWeight="semibold" isTruncated={true}>
+              <Text
+                fontSize="xl"
+                fontWeight="semibold"
+                isTruncated={true}
+                textTransform="capitalize"
+                height="30px"
+              >
                 {getProductDetail?.productName}
               </Text>
               <RatingsAndSold />
               <Text fontSize="x-large" fontWeight="semibold" color="#E64A19">
-                {formatCurrency(getProductDetail?.inventories[0].price ?? 0)}
+                {filteredInventory
+                  ? formatCurrency(filteredInventory?.price ?? 0)
+                  : formatCurrency(getProductDetail?.inventories[0].price ?? 0)}
               </Text>
-              <Variations inventories={getProductDetail?.inventories} />
-              <Flex mt="10px" mb="10px" alignItems="center" userSelect="none">
-                <Text mr="62px" fontSize="lg" fontWeight="semibold">
-                  Quantity
-                </Text>
-                <Center
-                  border="1px solid"
-                  {...boxStyle}
-                  onClick={() => setCount(count - 1)}
-                >
-                  <FiMinus />
-                </Center>
-                <Center
-                  borderY="1px solid"
-                  {...boxStyle}
-                  width="60px"
-                  color="#E64A19"
-                >
-                  <Text>{count}</Text>
-                </Center>
-                <Center
-                  border="1px solid"
-                  {...boxStyle}
-                  onClick={() => setCount(count + 1)}
-                >
-                  <GoPlus />
-                </Center>
-              </Flex>
-              <OrangeButton width="200px" onClick={handleAddToCartClick}>
+              <Variations
+                inventories={getProductDetail?.inventories}
+                color={color}
+                setColor={setColor}
+                size={size}
+                setSize={setSize}
+                hasColorsOrSizes={hasColorsOrSizes}
+              />
+              <ProductQuantity
+                count={count}
+                setCount={setCount}
+                filteredInventory={filteredInventory}
+                hasColorsOrSizes={hasColorsOrSizes}
+                productQuantity={
+                  getProductDetail?.inventories[0]?.quantity ?? 0
+                }
+              />
+
+              <OrangeButton
+                width="200px"
+                onClick={
+                  hasColorsOrSizes
+                    ? handleAddToCartWithVariationClick
+                    : handleAddToCartClick
+                }
+              >
                 <FiShoppingCart size="25px" />
                 <Text ml="10px">Add To Cart</Text>
               </OrangeButton>

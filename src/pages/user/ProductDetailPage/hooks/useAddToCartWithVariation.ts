@@ -1,19 +1,20 @@
+import { useToast } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "../../../../services/api-client";
-import { useToast } from "@chakra-ui/react";
+import { AddToCartProps } from "./useAddToCart";
 
 const apiClient = axiosInstance;
 
-export interface AddToCartProps {
-  productId: string;
-  quantity: number;
+interface Props {
+  color: string;
+  size: string;
 }
 
-const useAddToCart = () => {
+const useAddToCartWithVariation = ({ color, size }: Props) => {
   const toast = useToast();
   const mutation = useMutation<string, Error, AddToCartProps>({
     mutationFn: (props: AddToCartProps) =>
-      apiClient.post(`/cart`, props).then((res) => res.data),
+      apiClient.post(`/cart/${color}/${size}`, props).then((res) => res.data),
     onSuccess: (response: string) => {
       toast({
         title: "Item added to cart.",
@@ -33,8 +34,7 @@ const useAddToCart = () => {
       });
     },
   });
-
   return mutation;
 };
 
-export default useAddToCart;
+export default useAddToCartWithVariation;
