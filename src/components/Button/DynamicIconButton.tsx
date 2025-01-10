@@ -22,7 +22,7 @@ const DynamicIconButton = ({
     <>
       <Box position="relative">
         {isHover && (
-          <Card position="absolute" bottom="30px" left="-10px" padding={2}>
+          <Card position="absolute" bottom="30px" left="-15px" padding={2}>
             <Text fontWeight="semibold" color={color}>
               {text}
             </Text>

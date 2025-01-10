@@ -69,7 +69,7 @@ const ProductsList = ({ product }: Props) => {
           </Text>
         </GridItem>
         <GridItem area="content5" {...centerFlex}>
-          <Flex alignItems="center" gap={5}>
+          <Flex alignItems="center" gap={3}>
             <UpdateButton product={product} />
             <DelistButton
               productId={product.productId}

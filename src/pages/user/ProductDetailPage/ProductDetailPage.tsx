@@ -1,4 +1,4 @@
-import { Card, Flex, Grid, GridItem, Stack, Text } from "@chakra-ui/react";
+import { Box, Card, Center, Flex, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { useParams } from "react-router-dom";
@@ -10,6 +10,7 @@ import { formatCurrency } from "../../../utilities/formatCurrency";
 import ProductImages from "./components/ProductImages";
 import ProductQuantity from "./components/ProductQuantity";
 import RatingsAndSold from "./components/RatingsAndSold";
+import StoreInfoSection from "./components/StoreInfoSection";
 import Variations from "./components/Variations";
 import useAddToCart from "./hooks/useAddToCart";
 import useAddToCartWithVariation from "./hooks/useAddToCartWithVariation";
@@ -79,13 +80,9 @@ const ProductDetailPage = () => {
   }, [color, size]);
 
   return (
-    <Grid
-      templateColumns="0.3fr 1fr 0.3fr"
-      templateAreas={"'asideLeft content1 asideRight'"}
-      mt="10px"
-    >
-      <GridItem area="content1">
-        <Card padding={5} borderRadius="none">
+    <Center mt="10px">
+      <Box minWidth="1200px">
+        <Card padding={5} borderRadius="none" minHeight="600px">
           <Flex>
             <Stack minWidth="450px" maxWidth="450px">
               <ProductImages images={getProductDetail?.productImages} />
@@ -139,8 +136,9 @@ const ProductDetailPage = () => {
             </Stack>
           </Flex>
         </Card>
-      </GridItem>
-    </Grid>
+        <StoreInfoSection store={getProductDetail?.store} />
+      </Box>
+    </Center>
   );
 };
 

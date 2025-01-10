@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../services/api-client";
 
 const apiClient = axiosInstance;
@@ -15,7 +15,6 @@ const useGetOneResource = <T>({ module, id }: Props) => {
       const { data } = await apiClient.get<T>(`/factory/${module}/${id}`);
       return data;
     },
-    placeholderData: keepPreviousData,
     enabled: !!module && !!id,
   });
 };

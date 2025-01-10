@@ -1,4 +1,4 @@
-import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import GetAllProductResponse from "../entities/Product";
 import { axiosInstance } from "../services/api-client";
 
@@ -25,7 +25,6 @@ const useGetAllProducts = ({ pageSize }: PaginateProps) => {
       const { pageNo, totalPages } = pageResponse;
       return pageNo + 1 < totalPages ? pageNo + 1 : undefined;
     },
-    placeholderData: keepPreviousData,
     initialPageParam: 0,
   });
 };
