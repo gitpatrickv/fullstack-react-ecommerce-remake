@@ -1,15 +1,16 @@
 import {
-  Center,
   Box,
+  Card,
+  Center,
+  Checkbox,
+  Flex,
   Spinner,
   Text,
-  Card,
-  Flex,
-  Checkbox,
 } from "@chakra-ui/react";
+import CartFooter from "./components/CartFooter";
 import CartHeader from "./components/CartHeader";
-import useGetCartItemsGroupedByStore from "./hooks/useGetCartItemsGroupedByStore";
 import CartItemCard from "./components/CartItemCard";
+import useGetCartItemsGroupedByStore from "./hooks/useGetCartItemsGroupedByStore";
 
 const CartPage = () => {
   const { data: getCartItems, isLoading } = useGetCartItemsGroupedByStore();
@@ -31,7 +32,7 @@ const CartPage = () => {
   return (
     <Center mt="10px">
       <Box minWidth="1200px">
-        <CartHeader />
+        {!isLoading && <CartHeader />}
         {getCartItems?.map((storeName) => (
           <Box key={storeName.storeName} mt="10px">
             <Card
@@ -56,6 +57,7 @@ const CartPage = () => {
             ))}
           </Box>
         ))}
+        {!isLoading && <CartFooter />}
       </Box>
     </Center>
   );

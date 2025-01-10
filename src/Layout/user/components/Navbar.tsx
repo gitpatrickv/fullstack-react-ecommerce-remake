@@ -12,11 +12,13 @@ import { Link, useNavigate } from "react-router-dom";
 import NavTop from "./NavTop";
 import Search from "./Search";
 import { useAuthQueryStore } from "../../../store/auth-store";
+import useGetCartSize from "../../../pages/user/CartPage/hooks/useGetCartSize";
 
 const Navbar = () => {
   const { colorMode } = useColorMode();
   const { authStore } = useAuthQueryStore();
   const jwtToken = authStore.jwtToken;
+  const { data } = useGetCartSize();
   const navigate = useNavigate();
   const handleNavigateClick = () => {
     navigate("/cart");
@@ -70,8 +72,8 @@ const Navbar = () => {
                 top="-8px"
                 right="63px"
               >
-                <Text color="#E64A19" fontSize="xs" fontWeight="semibold">
-                  12
+                <Text color="#E64A19" fontSize="sm" fontWeight="semibold">
+                  {data}
                 </Text>
               </Flex>
             </Flex>
