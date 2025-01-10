@@ -11,9 +11,7 @@ interface Props {
 const useUpdateQuantity = () => {
   return useMutation({
     mutationFn: ({ cartItemId, newQuantity }: Props) =>
-      apiClient
-        .put(`/cart/item/${cartItemId}/${newQuantity}`)
-        .then((res) => res.data),
+      apiClient.put(`/cart/item/${cartItemId}/${newQuantity}`),
   });
 };
 
