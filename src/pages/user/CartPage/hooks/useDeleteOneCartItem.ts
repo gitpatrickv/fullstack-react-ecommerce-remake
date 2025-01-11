@@ -6,7 +6,7 @@ const useDeleteOneCartItem = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (cartItemId: number) =>
-      apiClient.delete(`/cart/item/${cartItemId}/delete`),
+      apiClient.delete(`/cart/${cartItemId}/delete`),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["cartItem"],

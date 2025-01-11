@@ -1,6 +1,15 @@
 import { Card, Checkbox, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 
-const CartHeader = () => {
+interface Props {
+  handleAddRemoveAllIdsChange: () => void;
+  cartItemIds: number;
+  itemIds: Set<number>;
+}
+const CartHeader = ({
+  handleAddRemoveAllIdsChange,
+  cartItemIds,
+  itemIds,
+}: Props) => {
   return (
     <Card borderRadius="none" padding={4}>
       <Grid
@@ -9,7 +18,11 @@ const CartHeader = () => {
       >
         <GridItem area="content1">
           <Flex alignItems="center">
-            <Checkbox colorScheme="orange" />
+            <Checkbox
+              colorScheme="orange"
+              isChecked={cartItemIds === itemIds.size}
+              onChange={handleAddRemoveAllIdsChange}
+            />
             <Text ml="20px" fontWeight="semibold">
               Product
             </Text>

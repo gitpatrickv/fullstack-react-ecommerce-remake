@@ -11,7 +11,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { FiMinus } from "react-icons/fi";
 import { GoPlus } from "react-icons/go";
 import { MdDeleteOutline } from "react-icons/md";
@@ -24,9 +24,17 @@ import useUpdateQuantity from "../hooks/useUpdateQuantity";
 
 interface Props {
   cartItem: CartItem;
+  handleAddRemoveIdChange: (value: number) => void;
+  itemIds: Set<number>;
+  setItemIds: Dispatch<React.SetStateAction<Set<number>>>;
 }
 
-const CartItemCard = ({ cartItem }: Props) => {
+const CartItemCard = ({
+  cartItem,
+  handleAddRemoveIdChange,
+  itemIds,
+  setItemIds,
+}: Props) => {
   const centerFlex = {
     display: "flex",
     alignItems: "center",
@@ -75,6 +83,13 @@ const CartItemCard = ({ cartItem }: Props) => {
     deleteOneItem(cartItem.cartItemId, {
       onSuccess: () => {
         onClose();
+        setItemIds((prevIds) => {
+          const updatedIds = new Set(prevIds);
+          if (updatedIds.has(cartItem.cartItemId)) {
+            updatedIds.delete(cartItem.cartItemId);
+          }
+          return updatedIds;
+        });
       },
     });
   };
@@ -88,11 +103,23 @@ const CartItemCard = ({ cartItem }: Props) => {
         >
           <GridItem area="content1">
             <Flex alignItems="center">
-              <Checkbox colorScheme="orange" />
+              <Checkbox
+                colorScheme="orange"
+                onChange={() => handleAddRemoveIdChange(cartItem.cartItemId)}
+                isChecked={itemIds.has(cartItem.cartItemId)}
+              />
               <Image src={cartItem.productImage} boxSize="90px" ml="20px" />
-              <Text ml="20px" textTransform="capitalize">
-                {cartItem.productName}
-              </Text>
+              <Flex flexDirection="column">
+                <Text ml="20px" textTransform="capitalize">
+                  {cartItem.productName}
+                </Text>
+                {cartItem.inventory.color && cartItem.inventory.size && (
+                  <Text ml="20px" color="gray.500">
+                    Variation: {cartItem.inventory.color},{" "}
+                    {cartItem.inventory.size}
+                  </Text>
+                )}
+              </Flex>
             </Flex>
           </GridItem>
           <GridItem area="content2" {...centerFlex}>
