@@ -12,7 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import NavTop from "./NavTop";
 import Search from "./Search";
 import { useAuthQueryStore } from "../../../store/auth-store";
-import useGetCartSize from "../../../pages/user/CartPage/hooks/useGetCartSize";
+import useGetCartSize from "../../../hooks/useGetCartSize";
 
 const Navbar = () => {
   const { colorMode } = useColorMode();

@@ -12,7 +12,7 @@ const useGetOneResource = <T>({ module, id }: Props) => {
   return useQuery<T>({
     queryKey: ["data", module, id],
     queryFn: async () => {
-      const { data } = await apiClient.get<T>(`/factory/${module}/${id}`);
+      const { data } = await apiClient.get<T>(`/factory/${id}/${module}`);
       return data;
     },
     enabled: !!module && !!id,

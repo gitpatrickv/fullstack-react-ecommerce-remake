@@ -9,6 +9,7 @@ interface Props {
   filteredInventory: Inventory | null;
   hasColorsOrSizes: boolean | undefined;
   productQuantity: number;
+  isOutOfStock: boolean | undefined;
 }
 
 const ProductQuantity = ({
@@ -17,6 +18,7 @@ const ProductQuantity = ({
   filteredInventory,
   hasColorsOrSizes,
   productQuantity,
+  isOutOfStock,
 }: Props) => {
   const boxStyle = {
     height: "30px",
@@ -27,6 +29,7 @@ const ProductQuantity = ({
     borderRadius: "none",
     display: "flex",
   };
+
   return (
     <>
       <Flex mt="10px" mb="10px" alignItems="center" userSelect="none">
@@ -49,7 +52,7 @@ const ProductQuantity = ({
           borderColor="#E0E0E0"
           fontWeight="semibold"
         >
-          <Text>{count}</Text>
+          <Text>{isOutOfStock ? 0 : count}</Text>
         </Center>
         <Button
           variant="unstyled"
@@ -62,11 +65,17 @@ const ProductQuantity = ({
         >
           <GoPlus />
         </Button>
-        <Text ml="10px">
-          {hasColorsOrSizes ? filteredInventory?.quantity : productQuantity}
-          <Text as="span" ml="5px">
-            piece(s) available
-          </Text>
+        <Text ml="10px" color={isOutOfStock ? "red" : undefined}>
+          {isOutOfStock ? (
+            "Out of Stock"
+          ) : (
+            <>
+              {hasColorsOrSizes ? filteredInventory?.quantity : productQuantity}
+              <Text as="span" ml="5px">
+                piece(s) available
+              </Text>
+            </>
+          )}
         </Text>
       </Flex>
     </>

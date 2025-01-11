@@ -1,6 +1,6 @@
 import { Card, Checkbox, Flex, HStack, Spacer, Text } from "@chakra-ui/react";
 import OrangeButton from "../../../../components/Button/OrangeButton";
-import useGetCartSize from "../hooks/useGetCartSize";
+import useGetCartSize from "../../../../hooks/useGetCartSize";
 
 const CartFooter = () => {
   const { data } = useGetCartSize();

@@ -75,7 +75,10 @@ const ProductsList = ({ product }: Props) => {
               productId={product.productId}
               status={product.status}
             />
-            <DeleteModal productId={product.productId} />
+            <DeleteModal
+              productId={product.productId}
+              productName={product.productName}
+            />
           </Flex>
         </GridItem>
       </Grid>

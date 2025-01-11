@@ -15,12 +15,12 @@ import { useEffect, useState } from "react";
 import { FiMinus } from "react-icons/fi";
 import { GoPlus } from "react-icons/go";
 import { MdDeleteOutline } from "react-icons/md";
+import AlertDialogBox from "../../../../components/AlertDialog/AlertDialogBox";
 import DynamicIconButton from "../../../../components/Button/DynamicIconButton";
 import { CartItem } from "../../../../entities/CartItem";
 import { formatCurrency } from "../../../../utilities/formatCurrency";
 import useDeleteOneCartItem from "../hooks/useDeleteOneCartItem";
 import useUpdateQuantity from "../hooks/useUpdateQuantity";
-import DeleteOneAlertDialog from "./DeleteOneAlertDialog";
 
 interface Props {
   cartItem: CartItem;
@@ -142,11 +142,15 @@ const CartItemCard = ({ cartItem }: Props) => {
           </GridItem>
         </Grid>
       </Card>
-      <DeleteOneAlertDialog
+      <AlertDialogBox
         isOpen={isOpen}
         onClose={onClose}
-        productName={cartItem.productName}
-        handleDeleteOneItemClick={handleDeleteOneItemClick}
+        title={"Do you want to remove this item?"}
+        content={cartItem.productName}
+        buttonName={"Delete"}
+        color={"red.500"}
+        hoverColor={"red.600"}
+        fn={handleDeleteOneItemClick}
       />
     </>
   );

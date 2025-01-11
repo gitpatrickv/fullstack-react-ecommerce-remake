@@ -79,6 +79,11 @@ const ProductDetailPage = () => {
     filterInventory(color, size);
   }, [color, size]);
 
+  const isOutOfStock =
+    (!hasColorsOrSizes &&
+      (getProductDetail?.inventories[0]?.quantity ?? 0) < 1) ||
+    (hasColorsOrSizes && (filteredInventory?.quantity ?? 0) < 1);
+
   return (
     <Center mt="10px">
       <Box minWidth="1200px">
@@ -120,6 +125,7 @@ const ProductDetailPage = () => {
                 productQuantity={
                   getProductDetail?.inventories[0]?.quantity ?? 0
                 }
+                isOutOfStock={isOutOfStock}
               />
 
               <OrangeButton
@@ -129,6 +135,7 @@ const ProductDetailPage = () => {
                     ? handleAddToCartWithVariationClick
                     : handleAddToCartClick
                 }
+                isDisabled={isOutOfStock ? true : false}
               >
                 <FiShoppingCart size="25px" />
                 <Text ml="10px">Add To Cart</Text>

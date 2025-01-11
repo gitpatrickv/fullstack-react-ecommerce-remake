@@ -13,15 +13,23 @@ import { useRef } from "react";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  productName: string;
-  handleDeleteOneItemClick: () => void;
+  title: string;
+  content: string;
+  buttonName: string;
+  color: string;
+  hoverColor: string;
+  fn: () => void;
 }
 
-const DeleteOneAlertDialog = ({
+const AlertDialogBox = ({
   isOpen,
   onClose,
-  productName,
-  handleDeleteOneItemClick,
+  title,
+  content,
+  buttonName,
+  color,
+  hoverColor,
+  fn,
 }: Props) => {
   const cancelRef = useRef(null);
   return (
@@ -34,25 +42,28 @@ const DeleteOneAlertDialog = ({
       <AlertDialogOverlay>
         <AlertDialogContent borderRadius="none">
           <AlertDialogHeader>
-            <Text fontSize="lg" fontWeight="bold">
-              Do you want to remove this item?
+            <Text fontSize="lg" fontWeight="semibold">
+              {title}
             </Text>
           </AlertDialogHeader>
           <AlertDialogBody>
-            <Text textTransform="capitalize">{productName}</Text>
+            <Text textTransform="capitalize" fontSize="lg">
+              {content}
+            </Text>
           </AlertDialogBody>
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={onClose} borderRadius="none">
               Cancel
             </Button>
             <Button
-              bg="red.500"
-              _hover={{ bg: "red.600" }}
-              onClick={handleDeleteOneItemClick}
+              bg={color}
+              _hover={{ bg: hoverColor }}
+              _active={{ bg: color }}
+              onClick={fn}
               ml="10px"
               borderRadius="none"
             >
-              Delete
+              {buttonName}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -61,4 +72,4 @@ const DeleteOneAlertDialog = ({
   );
 };
 
-export default DeleteOneAlertDialog;
+export default AlertDialogBox;

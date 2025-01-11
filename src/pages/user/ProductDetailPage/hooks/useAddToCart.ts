@@ -14,7 +14,7 @@ const useAddToCart = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation<string, Error, AddToCartProps>({
     mutationFn: (props: AddToCartProps) =>
-      apiClient.post(`/cart`, props).then((res) => res.data),
+      apiClient.post(`/cart/add`, props).then((res) => res.data),
     onSuccess: (response: string) => {
       queryClient.invalidateQueries({
         queryKey: ["cartItem"],

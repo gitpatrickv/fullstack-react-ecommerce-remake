@@ -15,7 +15,9 @@ const useAddToCartWithVariation = ({ color, size }: Props) => {
   const queryClient = useQueryClient();
   const mutation = useMutation<string, Error, AddToCartProps>({
     mutationFn: (props: AddToCartProps) =>
-      apiClient.post(`/cart/${color}/${size}`, props).then((res) => res.data),
+      apiClient
+        .post(`/cart/${color}/${size}/add`, props)
+        .then((res) => res.data),
     onSuccess: (response: string) => {
       queryClient.invalidateQueries({
         queryKey: ["cartItem"],
