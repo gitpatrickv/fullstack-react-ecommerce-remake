@@ -1,12 +1,18 @@
 import { Card, Flex, Grid, GridItem, Image, Text } from "@chakra-ui/react";
+import { CartItem } from "../../../../entities/CartItem";
 import { formatCurrency } from "../../../../utilities/formatCurrency";
 
-const CheckoutItemCard = () => {
+interface Props {
+  cartItem: CartItem;
+}
+
+const CheckoutItemCard = ({ cartItem }: Props) => {
   const centerFlex = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   };
+  const totalItemPrice = cartItem.inventory.price * cartItem.quantity;
   return (
     <Card borderRadius="none" padding={5}>
       <Grid
@@ -16,10 +22,9 @@ const CheckoutItemCard = () => {
         <GridItem area="content1">
           <Flex alignItems="center">
             <Image
-              src={
-                "https://t4.ftcdn.net/jpg/05/49/86/39/360_F_549863991_6yPKI08MG7JiZX83tMHlhDtd6XLFAMce.jpg"
-              }
+              src={cartItem.productImage}
               boxSize="50px"
+              objectFit="cover"
             />
             <Flex flexDirection="column">
               <Text
@@ -28,26 +33,26 @@ const CheckoutItemCard = () => {
                 maxWidth="300px"
                 isTruncated={true}
               >
-                product name asdf asdf asdf asdf asdf asdf asdf asdf
+                {cartItem.productName}
               </Text>
-              {/* {cartItem.inventory.color && cartItem.inventory.size && (
-                <Text ml="20px" color="gray.500">
+              {cartItem.inventory.color && cartItem.inventory.size && (
+                <Text ml="10px" color="gray.500">
                   Variation: {cartItem.inventory.color},{" "}
                   {cartItem.inventory.size}
                 </Text>
-              )} */}
+              )}
             </Flex>
           </Flex>
         </GridItem>
         <GridItem area="content2" {...centerFlex}>
-          <Text>{formatCurrency(1233)}</Text>
+          <Text>{formatCurrency(cartItem.inventory.price)}</Text>
         </GridItem>
         <GridItem area="content3" {...centerFlex} userSelect="none">
-          <Text>1</Text>
+          <Text>{cartItem.quantity}</Text>
         </GridItem>
         <GridItem area="content4" {...centerFlex} justifyContent="end">
           <Text color="#E64A19" fontWeight="semibold">
-            {formatCurrency(1000)}
+            {formatCurrency(totalItemPrice)}
           </Text>
         </GridItem>
       </Grid>

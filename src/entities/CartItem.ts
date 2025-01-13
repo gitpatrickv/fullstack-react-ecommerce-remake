@@ -14,3 +14,9 @@ export interface CartItemModels {
 }
 
 export type CartItemsResponse = CartItemModels[];
+
+export interface CheckoutResponse {
+  totalAmount: number;
+  totalItems: number;
+  cartItemsResponse: CartItemsResponse;
+}

@@ -4,15 +4,15 @@ import { useToast } from "@chakra-ui/react";
 
 const apiClient = axiosInstance;
 
-interface Props {
+export interface IdSetProps {
   ids: number[];
 }
 
 const useDeleteAllSelectedItem = () => {
   const toast = useToast();
   const queryClient = useQueryClient();
-  const mutation = useMutation<string, Error, Props>({
-    mutationFn: (props: Props) =>
+  const mutation = useMutation<string, Error, IdSetProps>({
+    mutationFn: (props: IdSetProps) =>
       apiClient.delete(`/cart/delete`, { data: props }).then((res) => res.data),
     onSuccess: (response: string) => {
       queryClient.invalidateQueries({

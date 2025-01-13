@@ -48,6 +48,9 @@ const useUpdateQuantity = () => {
       queryClient.invalidateQueries({
         queryKey: ["cartItem"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["checkout"],
+      });
     },
   });
 };
