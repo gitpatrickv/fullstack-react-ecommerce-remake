@@ -15,6 +15,7 @@ import Dashboard from "../pages/seller/SellerPage/components/Dashboard";
 import SellerPage from "../pages/seller/SellerPage/SellerPage";
 import AccountProfilePage from "../pages/user/AccountProfilePage/AccountProfilePage";
 import AddressPage from "../pages/user/AddressPage/AddressPage";
+import CheckoutPage from "../pages/user/CheckoutPage/CheckoutPage";
 import MyFavoritePage from "../pages/user/MyFavoritePage/MyFavoritePage";
 import MyFollowingPage from "../pages/user/MyFollowingPage/MyFollowingPage";
 import ProductDetailPage from "../pages/user/ProductDetailPage/ProductDetailPage";
@@ -39,6 +40,14 @@ const router = createBrowserRouter([
         element: (
           <UserRoute>
             <CartPage />
+          </UserRoute>
+        ),
+      },
+      {
+        path: "/checkout",
+        element: (
+          <UserRoute>
+            <CheckoutPage />
           </UserRoute>
         ),
       },

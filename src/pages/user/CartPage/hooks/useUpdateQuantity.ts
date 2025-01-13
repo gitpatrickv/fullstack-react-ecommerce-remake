@@ -6,7 +6,7 @@ interface Props {
   cartItemId: number;
   newQuantity: number;
 }
-
+//Note: im just practicing optimistic update here based on the Tanstack Query docs
 const useUpdateQuantity = () => {
   const queryClient = useQueryClient();
 
@@ -43,6 +43,11 @@ const useUpdateQuantity = () => {
       if (context?.previousData) {
         queryClient.setQueryData(["cartItem"], context.previousData);
       }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["cartItem"],
+      });
     },
   });
 };

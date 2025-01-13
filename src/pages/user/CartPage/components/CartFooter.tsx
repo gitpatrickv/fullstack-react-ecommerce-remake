@@ -7,6 +7,7 @@ import {
   Spacer,
   Text,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import OrangeButton from "../../../../components/Button/OrangeButton";
 import useGetCartSize from "../../../../hooks/useGetCartSize";
 import useCartStore from "../../../../store/cart-store";
@@ -27,6 +28,10 @@ const CartFooter = ({
 }: Props) => {
   const { data: cartSize } = useGetCartSize();
   const { itemIds } = useCartStore();
+  const navigate = useNavigate();
+  const handleNavigateClick = () => {
+    navigate("/checkout");
+  };
 
   return (
     <>
@@ -68,7 +73,7 @@ const CartFooter = ({
             Add to Favorites
           </Text>
           <Spacer />
-          <Text fontWeight="semibold">Total (0 item): </Text>
+          <Text fontWeight="semibold">Total ({itemIds.size} item): </Text>
           <Text
             color="#E64A19"
             fontWeight="semibold"
@@ -77,7 +82,11 @@ const CartFooter = ({
           >
             {formatCurrency(cartTotal ?? 0)}
           </Text>
-          <OrangeButton width="150px" isDisabled={itemIds.size < 1}>
+          <OrangeButton
+            width="150px"
+            isDisabled={itemIds.size < 1}
+            onClick={handleNavigateClick}
+          >
             <Text>Check Out</Text>
           </OrangeButton>
         </HStack>
