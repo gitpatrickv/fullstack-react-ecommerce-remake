@@ -1,15 +1,12 @@
 import { Card, Checkbox, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
+import useCartStore from "../../../../store/cart-store";
 
 interface Props {
   handleAddRemoveAllIdsChange: () => void;
-  cartItemIds: number;
-  itemIds: Set<number>;
+  cartItemsSize: number;
 }
-const CartHeader = ({
-  handleAddRemoveAllIdsChange,
-  cartItemIds,
-  itemIds,
-}: Props) => {
+const CartHeader = ({ handleAddRemoveAllIdsChange, cartItemsSize }: Props) => {
+  const { itemIds } = useCartStore();
   return (
     <Card borderRadius="none" padding={4}>
       <Grid
@@ -20,7 +17,7 @@ const CartHeader = ({
           <Flex alignItems="center">
             <Checkbox
               colorScheme="orange"
-              isChecked={cartItemIds === itemIds.size}
+              isChecked={cartItemsSize === itemIds.size}
               onChange={handleAddRemoveAllIdsChange}
             />
             <Text ml="20px" fontWeight="semibold">

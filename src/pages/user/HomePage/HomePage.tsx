@@ -1,12 +1,4 @@
-import {
-  Card,
-  Center,
-  Grid,
-  GridItem,
-  SimpleGrid,
-  Spinner,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Card, Center, SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import ProductCard from "../../../components/product/ProductCard";
@@ -29,12 +21,8 @@ const HomePage = () => {
   }
 
   return (
-    <Grid
-      templateColumns="0.2fr 0.8fr 0.2fr"
-      templateAreas={"'asideLeft main asideRight'"}
-      mt="10px"
-    >
-      <GridItem area="main">
+    <Center mt="10px">
+      <Box minWidth="1200px" maxWidth="1200px">
         <Banner />
         <Category />
         <Card
@@ -67,8 +55,8 @@ const HomePage = () => {
             )}
           </SimpleGrid>
         </InfiniteScroll>
-      </GridItem>
-    </Grid>
+      </Box>
+    </Center>
   );
 };
 

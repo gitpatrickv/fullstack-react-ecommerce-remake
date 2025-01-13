@@ -21,7 +21,7 @@ const ProductCard = ({ product }: Props) => {
         src={product.productImages[0].productImage}
         width="100%"
         height="100%"
-        boxSize="210px"
+        boxSize="200px"
       />
       <Box padding={2}>
         <Text

@@ -11,13 +11,14 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Dispatch, useEffect, useState } from "react";
+import { useState } from "react";
 import { FiMinus } from "react-icons/fi";
 import { GoPlus } from "react-icons/go";
 import { MdDeleteOutline } from "react-icons/md";
 import AlertDialogBox from "../../../../components/AlertDialog/AlertDialogBox";
 import DynamicIconButton from "../../../../components/Button/DynamicIconButton";
 import { CartItem } from "../../../../entities/CartItem";
+import useCartStore from "../../../../store/cart-store";
 import { formatCurrency } from "../../../../utilities/formatCurrency";
 import useDeleteOneCartItem from "../hooks/useDeleteOneCartItem";
 import useUpdateQuantity from "../hooks/useUpdateQuantity";
@@ -25,16 +26,9 @@ import useUpdateQuantity from "../hooks/useUpdateQuantity";
 interface Props {
   cartItem: CartItem;
   handleAddRemoveIdChange: (value: number) => void;
-  itemIds: Set<number>;
-  setItemIds: Dispatch<React.SetStateAction<Set<number>>>;
 }
 
-const CartItemCard = ({
-  cartItem,
-  handleAddRemoveIdChange,
-  itemIds,
-  setItemIds,
-}: Props) => {
+const CartItemCard = ({ cartItem, handleAddRemoveIdChange }: Props) => {
   const centerFlex = {
     display: "flex",
     alignItems: "center",
@@ -50,13 +44,11 @@ const CartItemCard = ({
     display: "flex",
   };
   const [isHover, setIsHover] = useState(false);
-  const [totalItemPrice, setTotalItemPrice] = useState<number>(0);
   const [quantity, setQuantity] = useState(cartItem.quantity);
   const { mutate: updateOneItem } = useUpdateQuantity();
+  const { itemIds, setItemIds } = useCartStore();
 
-  useEffect(() => {
-    setTotalItemPrice(cartItem.inventory.price * quantity);
-  }, [quantity]);
+  const totalItemPrice = cartItem.inventory.price * cartItem.quantity;
 
   const handleUpdateMinusQuantityClick = () => {
     const newQuantity = quantity - 1;

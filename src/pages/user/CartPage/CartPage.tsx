@@ -7,7 +7,8 @@ import {
   Spinner,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useCartStore from "../../../store/cart-store";
 import CartFooter from "./components/CartFooter";
 import CartHeader from "./components/CartHeader";
 import CartItemCard from "./components/CartItemCard";
@@ -23,7 +24,7 @@ const CartPage = () => {
     </Center>;
   }
 
-  const [itemIds, setItemIds] = useState<Set<number>>(new Set());
+  const { itemIds, setItemIds, resetItemIds } = useCartStore();
 
   const handleAddRemoveIdChange = (itemId: number) => {
     setItemIds((prevIds) => {
@@ -37,14 +38,14 @@ const CartPage = () => {
     });
   };
 
-  const cartItemIds =
+  const cartItemsSize =
     getCartItems?.flatMap((cart) => cart.cartItems).length || 0;
 
   const handleAddRemoveAllIdsChange = () => {
     setItemIds((prevIds) => {
       const updatedIds = new Set(prevIds);
 
-      if (cartItemIds === itemIds.size) {
+      if (cartItemsSize === itemIds.size) {
         getCartItems?.forEach((storeName) =>
           storeName.cartItems.forEach((item) =>
             updatedIds.delete(item.cartItemId)
@@ -92,11 +93,34 @@ const CartPage = () => {
       },
       {
         onSuccess: () => {
-          setItemIds(new Set());
+          resetItemIds();
         },
       }
     );
   };
+
+  const [cartTotal, setCartTotal] = useState(0);
+
+  const computeTotalAmount = (itemIds: number[]) => {
+    if (!getCartItems) return 0;
+    const total = getCartItems
+      .flatMap((store) =>
+        store.cartItems.filter((cartItem) =>
+          itemIds.includes(cartItem.cartItemId)
+        )
+      )
+      .reduce(
+        (acc, cartItem) => acc + cartItem.quantity * cartItem.inventory.price,
+        0
+      );
+
+    return total;
+  };
+
+  useEffect(() => {
+    const total = computeTotalAmount(Array.from(itemIds));
+    setCartTotal(total);
+  }, [itemIds, getCartItems]);
 
   if ((getCartItems?.length ?? 0) < 1 && !isLoading) {
     return (
@@ -112,8 +136,7 @@ const CartPage = () => {
         {!isLoading && (
           <CartHeader
             handleAddRemoveAllIdsChange={handleAddRemoveAllIdsChange}
-            cartItemIds={cartItemIds}
-            itemIds={itemIds}
+            cartItemsSize={cartItemsSize}
           />
         )}
         {getCartItems?.map((storeName) => (
@@ -146,8 +169,6 @@ const CartPage = () => {
                 key={cartItem.cartItemId}
                 cartItem={cartItem}
                 handleAddRemoveIdChange={handleAddRemoveIdChange}
-                itemIds={itemIds}
-                setItemIds={setItemIds}
               />
             ))}
           </Box>
@@ -155,9 +176,9 @@ const CartPage = () => {
         {!isLoading && (
           <CartFooter
             handleAddRemoveAllIdsChange={handleAddRemoveAllIdsChange}
-            cartItemIds={cartItemIds}
-            itemIds={itemIds}
+            cartItemsSize={cartItemsSize}
             handleDeleteAllSelectedItemClick={handleDeleteAllSelectedItemClick}
+            cartTotal={cartTotal}
           />
         )}
       </Box>
