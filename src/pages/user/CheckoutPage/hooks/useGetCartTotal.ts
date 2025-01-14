@@ -1,16 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import { CheckoutResponse } from "../../../../entities/CartItem";
 import { axiosInstance } from "../../../../services/api-client";
 import { IdSetProps } from "../../CartPage/hooks/useDeleteAllSelectedItem";
 
 const apiClient = axiosInstance;
 
-const useGetAllCheckoutCartItems = ({ ids }: IdSetProps) => {
+export interface CartTotalProps {
+  totalAmount: number;
+  totalItems: number;
+}
+
+const useGetCartTotal = ({ ids }: IdSetProps) => {
   return useQuery({
-    queryKey: ["checkout", ids],
+    queryKey: ["cartTotal", ids],
     queryFn: async () => {
-      const { data } = await apiClient.get<CheckoutResponse>(
-        `/cart/${ids}/checkout`
+      const { data } = await apiClient.get<CartTotalProps>(
+        `/cart/${ids}/total`
       );
       return data;
     },
@@ -18,4 +22,4 @@ const useGetAllCheckoutCartItems = ({ ids }: IdSetProps) => {
   });
 };
 
-export default useGetAllCheckoutCartItems;
+export default useGetCartTotal;

@@ -7,6 +7,7 @@ interface Props {
   newQuantity: number;
 }
 //Note: im just practicing optimistic update here based on the Tanstack Query docs
+//Note: invalidate cache or optimistic update or use both if optimistic update only remove invalidate query cartItem
 const useUpdateQuantity = () => {
   const queryClient = useQueryClient();
 
@@ -44,12 +45,12 @@ const useUpdateQuantity = () => {
         queryClient.setQueryData(["cartItem"], context.previousData);
       }
     },
-    onSettled: () => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["cartItem"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["checkout"],
+        queryKey: ["cartTotal"],
       });
     },
   });

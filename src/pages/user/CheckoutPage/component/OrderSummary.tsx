@@ -7,17 +7,14 @@ import {
   Spacer,
   Text,
 } from "@chakra-ui/react";
-import { LiaMoneyBillAlt } from "react-icons/lia";
 import { ImCreditCard } from "react-icons/im";
-import { formatCurrency } from "../../../../utilities/formatCurrency";
+import { LiaMoneyBillAlt } from "react-icons/lia";
 import OrangeButton from "../../../../components/Button/OrangeButton";
+import useCartStore from "../../../../store/cart-store";
+import { formatCurrency } from "../../../../utilities/formatCurrency";
+import useGetCartTotal from "../hooks/useGetCartTotal";
 
-interface Props {
-  totalAmount: number;
-  totalItems: number;
-}
-
-const OrderSummary = ({ totalAmount, totalItems }: Props) => {
+const OrderSummary = () => {
   const boxStyle = {
     border: "1px solid",
     borderColor: "#E8E8E8",
@@ -27,8 +24,13 @@ const OrderSummary = ({ totalAmount, totalItems }: Props) => {
     cursor: "pointer",
   };
 
+  const { itemIds } = useCartStore();
+  const { data: getCartTotal } = useGetCartTotal({
+    ids: Array.from(itemIds) ?? 0,
+  });
+
   return (
-    <Card padding={5} minWidth="400px" borderRadius="none" maxHeight="490px">
+    <Card padding={5} minWidth="400px" borderRadius="none" maxHeight="500px">
       <Text fontSize="xl" fontWeight="semibold">
         Select payment method
       </Text>
@@ -62,8 +64,10 @@ const OrderSummary = ({ totalAmount, totalItems }: Props) => {
         Order Summary
       </Text>
       <Flex justifyContent="space-between" mt="10px">
-        <Text color="gray.500">Subtotal ({totalItems} items)</Text>
-        <Text>{formatCurrency(totalAmount)}</Text>
+        <Text color="gray.500">
+          Subtotal ({getCartTotal?.totalItems ?? 0} items)
+        </Text>
+        <Text>{formatCurrency(getCartTotal?.totalAmount ?? 0)}</Text>
       </Flex>
       <Flex justifyContent="space-between" mt="10px">
         <Text color="gray.500">Shipping Fee</Text>
@@ -75,10 +79,10 @@ const OrderSummary = ({ totalAmount, totalItems }: Props) => {
           Total
         </Text>
         <Text color="#E64A19" fontWeight="semibold" fontSize="xl">
-          {formatCurrency(totalAmount)}
+          {formatCurrency(getCartTotal?.totalAmount ?? 0)}
         </Text>
       </Flex>
-      <OrangeButton mt="20px">Place Order</OrangeButton>
+      <OrangeButton mt="30px">Place Order</OrangeButton>
     </Card>
   );
 };

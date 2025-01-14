@@ -1,32 +1,47 @@
 import { Box, Card, Center, Flex, Text } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import GetAllAddressResponse from "../../../entities/Address";
+import useGetAllResources from "../../../hooks/useGetAllResources";
 import useCartStore from "../../../store/cart-store";
-import AddressCard from "./component/AddressCard";
+import useGetCartItemsGroupedByStore from "../CartPage/hooks/useGetCartItemsGroupedByStore";
+import ActiveAddress from "./component/ActiveAddress";
 import CheckoutHeader from "./component/CheckoutHeader";
 import CheckoutItemCard from "./component/CheckoutItemCard";
 import OrderSummary from "./component/OrderSummary";
-import useGetAllCheckoutCartItems from "./hooks/useGetAllCheckoutCartItems";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const CheckoutPage = () => {
+  const { data: getAllAddress } = useGetAllResources<GetAllAddressResponse>({
+    module: "address",
+  });
   const { itemIds } = useCartStore();
   const navigate = useNavigate();
-  const { data: checkoutItems } = useGetAllCheckoutCartItems({
-    ids: Array.from(itemIds) ?? 0,
-  });
+  const cartItemIds = Array.from(itemIds);
 
   useEffect(() => {
     if (itemIds.size < 1) navigate("/cart");
   }, [itemIds]);
+
+  if (itemIds.size < 1) {
+    return null;
+  }
+
+  const { data: getCartItems } = useGetCartItemsGroupedByStore();
 
   return (
     <Center mt="10px">
       <Box minWidth="1200px">
         <Flex>
           <Box width="100%" mr="10px">
-            <AddressCard />
+            {getAllAddress?.pages.map((page) =>
+              page.models
+                .filter((address) => address.status === "ACTIVE")
+                .map((address) => (
+                  <ActiveAddress key={address.addressId} address={address} />
+                ))
+            )}
             <CheckoutHeader />
-            {checkoutItems?.cartItemsResponse.map((storeName) => (
+            {getCartItems?.map((storeName) => (
               <Box mt="10px" key={storeName.storeName}>
                 <Card
                   borderRadius="none"
@@ -38,19 +53,18 @@ const CheckoutPage = () => {
                     {storeName.storeName}
                   </Text>
                 </Card>
-                {storeName.cartItems.map((cartItem) => (
-                  <CheckoutItemCard
-                    key={cartItem.cartItemId}
-                    cartItem={cartItem}
-                  />
-                ))}
+                {storeName.cartItems
+                  .filter((item) => cartItemIds.includes(item.cartItemId))
+                  .map((cartItem) => (
+                    <CheckoutItemCard
+                      key={cartItem.cartItemId}
+                      cartItem={cartItem}
+                    />
+                  ))}
               </Box>
             ))}
           </Box>
-          <OrderSummary
-            totalAmount={checkoutItems?.totalAmount ?? 0}
-            totalItems={checkoutItems?.totalItems ?? 0}
-          />
+          <OrderSummary />
         </Flex>
       </Box>
     </Center>
