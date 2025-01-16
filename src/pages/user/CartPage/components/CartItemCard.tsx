@@ -134,10 +134,12 @@ const CartItemCard = ({ cartItem, handleAddRemoveIdChange }: Props) => {
             >
               <Text>{quantity}</Text>
             </Center>
+
             <Button
               variant="unstyled"
               {...boxStyle}
               onClick={handleUpdatePlusQuantityClick}
+              isDisabled={quantity === cartItem.inventory.quantity}
             >
               <GoPlus />
             </Button>

@@ -28,6 +28,10 @@ const CheckoutPage = () => {
 
   const { data: getCartItems } = useGetCartItemsGroupedByStore();
 
+  const hasActiveAddress = getAllAddress?.pages.some((page) =>
+    page.models.some((address) => address.status === "ACTIVE")
+  );
+
   return (
     <Center mt="10px">
       <Box minWidth="1200px">
@@ -41,30 +45,36 @@ const CheckoutPage = () => {
                 ))
             )}
             <CheckoutHeader />
-            {getCartItems?.map((storeName) => (
-              <Box mt="10px" key={storeName.storeName}>
-                <Card
-                  borderRadius="none"
-                  borderBottom="1px solid"
-                  borderColor="	#E8E8E8"
-                  padding={5}
-                >
-                  <Text fontWeight="semibold" textTransform="capitalize">
-                    {storeName.storeName}
-                  </Text>
-                </Card>
-                {storeName.cartItems
-                  .filter((item) => cartItemIds.includes(item.cartItemId))
-                  .map((cartItem) => (
-                    <CheckoutItemCard
-                      key={cartItem.cartItemId}
-                      cartItem={cartItem}
-                    />
-                  ))}
-              </Box>
-            ))}
+            {getCartItems
+              ?.filter((store) =>
+                store.cartItems.some((item) =>
+                  cartItemIds.includes(item.cartItemId)
+                )
+              )
+              .map((storeName) => (
+                <Box mt="10px" key={storeName.storeName}>
+                  <Card
+                    borderRadius="none"
+                    borderBottom="1px solid"
+                    borderColor="	#E8E8E8"
+                    padding={5}
+                  >
+                    <Text fontWeight="semibold" textTransform="capitalize">
+                      {storeName.storeName}
+                    </Text>
+                  </Card>
+                  {storeName.cartItems
+                    .filter((item) => cartItemIds.includes(item.cartItemId))
+                    .map((cartItem) => (
+                      <CheckoutItemCard
+                        key={cartItem.cartItemId}
+                        cartItem={cartItem}
+                      />
+                    ))}
+                </Box>
+              ))}
           </Box>
-          <OrderSummary />
+          <OrderSummary hasActiveAddress={hasActiveAddress ?? false} />
         </Flex>
       </Box>
     </Center>

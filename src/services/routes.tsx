@@ -18,6 +18,9 @@ import AddressPage from "../pages/user/AddressPage/AddressPage";
 import CheckoutPage from "../pages/user/CheckoutPage/CheckoutPage";
 import MyFavoritePage from "../pages/user/MyFavoritePage/MyFavoritePage";
 import MyFollowingPage from "../pages/user/MyFollowingPage/MyFollowingPage";
+import AllOrders from "../pages/user/MyPurchasePage/components/AllOrders";
+import PendingOrders from "../pages/user/MyPurchasePage/components/PendingOrders";
+import MyPurchasePage from "../pages/user/MyPurchasePage/MyPurchasePage";
 import ProductDetailPage from "../pages/user/ProductDetailPage/ProductDetailPage";
 import UserPage from "../pages/user/UserPage/UserPage";
 
@@ -66,6 +69,14 @@ const router = createBrowserRouter([
           { path: "account/address", element: <AddressPage /> },
           { path: "favorites", element: <MyFavoritePage /> },
           { path: "following", element: <MyFollowingPage /> },
+          {
+            path: "purchase",
+            element: <MyPurchasePage />,
+            children: [
+              { path: "order/all", element: <AllOrders /> },
+              { path: "order/pending", element: <PendingOrders /> },
+            ],
+          },
         ],
       },
     ],

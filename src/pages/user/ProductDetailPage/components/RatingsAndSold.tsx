@@ -1,7 +1,11 @@
 import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 import { IoIosStar } from "react-icons/io";
 
-const RatingsAndSold = () => {
+interface Props {
+  totalSold: number;
+}
+
+const RatingsAndSold = ({ totalSold }: Props) => {
   const ratings = [1, 2, 3, 4, 5];
   return (
     <>
@@ -43,7 +47,7 @@ const RatingsAndSold = () => {
           textDecoration="underline 1px"
           style={{ textUnderlineOffset: "5px" }}
         >
-          50
+          {totalSold}
         </Text>
         <Text>Sold</Text>
       </Flex>

@@ -8,6 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { FiShoppingCart } from "react-icons/fi";
 import useCartStore from "../../../store/cart-store";
 import CartFooter from "./components/CartFooter";
 import CartHeader from "./components/CartHeader";
@@ -124,8 +125,11 @@ const CartPage = () => {
 
   if ((getCartItems?.length ?? 0) < 1 && !isLoading) {
     return (
-      <Center height="70vh">
-        <Text>No cart items found.</Text>
+      <Center height="70vh" flexDirection="column">
+        <FiShoppingCart size="100px" />
+        <Text mt="20px" fontSize="large" whiteSpace="nowrap">
+          Your shopping cart is empty
+        </Text>
       </Center>
     );
   }
