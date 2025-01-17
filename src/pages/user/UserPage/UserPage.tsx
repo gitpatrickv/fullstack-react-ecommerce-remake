@@ -137,7 +137,9 @@ const UserPage = () => {
             <BiPurchaseTag
               size="20px"
               color={
-                location.pathname === "/user/purchase" ? "#E64A19" : undefined
+                location.pathname.startsWith("/user/purchase")
+                  ? "#E64A19"
+                  : undefined
               }
             />
             <Link to="/user/purchase">
@@ -146,7 +148,7 @@ const UserPage = () => {
                 _hover={{ color: "#E64A19" }}
                 fontWeight="semibold"
                 color={
-                  location.pathname === "/user/purchase"
+                  location.pathname.startsWith("/user/purchase")
                     ? "#FF5722"
                     : "white.500"
                 }

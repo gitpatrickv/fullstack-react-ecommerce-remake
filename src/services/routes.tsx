@@ -28,6 +28,7 @@ import MyPurchasePage from "../pages/user/MyPurchasePage/MyPurchasePage";
 import ProductDetailPage from "../pages/user/ProductDetailPage/ProductDetailPage";
 import StorePage from "../pages/user/StorePage/StorePage";
 import UserPage from "../pages/user/UserPage/UserPage";
+import RatedOrders from "../pages/user/MyPurchasePage/components/RatedOrders";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,7 @@ const router = createBrowserRouter([
               { path: "order/to-ship", element: <ToShipOrders /> },
               { path: "order/to-receive", element: <ToReceiveOrders /> },
               { path: "order/completed", element: <CompletedOrders /> },
+              { path: "order/rated", element: <RatedOrders /> },
               { path: "order/cancelled", element: <CancelledOrders /> },
             ],
           },

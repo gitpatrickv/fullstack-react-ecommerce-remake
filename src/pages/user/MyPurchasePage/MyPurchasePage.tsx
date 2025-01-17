@@ -12,6 +12,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import AllOrders from "./components/AllOrders";
 import CancelledOrders from "./components/CancelledOrders";
 import CompletedOrders from "./components/CompletedOrders";
+import RatedOrders from "./components/RatedOrders";
 import ToPayOrders from "./components/ToPayOrders";
 import ToReceiveOrders from "./components/ToReceiveOrders";
 import ToShipOrders from "./components/ToShipOrders";
@@ -28,6 +29,7 @@ const MyPurchasePage = () => {
     "/user/purchase/order/to-ship",
     "/user/purchase/order/to-receive",
     "/user/purchase/order/completed",
+    "/user/purchase/order/rated",
     "/user/purchase/order/cancelled",
   ];
 
@@ -48,8 +50,11 @@ const MyPurchasePage = () => {
       case "/user/purchase/order/completed":
         setSelectedIndex(4);
         break;
-      case "/user/purchase/order/cancelled":
+      case "/user/purchase/order/rated":
         setSelectedIndex(5);
+        break;
+      case "/user/purchase/order/cancelled":
+        setSelectedIndex(6);
         break;
       default:
         setSelectedIndex(0);
@@ -74,27 +79,31 @@ const MyPurchasePage = () => {
           <Tab>To Ship</Tab>
           <Tab>To Receive</Tab>
           <Tab>Completed</Tab>
+          <Tab>Rated</Tab>
           <Tab>Cancelled</Tab>
         </TabList>
       </Card>
       <TabIndicator mt="-3px" height="4px" bg="#E64A19" />
       <TabPanels>
-        <TabPanel>
+        <TabPanel padding={0}>
           <AllOrders />
         </TabPanel>
-        <TabPanel>
+        <TabPanel padding={0}>
           <ToPayOrders />
         </TabPanel>
-        <TabPanel>
+        <TabPanel padding={0}>
           <ToShipOrders />
         </TabPanel>
-        <TabPanel>
+        <TabPanel padding={0}>
           <ToReceiveOrders />
         </TabPanel>
-        <TabPanel>
+        <TabPanel padding={0}>
           <CompletedOrders />
         </TabPanel>
-        <TabPanel>
+        <TabPanel padding={0}>
+          <RatedOrders />
+        </TabPanel>
+        <TabPanel padding={0}>
           <CancelledOrders />
         </TabPanel>
       </TabPanels>

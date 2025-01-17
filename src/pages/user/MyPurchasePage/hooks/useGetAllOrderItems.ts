@@ -6,16 +6,18 @@ const apiClient = axiosInstance;
 
 export interface PaginateProps {
   pageSize: number;
+  status?: string;
 }
 
-const useGetAllOrderItems = ({ pageSize }: PaginateProps) => {
+const useGetAllOrderItems = ({ pageSize, status }: PaginateProps) => {
   return useInfiniteQuery<OrderItemResponse, Error>({
-    queryKey: ["allOrders", pageSize],
+    queryKey: ["allOrders", status, pageSize],
     queryFn: async ({ pageParam = 0 }) => {
       const { data } = await apiClient.get<OrderItemResponse>(`/order`, {
         params: {
           pageNo: pageParam,
           pageSize: pageSize,
+          status: status,
         },
       });
       return data;

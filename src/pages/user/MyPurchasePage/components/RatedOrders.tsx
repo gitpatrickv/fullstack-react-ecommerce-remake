@@ -1,13 +1,13 @@
-import { Box, Skeleton, Spinner } from "@chakra-ui/react";
+import { Skeleton, Box, Spinner } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useGetAllOrderItems from "../hooks/useGetAllOrderItems";
 import NoOrdersYet from "./NoOrdersYet";
 import OrderCard from "./OrderCard";
 
-const CancelledOrders = () => {
+const RatedOrders = () => {
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetAllOrderItems({
     pageSize: 6,
-    status: "CANCELLED",
+    status: "RATED",
   });
 
   const ordersLength =
@@ -50,4 +50,4 @@ const CancelledOrders = () => {
   );
 };
 
-export default CancelledOrders;
+export default RatedOrders;
