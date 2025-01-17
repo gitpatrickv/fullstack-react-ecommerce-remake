@@ -19,9 +19,14 @@ import CheckoutPage from "../pages/user/CheckoutPage/CheckoutPage";
 import MyFavoritePage from "../pages/user/MyFavoritePage/MyFavoritePage";
 import MyFollowingPage from "../pages/user/MyFollowingPage/MyFollowingPage";
 import AllOrders from "../pages/user/MyPurchasePage/components/AllOrders";
-import PendingOrders from "../pages/user/MyPurchasePage/components/PendingOrders";
+import CancelledOrders from "../pages/user/MyPurchasePage/components/CancelledOrders";
+import CompletedOrders from "../pages/user/MyPurchasePage/components/CompletedOrders";
+import ToPayOrders from "../pages/user/MyPurchasePage/components/ToPayOrders";
+import ToReceiveOrders from "../pages/user/MyPurchasePage/components/ToReceiveOrders";
+import ToShipOrders from "../pages/user/MyPurchasePage/components/ToShipOrders";
 import MyPurchasePage from "../pages/user/MyPurchasePage/MyPurchasePage";
 import ProductDetailPage from "../pages/user/ProductDetailPage/ProductDetailPage";
+import StorePage from "../pages/user/StorePage/StorePage";
 import UserPage from "../pages/user/UserPage/UserPage";
 
 const router = createBrowserRouter([
@@ -38,6 +43,7 @@ const router = createBrowserRouter([
         path: `/product/:productId/:slug`,
         element: <ProductDetailPage />,
       },
+      { path: "/store/:storeId/:storeName", element: <StorePage /> },
       {
         path: "/cart",
         element: (
@@ -74,7 +80,11 @@ const router = createBrowserRouter([
             element: <MyPurchasePage />,
             children: [
               { path: "order/all", element: <AllOrders /> },
-              { path: "order/pending", element: <PendingOrders /> },
+              { path: "order/to-pay", element: <ToPayOrders /> },
+              { path: "order/to-ship", element: <ToShipOrders /> },
+              { path: "order/to-receive", element: <ToReceiveOrders /> },
+              { path: "order/completed", element: <CompletedOrders /> },
+              { path: "order/cancelled", element: <CancelledOrders /> },
             ],
           },
         ],

@@ -5,3 +5,8 @@ export interface Store {
   picture?: string;
   status: string;
 }
+
+export interface StoreInfo {
+  storeId: number;
+  storeName: string;
+}

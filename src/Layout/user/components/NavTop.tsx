@@ -17,6 +17,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { BiPurchaseTag } from "react-icons/bi";
 import { FaRegUser } from "react-icons/fa6";
 import { FiHeart } from "react-icons/fi";
 import { RiStore2Line } from "react-icons/ri";
@@ -94,6 +95,12 @@ const NavTop = () => {
                 <MenuItem paddingBottom={3} paddingTop={3}>
                   <RiStore2Line size="20px" />
                   <Text ml="10px">My Following</Text>
+                </MenuItem>
+              </Link>
+              <Link to="/user/purchase">
+                <MenuItem paddingBottom={3} paddingTop={3}>
+                  <BiPurchaseTag size="20px" />
+                  <Text ml="10px">My Purchase</Text>
                 </MenuItem>
               </Link>
               <MenuItem onClick={handleLogout} paddingBottom={3} paddingTop={3}>

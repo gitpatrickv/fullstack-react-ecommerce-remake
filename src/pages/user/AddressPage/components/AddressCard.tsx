@@ -48,7 +48,7 @@ const AddressCard = ({ address }: Props) => {
 
   return (
     <Card height="290px" borderRadius="none" padding={4} position="relative">
-      <Text fontSize="lg" fontWeight="bold">
+      <Text fontSize="lg" fontWeight="semibold" textTransform="capitalize">
         {address.fullName}
       </Text>
       <HStack>

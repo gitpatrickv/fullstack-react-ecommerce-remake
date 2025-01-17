@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import useCartStore from "../../../store/cart-store";
 import CartFooter from "./components/CartFooter";
 import CartHeader from "./components/CartHeader";
@@ -24,6 +25,12 @@ const CartPage = () => {
       <Spinner size="lg" />
     </Center>;
   }
+
+  const navigate = useNavigate();
+
+  const handleNavigateClick = (storeId: number, storeName: string) => {
+    navigate(`/store/${storeId}/${storeName}`);
+  };
 
   const { itemIds, setItemIds, resetItemIds } = useCartStore();
 
@@ -144,7 +151,7 @@ const CartPage = () => {
           />
         )}
         {getCartItems?.map((storeName) => (
-          <Box key={storeName.storeName} mt="10px">
+          <Box key={storeName.storeId} mt="10px">
             <Card
               padding={4}
               borderRadius="none"
@@ -163,6 +170,10 @@ const CartPage = () => {
                   fontWeight="semibold"
                   textTransform="capitalize"
                   ml="20px"
+                  onClick={() =>
+                    handleNavigateClick(storeName.storeId, storeName.storeName)
+                  }
+                  cursor="pointer"
                 >
                   {storeName.storeName}
                 </Text>

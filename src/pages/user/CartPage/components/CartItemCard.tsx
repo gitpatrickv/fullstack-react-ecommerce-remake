@@ -15,6 +15,7 @@ import { useState } from "react";
 import { FiMinus } from "react-icons/fi";
 import { GoPlus } from "react-icons/go";
 import { MdDeleteOutline } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 import AlertDialogBox from "../../../../components/AlertDialog/AlertDialogBox";
 import DynamicIconButton from "../../../../components/Button/DynamicIconButton";
 import { CartItem } from "../../../../entities/CartItem";
@@ -86,6 +87,12 @@ const CartItemCard = ({ cartItem, handleAddRemoveIdChange }: Props) => {
     });
   };
 
+  const navigate = useNavigate();
+
+  const handleNavigateClick = () => {
+    navigate(`/product/${cartItem.productId}/${cartItem.slug}`);
+  };
+
   return (
     <>
       <Card borderRadius="none" padding={4}>
@@ -100,9 +107,20 @@ const CartItemCard = ({ cartItem, handleAddRemoveIdChange }: Props) => {
                 onChange={() => handleAddRemoveIdChange(cartItem.cartItemId)}
                 isChecked={itemIds.has(cartItem.cartItemId)}
               />
-              <Image src={cartItem.productImage} boxSize="90px" ml="20px" />
+              <Image
+                src={cartItem.productImage}
+                boxSize="90px"
+                ml="20px"
+                onClick={handleNavigateClick}
+                cursor="pointer"
+              />
               <Flex flexDirection="column">
-                <Text ml="20px" textTransform="capitalize">
+                <Text
+                  ml="20px"
+                  textTransform="capitalize"
+                  onClick={handleNavigateClick}
+                  cursor="pointer"
+                >
                   {cartItem.productName}
                 </Text>
                 {cartItem.inventory.color && cartItem.inventory.size && (

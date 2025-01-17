@@ -7,6 +7,7 @@ import {
   GridItem,
   Text,
 } from "@chakra-ui/react";
+import { BiPurchaseTag } from "react-icons/bi";
 import { FaRegEdit } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa6";
 import { FiHeart } from "react-icons/fi";
@@ -17,7 +18,7 @@ import { useUserStore } from "../../../store/user-store";
 const UserPage = () => {
   const location = useLocation();
   const profileLocation = location.pathname.startsWith("/user/account");
-  const { picture } = useUserStore();
+  const { picture, name } = useUserStore();
   return (
     <Grid
       templateColumns="0.3fr 0.2fr 0.8fr 0.3fr"
@@ -29,8 +30,10 @@ const UserPage = () => {
             <Flex>
               <Avatar src={picture || pic} size="md" />
               <Box ml="10px">
-                <Text textTransform="capitalize">PATRICK</Text>
-                <Flex>
+                <Text textTransform="capitalize" fontWeight="semibold">
+                  {name}
+                </Text>
+                <Flex color="gray.500">
                   <FaRegEdit size="20" />
                   <Text ml="5px">Edit Profile</Text>
                 </Flex>
@@ -127,6 +130,28 @@ const UserPage = () => {
                 }
               >
                 My Following
+              </Text>
+            </Link>
+          </Flex>
+          <Flex alignItems="center" ml="15px" cursor="pointer" mt="10px">
+            <BiPurchaseTag
+              size="20px"
+              color={
+                location.pathname === "/user/purchase" ? "#E64A19" : undefined
+              }
+            />
+            <Link to="/user/purchase">
+              <Text
+                ml="20px"
+                _hover={{ color: "#E64A19" }}
+                fontWeight="semibold"
+                color={
+                  location.pathname === "/user/purchase"
+                    ? "#FF5722"
+                    : "white.500"
+                }
+              >
+                My Purchase
               </Text>
             </Link>
           </Flex>
