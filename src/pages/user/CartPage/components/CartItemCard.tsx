@@ -190,6 +190,7 @@ const CartItemCard = ({ cartItem, handleAddRemoveIdChange }: Props) => {
         color={"red.500"}
         hoverColor={"red.600"}
         fn={handleDeleteOneItemClick}
+        textTransform="capitalize"
       />
     </>
   );

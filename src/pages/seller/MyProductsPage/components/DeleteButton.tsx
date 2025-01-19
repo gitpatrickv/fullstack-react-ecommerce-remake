@@ -52,6 +52,7 @@ const DeleteButton = ({ productId, productName }: IdProps) => {
         color={"red.500"}
         hoverColor={"red.600"}
         fn={handleDeleteClick}
+        textTransform="capitalize"
       />
     </>
   );

@@ -46,9 +46,9 @@ const useUpdateQuantity = () => {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["cartItem"],
-      });
+      // queryClient.invalidateQueries({
+      //   queryKey: ["cartItem"],
+      // });
       queryClient.invalidateQueries({
         queryKey: ["cartTotal"],
       });

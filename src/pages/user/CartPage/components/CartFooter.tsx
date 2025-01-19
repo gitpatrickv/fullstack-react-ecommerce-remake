@@ -8,8 +8,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import AlertDialogBox from "../../../../components/AlertDialog/AlertDialogBox";
 import OrangeButton from "../../../../components/Button/OrangeButton";
-import useGetCartSize from "../../../../hooks/useGetCartSize";
 import useCartStore from "../../../../store/cart-store";
 import { formatCurrency } from "../../../../utilities/formatCurrency";
 
@@ -18,6 +18,9 @@ interface Props {
   cartItemsSize: number;
   handleDeleteAllSelectedItemClick: () => void;
   cartTotal: number;
+  isOpen: boolean;
+  onClose: () => void;
+  onOpen: () => void;
 }
 
 const CartFooter = ({
@@ -25,8 +28,10 @@ const CartFooter = ({
   cartItemsSize,
   handleDeleteAllSelectedItemClick,
   cartTotal,
+  isOpen,
+  onClose,
+  onOpen,
 }: Props) => {
-  const { data: cartSize } = useGetCartSize();
   const { itemIds } = useCartStore();
   const navigate = useNavigate();
   const handleNavigateClick = () => {
@@ -55,7 +60,7 @@ const CartFooter = ({
               cursor="pointer"
               onClick={handleAddRemoveAllIdsChange}
             >
-              Select All ({cartSize})
+              Select All ({cartItemsSize})
             </Text>
           </Flex>
           <Button
@@ -63,7 +68,7 @@ const CartFooter = ({
             mr="20px"
             fontWeight="semibold"
             cursor="pointer"
-            onClick={handleDeleteAllSelectedItemClick}
+            onClick={onOpen}
             _hover={{ color: "#E64A19" }}
             isDisabled={itemIds.size < 1}
           >
@@ -91,6 +96,16 @@ const CartFooter = ({
           </OrangeButton>
         </HStack>
       </Card>
+      <AlertDialogBox
+        isOpen={isOpen}
+        onClose={onClose}
+        title={"Delete Products"}
+        content={`Are you sure you want to remove all ${itemIds.size} products?`}
+        buttonName={"Delete"}
+        color={"red.500"}
+        hoverColor={"red.600"}
+        fn={handleDeleteAllSelectedItemClick}
+      />
     </>
   );
 };

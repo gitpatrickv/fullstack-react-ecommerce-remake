@@ -18,9 +18,6 @@ const useDeleteAllSelectedItem = () => {
       queryClient.invalidateQueries({
         queryKey: ["cartItem"],
       });
-      queryClient.invalidateQueries({
-        queryKey: ["cartSize"],
-      });
       toast({
         title: "Cart Items Deleted",
         description: response,

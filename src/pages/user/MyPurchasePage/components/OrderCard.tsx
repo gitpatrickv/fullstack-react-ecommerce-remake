@@ -3,6 +3,7 @@ import AlertDialogBox from "../../../../components/AlertDialog/AlertDialogBox";
 import OrangeButton from "../../../../components/Button/OrangeButton";
 import { Order } from "../../../../entities/Order";
 import { formatCurrency } from "../../../../utilities/formatCurrency";
+import useBuyAgain from "../hooks/useBuyAgain";
 import useUpdateOrderStatus from "../hooks/useUpdateOrderStatus";
 import OrderItemCard from "./OrderItemCard";
 
@@ -35,6 +36,9 @@ const OrderCard = ({ order }: Props) => {
     CANCELLED: "Buy Again",
   };
 
+  const buyAgainClick = ["RATED", "CANCELLED"];
+  const updateStatusClick = ["TO_PAY", "TO_SHIP", "TO_RECEIVE"];
+
   const {
     mutation: updateOrderStatus,
     isOpen: isOpenUpdateOrderStatus,
@@ -47,6 +51,12 @@ const OrderCard = ({ order }: Props) => {
 
   const handleUpdateOrderStatusClick = () => {
     updateOrderStatus.mutate();
+  };
+
+  const { mutate } = useBuyAgain(order.orderId);
+
+  const handleBuyAgainClick = () => {
+    mutate();
   };
 
   return (
@@ -70,7 +80,16 @@ const OrderCard = ({ order }: Props) => {
           </Text>
         </Text>
         <Flex justifyContent="end" mt="20px">
-          <OrangeButton width="150px" onClick={onOpenUpdateOrderStatus}>
+          <OrangeButton
+            width="150px"
+            onClick={
+              updateStatusClick.includes(order.orderStatus)
+                ? onOpenUpdateOrderStatus
+                : buyAgainClick.includes(order.orderStatus)
+                ? handleBuyAgainClick
+                : undefined
+            }
+          >
             {buttonNameMapping[order.orderStatus] || ""}
           </OrangeButton>
           {order.orderStatus === "COMPLETED" && (
@@ -82,6 +101,7 @@ const OrderCard = ({ order }: Props) => {
               _active={{ bg: "#E8E8E8" }}
               borderRadius="none"
               ml="10px"
+              onClick={handleBuyAgainClick}
             >
               Buy Again
             </Button>

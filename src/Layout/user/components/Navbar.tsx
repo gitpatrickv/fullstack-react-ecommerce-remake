@@ -9,20 +9,25 @@ import {
 import { FiShoppingCart } from "react-icons/fi";
 import { GoHome } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom";
+import useGetCartItemsGroupedByStore from "../../../pages/user/CartPage/hooks/useGetCartItemsGroupedByStore";
+import { useAuthQueryStore } from "../../../store/auth-store";
 import NavTop from "./NavTop";
 import Search from "./Search";
-import { useAuthQueryStore } from "../../../store/auth-store";
-import useGetCartSize from "../../../hooks/useGetCartSize";
 
 const Navbar = () => {
   const { colorMode } = useColorMode();
   const { authStore } = useAuthQueryStore();
   const jwtToken = authStore.jwtToken;
-  const { data } = useGetCartSize();
   const navigate = useNavigate();
   const handleNavigateClick = () => {
     navigate("/cart");
   };
+
+  const { data: getCartItems } = useGetCartItemsGroupedByStore();
+
+  const cartItemsSize =
+    getCartItems?.flatMap((cart) => cart.cartItems).length || 0;
+
   return (
     <Card
       width="100%"
@@ -73,7 +78,7 @@ const Navbar = () => {
                 right="63px"
               >
                 <Text color="#E64A19" fontSize="sm" fontWeight="semibold">
-                  {data}
+                  {cartItemsSize}
                 </Text>
               </Flex>
             </Flex>

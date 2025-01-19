@@ -6,6 +6,7 @@ import {
   Flex,
   Spinner,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
@@ -93,6 +94,7 @@ const CartPage = () => {
   };
 
   const { mutate: deleteAllSelectedItem } = useDeleteAllSelectedItem();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleDeleteAllSelectedItemClick = () => {
     deleteAllSelectedItem(
@@ -102,6 +104,7 @@ const CartPage = () => {
       {
         onSuccess: () => {
           resetItemIds();
+          onClose();
         },
       }
     );
@@ -194,6 +197,9 @@ const CartPage = () => {
             cartItemsSize={cartItemsSize}
             handleDeleteAllSelectedItemClick={handleDeleteAllSelectedItemClick}
             cartTotal={cartTotal}
+            isOpen={isOpen}
+            onClose={onClose}
+            onOpen={onOpen}
           />
         )}
       </Box>

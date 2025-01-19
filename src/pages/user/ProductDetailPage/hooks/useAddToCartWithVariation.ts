@@ -22,9 +22,6 @@ const useAddToCartWithVariation = ({ color, size }: Props) => {
       queryClient.invalidateQueries({
         queryKey: ["cartItem"],
       });
-      queryClient.invalidateQueries({
-        queryKey: ["cartSize"],
-      });
       toast({
         title: "Item added to cart.",
         description: response,
