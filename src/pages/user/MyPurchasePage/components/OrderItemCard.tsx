@@ -1,5 +1,6 @@
-import { Card, Flex, Image, Text } from "@chakra-ui/react";
+import { Card, Flex, Image, Spacer, Text } from "@chakra-ui/react";
 import { OrderItem } from "../../../../entities/OrderItem";
+import { formatCurrency } from "../../../../utilities/formatCurrency";
 
 interface Props {
   items: OrderItem;
@@ -19,6 +20,11 @@ const OrderItemCard = ({ items }: Props) => {
               Variation: {items.color}, {items.size}
             </Text>
           )}
+        </Flex>
+        <Spacer />
+        <Flex flexDirection="column" textAlign="end">
+          <Text>Qty: {items.quantity}</Text>
+          <Text>{formatCurrency(items.productPrice)}</Text>
         </Flex>
       </Flex>
     </Card>

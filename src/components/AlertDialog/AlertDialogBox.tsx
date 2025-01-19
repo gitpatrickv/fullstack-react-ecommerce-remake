@@ -19,6 +19,7 @@ interface Props {
   color: string;
   hoverColor: string;
   fn: () => void;
+  textTransform?: "capitalize" | "none";
 }
 
 const AlertDialogBox = ({
@@ -30,6 +31,7 @@ const AlertDialogBox = ({
   color,
   hoverColor,
   fn,
+  textTransform,
 }: Props) => {
   const cancelRef = useRef(null);
   return (
@@ -47,7 +49,7 @@ const AlertDialogBox = ({
             </Text>
           </AlertDialogHeader>
           <AlertDialogBody>
-            <Text textTransform="capitalize" fontSize="lg">
+            <Text textTransform={textTransform} fontSize="lg">
               {content}
             </Text>
           </AlertDialogBody>
