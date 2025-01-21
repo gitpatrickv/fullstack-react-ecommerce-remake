@@ -1,5 +1,5 @@
 import { useToast } from "@chakra-ui/react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "../../../../services/api-client";
 
 const apiClient = axiosInstance;
@@ -11,7 +11,6 @@ interface Props {
 
 const usePlaceOrder = () => {
   const toast = useToast();
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ ids, paymentMethod }: Props) => {
       const { data } = await apiClient.post(`/order`, { ids, paymentMethod });
@@ -25,12 +24,6 @@ const usePlaceOrder = () => {
         status: "success",
         duration: 3000,
         isClosable: true,
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["cartItem"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["cartSize"],
       });
     },
     onError: (error: any) => {

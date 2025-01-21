@@ -15,6 +15,7 @@ import { RiStore2Line } from "react-icons/ri";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import pic from "../../../assets/profpic.jpeg";
 import { useUserStore } from "../../../store/user-store";
+import SidebarNavLink from "../../../components/sidebar/SidebarNavLink";
 const UserPage = () => {
   const location = useLocation();
   const profileLocation = location.pathname.startsWith("/user/account");
@@ -42,23 +43,15 @@ const UserPage = () => {
           </Link>
 
           <Divider mt="16px" mb="15px" borderColor="#BEBEBE" />
-
-          <Flex alignItems="center" ml="15px" cursor="pointer">
-            <FaRegUser
-              size="20px"
-              color={profileLocation ? "#FF5722" : undefined}
-            />
-            <Link to="/user/account/profile">
-              <Text
-                ml="20px"
-                _hover={{ color: "#E64A19" }}
-                fontWeight="semibold"
-                color={profileLocation ? "#FF5722" : "white.500"}
-              >
-                My Account
-              </Text>
-            </Link>
-          </Flex>
+          <SidebarNavLink
+            icon={FaRegUser}
+            navLink="/user/account/profile"
+            iconSize="20px"
+            marginTop="10px"
+            marginLeft="15px"
+            title="My Account"
+            titleMarginLeft="20px"
+          />
           {profileLocation && (
             <Box ml="55px" mt="10px">
               <Link to="/user/account/profile">
@@ -89,74 +82,33 @@ const UserPage = () => {
               </Link>
             </Box>
           )}
-          <Flex alignItems="center" ml="15px" cursor="pointer" mt="10px">
-            <FiHeart
-              size="20px"
-              color={
-                location.pathname === "/user/favorites" ? "#E64A19" : undefined
-              }
-            />
-            <Link to="/user/favorites">
-              <Text
-                ml="20px"
-                _hover={{ color: "#E64A19" }}
-                fontWeight="semibold"
-                color={
-                  location.pathname === "/user/favorites"
-                    ? "#FF5722"
-                    : "white.500"
-                }
-              >
-                My Favorites
-              </Text>
-            </Link>
-          </Flex>
-          <Flex alignItems="center" ml="15px" cursor="pointer" mt="10px">
-            <RiStore2Line
-              size="20px"
-              color={
-                location.pathname === "/user/following" ? "#E64A19" : undefined
-              }
-            />
-            <Link to="/user/following">
-              <Text
-                ml="20px"
-                _hover={{ color: "#E64A19" }}
-                fontWeight="semibold"
-                color={
-                  location.pathname === "/user/following"
-                    ? "#FF5722"
-                    : "white.500"
-                }
-              >
-                My Following
-              </Text>
-            </Link>
-          </Flex>
-          <Flex alignItems="center" ml="15px" cursor="pointer" mt="10px">
-            <BiPurchaseTag
-              size="20px"
-              color={
-                location.pathname.startsWith("/user/purchase")
-                  ? "#E64A19"
-                  : undefined
-              }
-            />
-            <Link to="/user/purchase">
-              <Text
-                ml="20px"
-                _hover={{ color: "#E64A19" }}
-                fontWeight="semibold"
-                color={
-                  location.pathname.startsWith("/user/purchase")
-                    ? "#FF5722"
-                    : "white.500"
-                }
-              >
-                My Purchase
-              </Text>
-            </Link>
-          </Flex>
+          <SidebarNavLink
+            icon={FiHeart}
+            navLink="/user/favorites"
+            iconSize="20px"
+            marginTop="10px"
+            marginLeft="15px"
+            title="My Favorites"
+            titleMarginLeft="20px"
+          />
+          <SidebarNavLink
+            icon={RiStore2Line}
+            navLink="/user/following"
+            iconSize="20px"
+            marginTop="10px"
+            marginLeft="15px"
+            title="My Following"
+            titleMarginLeft="20px"
+          />
+          <SidebarNavLink
+            icon={BiPurchaseTag}
+            navLink="/user/purchase"
+            iconSize="20px"
+            marginTop="10px"
+            marginLeft="15px"
+            title="My Purchase"
+            titleMarginLeft="20px"
+          />
         </Box>
       </GridItem>
       <GridItem area="section2" ml="10px" mt="20px">

@@ -1,4 +1,4 @@
-import { Button, Card, Flex, Text } from "@chakra-ui/react";
+import { Button, Card, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import AlertDialogBox from "../../../../components/AlertDialog/AlertDialogBox";
 import OrangeButton from "../../../../components/Button/OrangeButton";
 import { Order } from "../../../../entities/Order";
@@ -6,6 +6,7 @@ import { formatCurrency } from "../../../../utilities/formatCurrency";
 import useBuyAgain from "../hooks/useBuyAgain";
 import useUpdateOrderStatus from "../hooks/useUpdateOrderStatus";
 import OrderItemCard from "./OrderItemCard";
+import RateModal from "./RateModal";
 
 interface Props {
   order: Order;
@@ -59,6 +60,12 @@ const OrderCard = ({ order }: Props) => {
     mutate();
   };
 
+  const {
+    onOpen: onOpenRateModal,
+    isOpen: isOpenRateModal,
+    onClose: onCloseRateModal,
+  } = useDisclosure();
+
   return (
     <>
       <Card borderBottom="1px solid" mt="10px" {...cardStyle}>
@@ -87,6 +94,8 @@ const OrderCard = ({ order }: Props) => {
                 ? onOpenUpdateOrderStatus
                 : buyAgainClick.includes(order.orderStatus)
                 ? handleBuyAgainClick
+                : order.orderStatus === "COMPLETED"
+                ? onOpenRateModal
                 : undefined
             }
           >
@@ -127,6 +136,10 @@ const OrderCard = ({ order }: Props) => {
         color={"#FF5722"}
         hoverColor={"#E64A19"}
         fn={handleUpdateOrderStatusClick}
+      />
+      <RateModal
+        isOpenRateModal={isOpenRateModal}
+        onCloseRateModal={onCloseRateModal}
       />
     </>
   );

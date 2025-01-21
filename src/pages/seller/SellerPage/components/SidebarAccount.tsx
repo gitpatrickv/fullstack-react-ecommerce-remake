@@ -1,76 +1,48 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, Text } from "@chakra-ui/react";
 import { FaRegUserCircle } from "react-icons/fa";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { Link, useLocation } from "react-router-dom";
+import SidebarNavLink from "../../../../components/sidebar/SidebarNavLink";
 import useHandleLogout from "../../../../hooks/useHandleLogout";
 const SidebarAccount = () => {
-  const [isAccount, setIsAccount] = useState(true);
   const location = useLocation();
   const handleLogout = useHandleLogout();
 
-  const currentLocation = location.pathname.startsWith("/seller/account");
-
   return (
-    <Box mt="15px">
-      <Flex
-        alignItems="center"
-        onClick={() => setIsAccount(!isAccount)}
-        cursor="pointer"
-        userSelect="none"
-      >
-        <FaRegUserCircle
-          size="20px"
-          color={currentLocation ? "#FF5722" : undefined}
-        />
+    <>
+      <SidebarNavLink
+        icon={FaRegUserCircle}
+        navLink="/seller/account/info"
+        iconSize="20px"
+        marginTop="15px"
+        title="My Product"
+        titleMarginLeft="10px"
+      />
+      <Box ml="30px">
         <Link to="/seller/account/info">
           <Text
-            ml="10px"
-            mr="10px"
-            fontWeight="semibold"
+            mb="3px"
+            mt="3px"
+            cursor="pointer"
+            color={
+              location.pathname === "/seller/account/info"
+                ? "#FF5722"
+                : "white.500"
+            }
             _hover={{ color: "#FF5722" }}
-            color={currentLocation ? "#FF5722" : "white.500"}
           >
-            My Account
+            Account Info
           </Text>
         </Link>
-
-        {isAccount ? (
-          <IoIosArrowDown color={currentLocation ? "#FF5722" : undefined} />
-        ) : (
-          <IoIosArrowUp color={currentLocation ? "#FF5722" : undefined} />
-        )}
-      </Flex>
-      {isAccount && (
-        <>
-          <Box ml="30px">
-            <Link to="/seller/account/info">
-              <Text
-                mb="3px"
-                mt="3px"
-                cursor="pointer"
-                color={
-                  location.pathname === "/seller/account/info"
-                    ? "#FF5722"
-                    : "white.500"
-                }
-                _hover={{ color: "#FF5722" }}
-              >
-                Account Info
-              </Text>
-            </Link>
-            <Text
-              mb="3px"
-              cursor="pointer"
-              onClick={handleLogout}
-              _hover={{ color: "#FF5722" }}
-            >
-              Logout
-            </Text>
-          </Box>
-        </>
-      )}
-    </Box>
+        <Text
+          mb="3px"
+          cursor="pointer"
+          onClick={handleLogout}
+          _hover={{ color: "#FF5722" }}
+        >
+          Logout
+        </Text>
+      </Box>
+    </>
   );
 };
 

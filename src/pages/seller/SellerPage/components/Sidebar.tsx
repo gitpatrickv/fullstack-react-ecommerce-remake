@@ -1,11 +1,11 @@
 import { Avatar, Box, Card, Divider, Flex, Text } from "@chakra-ui/react";
 import { FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import storePic from "../../../../assets/storePic.jpg";
+import ColorModeSwitch from "../../../../components/ColorModeSwitch";
 import { useShopStore } from "../../../../store/shop-store";
 import SidebarAccount from "./SidebarAccount";
 import SidebarProduct from "./SidebarProduct";
-import ColorModeSwitch from "../../../../components/ColorModeSwitch";
-import storePic from "../../../../assets/storePic.jpg";
 const Sidebar = () => {
   const { storeName, picture } = useShopStore();
   //TODO: remove dark mode
@@ -38,7 +38,8 @@ const Sidebar = () => {
             cursor="pointer"
             userSelect="none"
             mt="15px"
-            _hover={{ color: "#FF5722" }}
+            color="#1877F2"
+            _hover={{ color: "#165BB7" }}
           >
             <FiShoppingCart size="20px" />
             <Text ml="10px" mr="10px" fontWeight="semibold">
