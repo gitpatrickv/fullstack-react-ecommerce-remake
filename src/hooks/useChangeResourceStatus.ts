@@ -9,12 +9,12 @@ interface Props {
   status: string;
 }
 
-const useChangeResourceStatus = ({ module, id, status }: Props) => {
+const useChangeResourceStatus = () => {
   return useMutation({
-    mutationFn: () =>
-      apiClient
-        .put(`/factory/${module}/${id}/${status}`)
-        .then((res) => res.data),
+    mutationFn: async ({ module, id, status }: Props) => {
+      await apiClient.put(`/factory/${module}/${id}/${status}`);
+      return { module, id, status };
+    },
   });
 };
 

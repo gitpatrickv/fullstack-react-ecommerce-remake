@@ -140,6 +140,7 @@ const OrderCard = ({ order }: Props) => {
       <RateModal
         isOpenRateModal={isOpenRateModal}
         onCloseRateModal={onCloseRateModal}
+        orderItems={order.orderItems}
       />
     </>
   );

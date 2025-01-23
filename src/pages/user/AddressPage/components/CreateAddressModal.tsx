@@ -92,23 +92,26 @@ const CreateAddressModal = () => {
     setIsSetAsDefault(!isSetAsDefault);
   };
 
-  const { mutate: setDefaultAddress } = useChangeResourceStatus({
-    module: "address",
-    id: addressId || "",
-    status: "ACTIVE",
-  });
+  const { mutate: setDefaultAddress } = useChangeResourceStatus();
 
   useEffect(() => {
     if (isSetAsDefault && addressId) {
-      setDefaultAddress(undefined, {
-        onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: ["allData", "address"],
-          });
-          setAddressId("");
-          setIsSetAsDefault(false);
+      setDefaultAddress(
+        {
+          module: "address",
+          id: addressId || "",
+          status: "ACTIVE",
         },
-      });
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({
+              queryKey: ["allData", "address"],
+            });
+            setAddressId("");
+            setIsSetAsDefault(false);
+          },
+        }
+      );
     }
   }, [addressId, isSetAsDefault]);
 

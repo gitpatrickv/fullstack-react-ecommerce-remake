@@ -12,21 +12,24 @@ interface IdProps {
 
 const DeleteButton = ({ productId, productName }: IdProps) => {
   const queryClient = useQueryClient();
-  const { mutate } = useChangeResourceStatus({
-    module: "product",
-    id: productId,
-    status: "DELETED",
-  });
+  const { mutate } = useChangeResourceStatus();
 
   const handleDeleteClick = () => {
-    mutate(undefined, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: ["allData", "product", 12],
-        });
-        onClose();
+    mutate(
+      {
+        module: "product",
+        id: productId,
+        status: "DELETED",
       },
-    });
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["allData", "product", 12],
+          });
+          onClose();
+        },
+      }
+    );
   };
 
   const [isHover, setIsHover] = useState(false);

@@ -14,19 +14,22 @@ interface Props {
 const AddressCard = ({ address }: Props) => {
   const queryClient = useQueryClient();
 
-  const { mutate: setDefaultAddress } = useChangeResourceStatus({
-    module: "address",
-    id: address.addressId,
-    status: "ACTIVE",
-  });
+  const { mutate: setDefaultAddress } = useChangeResourceStatus();
   const handleSetDefaultAddressClick = () => {
-    setDefaultAddress(undefined, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: ["allData", "address"],
-        });
+    setDefaultAddress(
+      {
+        module: "address",
+        id: address.addressId,
+        status: "ACTIVE",
       },
-    });
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["allData", "address"],
+          });
+        },
+      }
+    );
   };
 
   const { mutate: deleteAddress } = useDeleteAddress(address.addressId);

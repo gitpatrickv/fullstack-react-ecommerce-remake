@@ -9,6 +9,8 @@ export interface Product {
   slug: string;
   description: string;
   totalSold: number;
+  averageRating: number;
+  reviewsCount: number;
   status: string;
   category: string;
   createdDate: string;

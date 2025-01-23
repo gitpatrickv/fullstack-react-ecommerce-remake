@@ -103,7 +103,11 @@ const ProductDetailPage = () => {
               >
                 {getProductDetail?.productName}
               </Text>
-              <RatingsAndSold totalSold={getProductDetail?.totalSold ?? 0} />
+              <RatingsAndSold
+                totalSold={getProductDetail?.totalSold ?? 0}
+                averageRating={getProductDetail?.averageRating ?? 0}
+                reviewsCount={getProductDetail?.reviewsCount ?? 0}
+              />
               <Text fontSize="x-large" fontWeight="semibold" color="#E64A19">
                 {filteredInventory
                   ? formatCurrency(filteredInventory?.price ?? 0)

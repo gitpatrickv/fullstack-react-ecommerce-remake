@@ -9,7 +9,6 @@ interface Props {
 }
 
 const ProductCard = ({ product }: Props) => {
-  const array = [1, 2, 3, 4, 5];
   const navigate = useNavigate();
 
   const handleNavigateClick = () => {
@@ -36,11 +35,10 @@ const ProductCard = ({ product }: Props) => {
           {formatCurrency(product.inventories[0].price)}
         </Text>
         <Flex alignItems="center" mt="20px">
-          {array.map((s) => (
-            <Box key={s}>
-              <IoIosStar />
-            </Box>
-          ))}
+          <Box color="#FF5722">
+            <IoIosStar />
+          </Box>
+          <Text ml="3px">{product.averageRating ?? 0}</Text>
           <Spacer />
           <Text ml="5px" whiteSpace="nowrap">
             {product.totalSold ?? 0} sold

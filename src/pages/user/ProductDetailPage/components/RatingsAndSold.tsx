@@ -3,9 +3,11 @@ import { IoIosStar } from "react-icons/io";
 
 interface Props {
   totalSold: number;
+  averageRating: number;
+  reviewsCount: number;
 }
 
-const RatingsAndSold = ({ totalSold }: Props) => {
+const RatingsAndSold = ({ totalSold, averageRating, reviewsCount }: Props) => {
   const ratings = [1, 2, 3, 4, 5];
   return (
     <>
@@ -15,7 +17,7 @@ const RatingsAndSold = ({ totalSold }: Props) => {
           textDecoration="underline 1px"
           style={{ textUnderlineOffset: "5px" }}
         >
-          4.9
+          {averageRating}
         </Text>
         {ratings.map((s) => (
           <Box key={s} color="#FF5722">
@@ -33,7 +35,7 @@ const RatingsAndSold = ({ totalSold }: Props) => {
           textDecoration="underline 1px"
           style={{ textUnderlineOffset: "5px" }}
         >
-          300
+          {reviewsCount}
         </Text>
         <Text>Ratings</Text>
         <Divider

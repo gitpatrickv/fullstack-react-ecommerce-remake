@@ -11,20 +11,23 @@ interface Props {
 
 const DelistButton = ({ productId, status }: Props) => {
   const queryClient = useQueryClient();
-  const { mutate } = useChangeResourceStatus({
-    module: "product",
-    id: productId,
-    status: status === "SUSPENDED" ? "LISTED" : "SUSPENDED",
-  });
+  const { mutate } = useChangeResourceStatus();
 
-  const handleDeleteClick = () => {
-    mutate(undefined, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: ["allData", "product", 10],
-        });
+  const handleListClick = () => {
+    mutate(
+      {
+        module: "product",
+        id: productId,
+        status: status === "SUSPENDED" ? "LISTED" : "SUSPENDED",
       },
-    });
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["allData", "product", 12],
+          });
+        },
+      }
+    );
   };
 
   const [isHover, setIsHover] = useState(false);
@@ -42,7 +45,7 @@ const DelistButton = ({ productId, status }: Props) => {
         </Card>
       )}
       <Box
-        onClick={handleDeleteClick}
+        onClick={handleListClick}
         cursor="pointer"
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
