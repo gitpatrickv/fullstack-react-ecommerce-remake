@@ -1,13 +1,20 @@
-import { Button, Card, Flex, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Button,
+  Card,
+  Flex,
+  HStack,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import AlertDialogBox from "../../../../components/AlertDialog/AlertDialogBox";
 import OrangeButton from "../../../../components/Button/OrangeButton";
+import ViewShopButton from "../../../../components/Button/ViewShopButton";
 import { Order } from "../../../../entities/Order";
 import { formatCurrency } from "../../../../utilities/formatCurrency";
 import useBuyAgain from "../hooks/useBuyAgain";
 import useUpdateOrderStatus from "../hooks/useUpdateOrderStatus";
 import OrderItemCard from "./OrderItemCard";
 import RateModal from "./RateModal";
-
 interface Props {
   order: Order;
 }
@@ -69,8 +76,15 @@ const OrderCard = ({ order }: Props) => {
   return (
     <>
       <Card borderBottom="1px solid" mt="10px" {...cardStyle}>
-        <Flex justifyContent="space-between">
-          <Text fontWeight="semibold">{order.storeName}</Text>
+        <Flex justifyContent="space-between" alignItems="center">
+          <HStack>
+            <Text fontWeight="semibold">{order.storeName}</Text>
+            <ViewShopButton
+              storeId={order.storeId}
+              storeName={order.storeName}
+              height="30px"
+            />
+          </HStack>
           <Text color="#E64A19" fontWeight="semibold">
             {statusMapping[order.orderStatus] || ""}
           </Text>

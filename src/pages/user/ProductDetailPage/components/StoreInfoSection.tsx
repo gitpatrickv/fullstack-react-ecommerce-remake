@@ -1,6 +1,6 @@
 import {
   Avatar,
-  Button,
+  Box,
   Card,
   Divider,
   Flex,
@@ -10,18 +10,26 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { AiOutlinePlusSquare } from "react-icons/ai";
+import { IoIosStar } from "react-icons/io";
+import { PiChatCircleDots } from "react-icons/pi";
+import { useLocation } from "react-router-dom";
 import storePic from "../../../../assets/storePic.jpg";
+import OrangeButton from "../../../../components/Button/OrangeButton";
+import ViewShopButton from "../../../../components/Button/ViewShopButton";
 import { Store } from "../../../../entities/Store";
-
 interface Props {
   store?: Store;
 }
 
 const StoreInfoSection = ({ store }: Props) => {
+  const location = useLocation();
+  const productLocation = location.pathname.startsWith("/product");
+  const storeLocation = location.pathname.startsWith("/store");
   return (
     <Card borderRadius="none" padding={5} mt="10px">
       <Grid
-        templateColumns="0.5fr 0.1fr 0.1fr 0.2fr 0.2fr 0.2fr 0.2fr"
+        templateColumns="0.6fr 0.1fr 0.1fr 0.2fr 0.2fr 0.2fr 0.2fr"
         templateAreas={`"content1 content2 content3 content4 content5 content6 content7"`}
       >
         <GridItem area="content1">
@@ -36,12 +44,35 @@ const StoreInfoSection = ({ store }: Props) => {
               >
                 {store?.storeName}
               </Text>
-              <Flex>
-                <Button mr="10px">Chat now</Button>
-                <Button>View shop</Button>
+              <Flex flexDirection={storeLocation ? "row-reverse" : "row"}>
+                <OrangeButton mr={productLocation ? "10px" : "0"}>
+                  <PiChatCircleDots size="23px" />
+                  <Text ml="10px">Chat now</Text>
+                </OrangeButton>
+                {productLocation ? (
+                  <ViewShopButton
+                    storeId={store?.storeId ?? 0}
+                    storeName={store?.storeName || ""}
+                  />
+                ) : (
+                  <Flex
+                    borderRadius="none"
+                    alignItems="center"
+                    justifyContent="center"
+                    border="1px solid"
+                    cursor="pointer"
+                    width="130px"
+                    borderColor="#DCDCDC"
+                    _hover={{ bg: "#F8F8F8" }}
+                    mr="10px"
+                  >
+                    <AiOutlinePlusSquare size="25px" />
+                    <Text ml="5px">Follow</Text>
+                  </Flex>
+                )}
               </Flex>
             </Stack>
-            <Divider orientation="vertical" height="90px" ml="20px" />
+            <Divider orientation="vertical" height="90px" ml="15px" />
           </HStack>
         </GridItem>
         <GridItem area="content2">
@@ -52,7 +83,14 @@ const StoreInfoSection = ({ store }: Props) => {
         </GridItem>
         <GridItem area="content3">
           <Stack mt="20px">
-            <Text color="#E64A19">100</Text>
+            <Flex alignItems="center">
+              <Box color="#FF5722">
+                <IoIosStar />
+              </Box>
+              <Text color="#E64A19" ml="3px">
+                {store?.averageRating ?? 0}
+              </Text>
+            </Flex>
             <Text color="#E64A19">200</Text>
           </Stack>
         </GridItem>

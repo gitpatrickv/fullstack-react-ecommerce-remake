@@ -16,7 +16,7 @@ const useRateStore = (storeId: number, orderId: number) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["allOrders", "COMPLETED", 4],
+        queryKey: ["allOrders"],
       });
       toast({
         title: "Store Rated Successfully",

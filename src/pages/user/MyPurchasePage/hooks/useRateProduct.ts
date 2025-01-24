@@ -20,7 +20,7 @@ const useRateProduct = (productId: number, orderId: number) => {
         queryKey: ["data", "product", productId],
       });
       queryClient.invalidateQueries({
-        queryKey: ["allOrders", "COMPLETED", 4],
+        queryKey: ["allOrders"],
       });
       toast({
         title: "Product Rated Successfully",
