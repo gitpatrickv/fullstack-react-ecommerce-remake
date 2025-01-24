@@ -1,29 +1,25 @@
 import { useToast } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../../../services/api-client";
-const apiClient = axiosInstance;
-
-export interface RateProps {
+export interface StoreRateProps {
   rating: number;
-  customerReview?: string;
 }
 
-const useRateProduct = (productId: number, orderId: number) => {
+const apiClient = axiosInstance;
+
+const useRateStore = (storeId: number, orderId: number) => {
   const toast = useToast();
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: RateProps) => {
-      await apiClient.post(`/product/${productId}/${orderId}/rate`, data);
+    mutationFn: async (data: StoreRateProps) => {
+      await apiClient.post(`/store/${storeId}/${orderId}/rate`, data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["data", "product", productId],
-      });
       queryClient.invalidateQueries({
         queryKey: ["allOrders", "COMPLETED", 4],
       });
       toast({
-        title: "Product Rated Successfully",
+        title: "Store Rated Successfully",
         description: "Thank You for Your Feedback!",
         status: "success",
         duration: 4000,
@@ -42,4 +38,4 @@ const useRateProduct = (productId: number, orderId: number) => {
   });
 };
 
-export default useRateProduct;
+export default useRateStore;

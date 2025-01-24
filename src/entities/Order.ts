@@ -10,6 +10,7 @@ export interface Order extends StoreInfo {
   deliveryAddress: string;
   totalAmount: number;
   deliveryCost: number;
+  isStoreRated: boolean;
   paymentMethod: string;
   orderStatus: string;
   orderItems: OrderItem[];

@@ -9,22 +9,33 @@ import {
 } from "@chakra-ui/react";
 import { OrderItem } from "../../../../entities/OrderItem";
 import ProductsToRate from "./ProductsToRate";
+import StoreToRate from "./StoreToRate";
 
 interface Props {
   isOpenRateModal: boolean;
   onCloseRateModal: () => void;
   orderItems: OrderItem[];
+  orderId: number;
+  storeId: number;
+  isStoreRated: boolean;
 }
 
 const RateModal = ({
   isOpenRateModal,
   onCloseRateModal,
   orderItems,
+  orderId,
+  storeId,
+  isStoreRated,
 }: Props) => {
-  const uniqueItems = orderItems.filter(
-    (item, index, self) =>
-      index === self.findIndex((i) => i.productId === item.productId)
-  );
+  const productIds = new Set();
+  const uniqueItems = orderItems.filter((item) => {
+    if (productIds.has(item.productId)) {
+      return false;
+    }
+    productIds.add(item.productId);
+    return true;
+  });
 
   return (
     <>
@@ -47,10 +58,17 @@ const RateModal = ({
           </Text>
           <ModalCloseButton />
 
+          {!isStoreRated && (
+            <>
+              <Divider mt="5px" mb="10px" />
+              <StoreToRate storeId={storeId} orderId={orderId} />
+            </>
+          )}
+
           {uniqueItems.map((item) => (
             <Box key={item.orderItemId}>
               <Divider />
-              <ProductsToRate orderItem={item} />
+              <ProductsToRate orderItem={item} orderId={orderId} />
             </Box>
           ))}
         </ModalContent>

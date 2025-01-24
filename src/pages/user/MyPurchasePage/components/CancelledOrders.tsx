@@ -3,7 +3,7 @@ import Orders from "./Orders";
 
 const CancelledOrders = () => {
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetAllOrderItems({
-    pageSize: 6,
+    pageSize: 4,
     status: "CANCELLED",
   });
 

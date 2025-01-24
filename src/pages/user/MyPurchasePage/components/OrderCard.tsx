@@ -141,6 +141,9 @@ const OrderCard = ({ order }: Props) => {
         isOpenRateModal={isOpenRateModal}
         onCloseRateModal={onCloseRateModal}
         orderItems={order.orderItems}
+        orderId={order.orderId}
+        storeId={order.storeId}
+        isStoreRated={order.isStoreRated}
       />
     </>
   );

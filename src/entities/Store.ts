@@ -3,6 +3,8 @@ export interface Store {
   storeName: string;
   contactNumber: string;
   picture?: string;
+  averageRating: number;
+  reviewsCount: number;
   status: string;
 }
 
