@@ -6,6 +6,7 @@ import OrangeButton from "../../../components/Button/OrangeButton";
 import { Inventory } from "../../../entities/Inventory";
 import { ProductModels } from "../../../entities/Product";
 import useGetOneResource from "../../../hooks/useGetOneResource";
+import { useAuthQueryStore } from "../../../store/auth-store";
 import { formatCurrency } from "../../../utilities/formatCurrency";
 import ProductImages from "./components/ProductImages";
 import ProductQuantity from "./components/ProductQuantity";
@@ -18,6 +19,8 @@ import useAddToCartWithVariation from "./hooks/useAddToCartWithVariation";
 const ProductDetailPage = () => {
   const params = useParams<{ productId: string }>();
   const productId = params.productId;
+  const { authStore, onOpen } = useAuthQueryStore();
+  const jwtToken = authStore.jwtToken;
 
   const { data: getProductDetail } = useGetOneResource<ProductModels>({
     module: "product",
@@ -135,7 +138,9 @@ const ProductDetailPage = () => {
               <OrangeButton
                 width="200px"
                 onClick={
-                  hasColorsOrSizes
+                  !jwtToken
+                    ? onOpen
+                    : hasColorsOrSizes
                     ? handleAddToCartWithVariationClick
                     : handleAddToCartClick
                 }

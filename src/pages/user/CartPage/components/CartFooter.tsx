@@ -67,16 +67,20 @@ const CartFooter = ({
             variant="unstyled"
             mr="20px"
             fontWeight="semibold"
-            cursor="pointer"
             onClick={onOpen}
             _hover={{ color: "#E64A19" }}
             isDisabled={itemIds.size < 1}
           >
             Delete
           </Button>
-          <Text fontWeight="semibold" color="#E64A19" cursor="pointer">
+          <Button
+            variant="unstyled"
+            fontWeight="semibold"
+            color="#E64A19"
+            isDisabled={itemIds.size < 1}
+          >
             Add to Favorites
-          </Text>
+          </Button>
           <Spacer />
           <Text fontWeight="semibold">Total ({itemIds.size} item): </Text>
           <Text

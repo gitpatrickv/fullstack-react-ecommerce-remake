@@ -67,7 +67,7 @@ const NavTop = () => {
             {...textStyles}
             onClick={handleNavigateSellerPageClick}
           >
-            Seller Center
+            {role === "USER" ? "Start Selling" : "Seller Center"}
           </Text>
           <Spacer />
           <ColorModeSwitch />

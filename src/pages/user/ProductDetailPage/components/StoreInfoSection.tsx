@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Button,
   Card,
   Divider,
   Flex,
@@ -18,12 +19,15 @@ import storePic from "../../../../assets/storePic.jpg";
 import OrangeButton from "../../../../components/Button/OrangeButton";
 import ViewShopButton from "../../../../components/Button/ViewShopButton";
 import { Store } from "../../../../entities/Store";
+import { useAuthQueryStore } from "../../../../store/auth-store";
 interface Props {
   store?: Store;
 }
 
 const StoreInfoSection = ({ store }: Props) => {
   const location = useLocation();
+  const { authStore } = useAuthQueryStore();
+  const jwtToken = authStore.jwtToken;
   const productLocation = location.pathname.startsWith("/product");
   const storeLocation = location.pathname.startsWith("/store");
   return (
@@ -45,7 +49,10 @@ const StoreInfoSection = ({ store }: Props) => {
                 {store?.storeName}
               </Text>
               <Flex flexDirection={storeLocation ? "row-reverse" : "row"}>
-                <OrangeButton mr={productLocation ? "10px" : "0"}>
+                <OrangeButton
+                  mr={productLocation ? "10px" : "0"}
+                  isDisabled={!jwtToken}
+                >
                   <PiChatCircleDots size="23px" />
                   <Text ml="10px">Chat now</Text>
                 </OrangeButton>
@@ -55,20 +62,22 @@ const StoreInfoSection = ({ store }: Props) => {
                     storeName={store?.storeName || ""}
                   />
                 ) : (
-                  <Flex
+                  <Button
                     borderRadius="none"
                     alignItems="center"
                     justifyContent="center"
                     border="1px solid"
                     cursor="pointer"
                     width="130px"
+                    bg="none"
                     borderColor="#DCDCDC"
                     _hover={{ bg: "#F8F8F8" }}
                     mr="10px"
+                    isDisabled={!jwtToken}
                   >
                     <AiOutlinePlusSquare size="25px" />
                     <Text ml="5px">Follow</Text>
-                  </Flex>
+                  </Button>
                 )}
               </Flex>
             </Stack>

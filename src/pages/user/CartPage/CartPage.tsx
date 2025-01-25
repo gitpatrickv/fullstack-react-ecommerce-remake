@@ -11,6 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import ViewShopButton from "../../../components/Button/ViewShopButton";
 import useCartStore from "../../../store/cart-store";
 import CartFooter from "./components/CartFooter";
 import CartHeader from "./components/CartHeader";
@@ -161,7 +162,7 @@ const CartPage = () => {
               borderBottom="1px solid"
               borderColor="	#E8E8E8"
             >
-              <Flex>
+              <Flex alignItems="center">
                 <Checkbox
                   colorScheme="orange"
                   isChecked={isStoreChecked(storeName.storeName)}
@@ -177,9 +178,15 @@ const CartPage = () => {
                     handleNavigateClick(storeName.storeId, storeName.storeName)
                   }
                   cursor="pointer"
+                  mr="10px"
                 >
                   {storeName.storeName}
                 </Text>
+                <ViewShopButton
+                  storeId={storeName.storeId}
+                  storeName={storeName.storeName}
+                  height="30px"
+                />
               </Flex>
             </Card>
             {storeName.cartItems.map((cartItem) => (

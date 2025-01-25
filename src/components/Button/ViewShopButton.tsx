@@ -10,9 +10,10 @@ interface Props {
 
 const ViewShopButton = ({ storeId, storeName, height }: Props) => {
   const navigate = useNavigate();
+  const formattedStoreName = storeName?.toLowerCase().replace(/ /g, "-");
 
   const handleNavigateClick = () => {
-    navigate(`/store/${storeId}/${storeName}`);
+    navigate(`/store/${storeId}/${formattedStoreName}`);
   };
 
   return (

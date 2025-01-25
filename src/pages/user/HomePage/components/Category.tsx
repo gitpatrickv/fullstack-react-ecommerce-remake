@@ -66,7 +66,12 @@ const Category = () => {
       </Card>
       <SimpleGrid columns={{ base: 8 }} mb="10px">
         {categories.map((c) => (
-          <CategoryCard key={c.key} name={c.name} image={c.image} />
+          <CategoryCard
+            key={c.key}
+            name={c.name}
+            image={c.image}
+            value={c.value}
+          />
         ))}
       </SimpleGrid>
     </>

@@ -21,14 +21,16 @@ import MyFollowingPage from "../pages/user/MyFollowingPage/MyFollowingPage";
 import AllOrders from "../pages/user/MyPurchasePage/components/AllOrders";
 import CancelledOrders from "../pages/user/MyPurchasePage/components/CancelledOrders";
 import CompletedOrders from "../pages/user/MyPurchasePage/components/CompletedOrders";
+import RatedOrders from "../pages/user/MyPurchasePage/components/RatedOrders";
 import ToPayOrders from "../pages/user/MyPurchasePage/components/ToPayOrders";
 import ToReceiveOrders from "../pages/user/MyPurchasePage/components/ToReceiveOrders";
 import ToShipOrders from "../pages/user/MyPurchasePage/components/ToShipOrders";
 import MyPurchasePage from "../pages/user/MyPurchasePage/MyPurchasePage";
+import ProductCategoryPage from "../pages/user/ProductCategoryPage/ProductCategoryPage";
 import ProductDetailPage from "../pages/user/ProductDetailPage/ProductDetailPage";
+import SearchPage from "../pages/user/SearchPage/SearchPage";
 import StorePage from "../pages/user/StorePage/StorePage";
 import UserPage from "../pages/user/UserPage/UserPage";
-import RatedOrders from "../pages/user/MyPurchasePage/components/RatedOrders";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +47,11 @@ const router = createBrowserRouter([
         element: <ProductDetailPage />,
       },
       { path: "/store/:storeId/:storeName", element: <StorePage /> },
+      { path: "/search", element: <SearchPage /> },
+      {
+        path: "/category/:category",
+        element: <ProductCategoryPage />,
+      },
       {
         path: "/cart",
         element: (

@@ -1,11 +1,19 @@
 import { Card, Flex, Image, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   name: string;
   image: string;
+  value: string;
 }
 
-const CategoryCard = ({ name, image }: Props) => {
+const CategoryCard = ({ name, image, value }: Props) => {
+  const navigate = useNavigate();
+
+  const handleNavigateClick = () => {
+    navigate(`/category/${value}`);
+  };
+
   return (
     <>
       <Card
@@ -15,6 +23,7 @@ const CategoryCard = ({ name, image }: Props) => {
           transform: "scale(1.03)",
           transition: "transform .15s ease-in",
         }}
+        onClick={handleNavigateClick}
       >
         <Flex
           justifyContent="center"
