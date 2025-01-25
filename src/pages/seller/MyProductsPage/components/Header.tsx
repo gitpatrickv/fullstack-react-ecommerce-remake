@@ -50,12 +50,6 @@ const Header = ({ sortBy, setSortBy }: Props) => {
             Top Sales
           </Button>
           <Button
-            onClick={() => handleSortClick("lowProductSold")}
-            {...buttonStyle("lowProductSold", sortBy)}
-          >
-            Low Sales
-          </Button>
-          <Button
             onClick={() => handleSortClick("productName")}
             {...buttonStyle("productName", sortBy)}
           >
