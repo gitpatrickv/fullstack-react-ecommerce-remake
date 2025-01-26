@@ -20,8 +20,7 @@ const CategoryCard = ({ name, image, value }: Props) => {
         borderRadius="none"
         cursor="pointer"
         _hover={{
-          transform: "scale(1.03)",
-          transition: "transform .15s ease-in",
+          opacity: "0.8",
         }}
         onClick={handleNavigateClick}
       >

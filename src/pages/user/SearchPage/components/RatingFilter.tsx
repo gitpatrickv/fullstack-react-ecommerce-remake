@@ -1,0 +1,67 @@
+import { Flex, Text } from "@chakra-ui/react";
+import { IoIosStar, IoIosStarOutline } from "react-icons/io";
+import { useSearchParams } from "react-router-dom";
+
+interface Props {
+  ratingFilter: number | null;
+  setRatingFilter: (value: number | null) => void;
+  sortBy: string;
+}
+
+const RatingFilter = ({ ratingFilter, setRatingFilter, sortBy }: Props) => {
+  const [searchParams] = useSearchParams();
+  const keyword = searchParams.get("keyword") || "";
+  const boxStyle = (value: number) => {
+    return {
+      bg: ratingFilter === value ? "#E0E0E0" : "gray.100",
+      cursor: "pointer",
+      padding: "4px",
+      borderRadius: "full",
+      alignItems: "center",
+      mt: "3px",
+    };
+  };
+
+  const updateUrl = (value: number) => {
+    const newUrl = `/search?keyword=${encodeURIComponent(
+      keyword
+    )}&sortBy=${sortBy}&ratingFilter=${encodeURIComponent(value)}`;
+    window.history.pushState(null, "", newUrl);
+    setRatingFilter(value);
+  };
+
+  const ratings = [1, 2, 3, 4, 5];
+
+  return (
+    <>
+      <Text fontWeight="semibold" mt="15px">
+        Rating
+      </Text>
+      {ratings.reverse().map((rating) => (
+        <Flex
+          key={rating}
+          onClick={() => updateUrl(rating)}
+          {...boxStyle(rating)}
+          padding="6px"
+        >
+          <Flex color="#FF5722" ml="5px">
+            {Array.from({ length: 5 }, (_, index) =>
+              index < rating ? (
+                <IoIosStar key={index} />
+              ) : (
+                <IoIosStarOutline key={index} />
+              )
+            )}
+          </Flex>
+          {rating < 5 && (
+            <Text ml="5px" fontSize="sm">
+              And Up
+            </Text>
+          )}
+        </Flex>
+      ))}
+    </>
+  );
+};
+
+export default RatingFilter;

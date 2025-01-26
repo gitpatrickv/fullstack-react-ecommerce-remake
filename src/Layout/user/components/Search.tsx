@@ -6,12 +6,13 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const Search = () => {
   const navigate = useNavigate();
-  const [keyword, setKeyword] = useState("");
-
+  const [searchParams] = useSearchParams();
+  const [keyword, setKeyword] = useState("a");
+  const query = searchParams.get("keyword") || "";
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const text = event.target.value;
     setKeyword(text);
@@ -38,6 +39,7 @@ const Search = () => {
               border: "none",
               bg: "gray.100",
             }}
+            defaultValue={query}
           />
           <InputRightElement>
             <IconButton

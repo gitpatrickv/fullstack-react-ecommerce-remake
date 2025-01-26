@@ -1,12 +1,26 @@
 import { Card, Flex, Text } from "@chakra-ui/react";
+import { useSearchParams } from "react-router-dom";
 
 interface Props {
   sortBy: string;
   setSortBy: (value: string) => void;
+  ratingFilter: number | null;
 }
 
-const SearchHeader = ({ sortBy, setSortBy }: Props) => {
-  const handleSortClick = (value: string) => {
+const SearchHeader = ({ sortBy, setSortBy, ratingFilter }: Props) => {
+  const [searchParams] = useSearchParams();
+  const keyword = searchParams.get("keyword") || "";
+
+  const updateUrl = (value: string) => {
+    let newUrl = `/search?keyword=${encodeURIComponent(
+      keyword
+    )}&sortBy=${value}`;
+
+    if (ratingFilter) {
+      newUrl += `&ratingFilter=${encodeURIComponent(ratingFilter.toString())}`;
+    }
+
+    window.history.pushState(null, "", newUrl);
     setSortBy(value);
   };
 
@@ -34,19 +48,19 @@ const SearchHeader = ({ sortBy, setSortBy }: Props) => {
           Sort By
         </Text>
         <Card
-          onClick={() => handleSortClick("productName")}
+          onClick={() => updateUrl("productName")}
           {...buttonStyle("productName", sortBy)}
         >
           Relevance
         </Card>
         <Card
-          onClick={() => handleSortClick("createdDate")}
+          onClick={() => updateUrl("createdDate")}
           {...buttonStyle("createdDate", sortBy)}
         >
           Latest
         </Card>
         <Card
-          onClick={() => handleSortClick("totalSold")}
+          onClick={() => updateUrl("totalSold")}
           {...buttonStyle("totalSold", sortBy)}
         >
           Top Sales

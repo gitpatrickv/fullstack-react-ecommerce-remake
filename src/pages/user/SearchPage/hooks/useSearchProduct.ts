@@ -6,11 +6,17 @@ interface SearchProps {
   pageSize: number;
   search: string;
   sortBy?: string;
+  ratingFilter?: number | null;
 }
 
-const useSearchProduct = ({ pageSize, search, sortBy }: SearchProps) => {
+const useSearchProduct = ({
+  pageSize,
+  search,
+  sortBy,
+  ratingFilter,
+}: SearchProps) => {
   return useInfiniteQuery<GetAllProductResponse, Error>({
-    queryKey: ["searchedProduct", search, sortBy],
+    queryKey: ["searchedProduct", search, sortBy, ratingFilter],
     queryFn: async ({ pageParam = 0 }) => {
       const { data } = await apiClient.get<GetAllProductResponse>(
         `/product/search`,
@@ -20,6 +26,7 @@ const useSearchProduct = ({ pageSize, search, sortBy }: SearchProps) => {
             pageSize: pageSize,
             keyword: search,
             sortBy: sortBy,
+            ratingFilter: ratingFilter,
           },
         }
       );
