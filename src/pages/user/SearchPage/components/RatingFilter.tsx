@@ -6,9 +6,17 @@ interface Props {
   ratingFilter: number | null;
   setRatingFilter: (value: number | null) => void;
   sortBy: string;
+  minPrice: number | null;
+  maxPrice: number | null;
 }
 
-const RatingFilter = ({ ratingFilter, setRatingFilter, sortBy }: Props) => {
+const RatingFilter = ({
+  ratingFilter,
+  setRatingFilter,
+  sortBy,
+  minPrice,
+  maxPrice,
+}: Props) => {
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
   const boxStyle = (value: number) => {
@@ -23,9 +31,18 @@ const RatingFilter = ({ ratingFilter, setRatingFilter, sortBy }: Props) => {
   };
 
   const updateUrl = (value: number) => {
-    const newUrl = `/search?keyword=${encodeURIComponent(
+    let newUrl = `/search?keyword=${encodeURIComponent(
       keyword
-    )}&sortBy=${sortBy}&ratingFilter=${encodeURIComponent(value)}`;
+    )}&sortBy=${encodeURIComponent(sortBy)}&ratingFilter=${value}`;
+
+    if (minPrice) {
+      newUrl += `&minPrice=${minPrice.toString()}`;
+    }
+
+    if (maxPrice) {
+      newUrl += `&maxPrice=${maxPrice.toString()}`;
+    }
+
     window.history.pushState(null, "", newUrl);
     setRatingFilter(value);
   };
@@ -34,7 +51,7 @@ const RatingFilter = ({ ratingFilter, setRatingFilter, sortBy }: Props) => {
 
   return (
     <>
-      <Text fontWeight="semibold" mt="15px">
+      <Text fontWeight="semibold" mt="15px" mb="5px">
         Rating
       </Text>
       {ratings.reverse().map((rating) => (

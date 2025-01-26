@@ -13,6 +13,7 @@ import { CiFilter } from "react-icons/ci";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../../../components/product/ProductCard";
+import PriceFilter from "./components/PriceFilter";
 import RatingFilter from "./components/RatingFilter";
 import SearchHeader from "./components/SearchHeader";
 import useSearchProduct from "./hooks/useSearchProduct";
@@ -20,17 +21,33 @@ import useSearchProduct from "./hooks/useSearchProduct";
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
+
+  const sortingParam = searchParams.get("sortBy") || "";
+  const [sortBy, setSortBy] = useState(sortingParam || "productName");
+
   const ratingFilterFromUrl = searchParams.get("ratingFilter");
-  const rating = ratingFilterFromUrl ? Number(ratingFilterFromUrl) : null;
-  const sorting = searchParams.get("sortBy") || "productName";
-  const [sortBy, setSortBy] = useState(sorting);
-  const [ratingFilter, setRatingFilter] = useState<number | null>(rating);
+  const ratingParam = ratingFilterFromUrl ? Number(ratingFilterFromUrl) : null;
+  const [ratingFilter, setRatingFilter] = useState<number | null>(ratingParam);
+
+  const minPriceFilterFromUrl = searchParams.get("minPrice");
+  const minPriceParam = minPriceFilterFromUrl
+    ? Number(minPriceFilterFromUrl)
+    : null;
+  const [minPrice, setMinPrice] = useState<number | null>(minPriceParam);
+
+  const maxPriceFilterFromUrl = searchParams.get("maxPrice");
+  const maxPriceParam = maxPriceFilterFromUrl
+    ? Number(maxPriceFilterFromUrl)
+    : null;
+  const [maxPrice, setMaxPrice] = useState<number | null>(maxPriceParam);
 
   const { data, fetchNextPage, hasNextPage, isLoading } = useSearchProduct({
     pageSize: 15,
     search: keyword!,
     sortBy: sortBy,
     ratingFilter: ratingFilter,
+    minPrice: minPrice,
+    maxPrice: maxPrice,
   });
 
   const fetchProductData =
@@ -41,11 +58,15 @@ const SearchPage = () => {
   useEffect(() => {
     setRatingFilter(null);
     setSortBy("productName");
+    setMinPrice(null);
+    setMaxPrice(null);
   }, [keyword]);
 
   useEffect(() => {
-    if (rating) setRatingFilter(rating);
-    if (sorting) setSortBy(sorting);
+    if (ratingParam) setRatingFilter(ratingParam);
+    if (sortingParam) setSortBy(sortingParam);
+    if (minPriceParam) setMinPrice(minPriceParam);
+    if (maxPriceParam) setMaxPrice(maxPriceParam);
   }, []);
 
   if (isLoading) {
@@ -87,6 +108,16 @@ const SearchPage = () => {
               ratingFilter={ratingFilter}
               setRatingFilter={setRatingFilter}
               sortBy={sortBy}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
+            />
+            <PriceFilter
+              minPrice={minPrice}
+              setMinPrice={setMinPrice}
+              maxPrice={maxPrice}
+              setMaxPrice={setMaxPrice}
+              ratingFilter={ratingFilter}
+              sortBy={sortBy}
             />
           </Box>
           <Stack width="100%">
@@ -104,6 +135,8 @@ const SearchPage = () => {
               sortBy={sortBy}
               setSortBy={setSortBy}
               ratingFilter={ratingFilter}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
             />
             <InfiniteScroll
               dataLength={fetchProductData}

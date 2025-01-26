@@ -5,19 +5,35 @@ interface Props {
   sortBy: string;
   setSortBy: (value: string) => void;
   ratingFilter: number | null;
+  minPrice: number | null;
+  maxPrice: number | null;
 }
 
-const SearchHeader = ({ sortBy, setSortBy, ratingFilter }: Props) => {
+const SearchHeader = ({
+  sortBy,
+  setSortBy,
+  ratingFilter,
+  minPrice,
+  maxPrice,
+}: Props) => {
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
 
   const updateUrl = (value: string) => {
     let newUrl = `/search?keyword=${encodeURIComponent(
       keyword
-    )}&sortBy=${value}`;
+    )}&sortBy=${encodeURIComponent(value)}`;
 
     if (ratingFilter) {
-      newUrl += `&ratingFilter=${encodeURIComponent(ratingFilter.toString())}`;
+      newUrl += `&ratingFilter=${ratingFilter.toString()}`;
+    }
+
+    if (minPrice) {
+      newUrl += `&minPrice=${minPrice.toString()}`;
+    }
+
+    if (maxPrice) {
+      newUrl += `&maxPrice=${maxPrice.toString()}`;
     }
 
     window.history.pushState(null, "", newUrl);

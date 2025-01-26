@@ -7,6 +7,8 @@ interface SearchProps {
   search: string;
   sortBy?: string;
   ratingFilter?: number | null;
+  minPrice?: number | null;
+  maxPrice?: number | null;
 }
 
 const useSearchProduct = ({
@@ -14,9 +16,18 @@ const useSearchProduct = ({
   search,
   sortBy,
   ratingFilter,
+  minPrice,
+  maxPrice,
 }: SearchProps) => {
   return useInfiniteQuery<GetAllProductResponse, Error>({
-    queryKey: ["searchedProduct", search, sortBy, ratingFilter],
+    queryKey: [
+      "searchedProduct",
+      search,
+      sortBy,
+      ratingFilter,
+      minPrice,
+      maxPrice,
+    ],
     queryFn: async ({ pageParam = 0 }) => {
       const { data } = await apiClient.get<GetAllProductResponse>(
         `/product/search`,
@@ -27,6 +38,8 @@ const useSearchProduct = ({
             keyword: search,
             sortBy: sortBy,
             ratingFilter: ratingFilter,
+            minPrice: minPrice,
+            maxPrice: maxPrice,
           },
         }
       );
