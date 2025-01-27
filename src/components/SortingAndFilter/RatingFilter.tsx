@@ -1,6 +1,5 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { IoIosStar, IoIosStarOutline } from "react-icons/io";
-import { useSearchParams } from "react-router-dom";
 
 interface Props {
   ratingFilter: number | null;
@@ -9,6 +8,7 @@ interface Props {
   sortDirection: string;
   minPrice: number | null;
   maxPrice: number | null;
+  urlParam: string;
 }
 
 const RatingFilter = ({
@@ -18,9 +18,8 @@ const RatingFilter = ({
   sortDirection,
   minPrice,
   maxPrice,
+  urlParam,
 }: Props) => {
-  const [searchParams] = useSearchParams();
-  const keyword = searchParams.get("keyword") || "";
   const boxStyle = (value: number) => {
     return {
       bg: ratingFilter === value ? "#E0E0E0" : "gray.100",
@@ -33,11 +32,9 @@ const RatingFilter = ({
   };
 
   const updateUrl = (value: number) => {
-    let newUrl = `/search?keyword=${encodeURIComponent(
-      keyword
-    )}&sortBy=${encodeURIComponent(sortBy)}&dir=${encodeURIComponent(
-      sortDirection
-    )}&ratingFilter=${value}`;
+    let newUrl = `${urlParam}&sortBy=${encodeURIComponent(
+      sortBy
+    )}&dir=${encodeURIComponent(sortDirection)}&ratingFilter=${value}`;
 
     if (minPrice) {
       newUrl += `&minPrice=${minPrice.toString()}`;

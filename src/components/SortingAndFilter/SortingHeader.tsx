@@ -1,5 +1,4 @@
 import { Card, Flex, Text } from "@chakra-ui/react";
-import { useSearchParams } from "react-router-dom";
 
 interface Props {
   sortBy: string;
@@ -8,23 +7,22 @@ interface Props {
   ratingFilter: number | null;
   minPrice: number | null;
   maxPrice: number | null;
+  urlParam: string;
 }
 
-const SearchHeader = ({
+const SortingHeader = ({
   sortBy,
   setSortBy,
   setSortDirection,
   ratingFilter,
   minPrice,
   maxPrice,
+  urlParam,
 }: Props) => {
-  const [searchParams] = useSearchParams();
-  const keyword = searchParams.get("keyword") || "";
-
   const updateUrl = (sortBy: string, direction: string) => {
-    let newUrl = `/search?keyword=${encodeURIComponent(
-      keyword
-    )}&sortBy=${encodeURIComponent(sortBy)}&dir=${direction}`;
+    let newUrl = `${urlParam}&sortBy=${encodeURIComponent(
+      sortBy
+    )}&dir=${direction}`;
 
     if (ratingFilter) {
       newUrl += `&ratingFilter=${ratingFilter.toString()}`;
@@ -60,6 +58,7 @@ const SearchHeader = ({
       userSelect: "none" as "none",
     };
   };
+
   return (
     <Card borderRadius="none" padding={4} bg="#F8F8F8">
       <Flex alignItems="center">
@@ -70,7 +69,7 @@ const SearchHeader = ({
           onClick={() => updateUrl("productName", "ASC")}
           {...buttonStyle("productName", sortBy)}
         >
-          Relevance
+          A-Z
         </Card>
         <Card
           onClick={() => updateUrl("createdDate", "DESC")}
@@ -89,4 +88,4 @@ const SearchHeader = ({
   );
 };
 
-export default SearchHeader;
+export default SortingHeader;

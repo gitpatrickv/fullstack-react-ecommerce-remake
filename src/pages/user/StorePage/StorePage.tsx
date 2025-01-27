@@ -18,7 +18,7 @@ const StorePage = () => {
 
   const { data, fetchNextPage, hasNextPage, isLoading } =
     useGetStoreProductsByStoreId({
-      pageSize: 30,
+      pageSize: 18,
       storeId: storeId!,
     });
 

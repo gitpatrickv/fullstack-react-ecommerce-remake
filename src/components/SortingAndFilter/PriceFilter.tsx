@@ -1,7 +1,6 @@
 import { Divider, Flex, Input, Text } from "@chakra-ui/react";
 import { useRef } from "react";
-import { useSearchParams } from "react-router-dom";
-import OrangeButton from "../../../../components/Button/OrangeButton";
+import OrangeButton from "../Button/OrangeButton";
 
 interface Props {
   minPrice: number | null;
@@ -11,6 +10,7 @@ interface Props {
   ratingFilter: number | null;
   sortBy: string;
   sortDirection: string;
+  urlParam: string;
 }
 
 const PriceFilter = ({
@@ -21,9 +21,8 @@ const PriceFilter = ({
   ratingFilter,
   sortBy,
   sortDirection,
+  urlParam,
 }: Props) => {
-  const [searchParams] = useSearchParams();
-  const keyword = searchParams.get("keyword") || "";
   const minPriceRef = useRef<HTMLInputElement>(null);
   const maxPriceRef = useRef<HTMLInputElement>(null);
 
@@ -39,12 +38,9 @@ const PriceFilter = ({
 
     setMinPrice(minPriceValue);
     setMaxPrice(maxPriceValue);
-
-    let newUrl = `/search?keyword=${encodeURIComponent(
-      keyword
-    )}&sortBy=${encodeURIComponent(sortBy)}&dir=${encodeURIComponent(
-      sortDirection
-    )}`;
+    let newUrl = `${urlParam}&sortBy=${encodeURIComponent(
+      sortBy
+    )}&dir=${encodeURIComponent(sortDirection)}`;
 
     if (ratingFilter) {
       newUrl += `&ratingFilter=${ratingFilter.toString()}`;
