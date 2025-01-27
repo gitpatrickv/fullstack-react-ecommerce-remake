@@ -6,6 +6,7 @@ interface SearchProps {
   pageSize: number;
   search: string;
   sortBy?: string;
+  sortDirection?: string;
   ratingFilter?: number | null;
   minPrice?: number | null;
   maxPrice?: number | null;
@@ -15,6 +16,7 @@ const useSearchProduct = ({
   pageSize,
   search,
   sortBy,
+  sortDirection,
   ratingFilter,
   minPrice,
   maxPrice,
@@ -24,6 +26,7 @@ const useSearchProduct = ({
       "searchedProduct",
       search,
       sortBy,
+      sortDirection,
       ratingFilter,
       minPrice,
       maxPrice,
@@ -37,6 +40,7 @@ const useSearchProduct = ({
             pageSize: pageSize,
             keyword: search,
             sortBy: sortBy,
+            sortDirection: sortDirection,
             ratingFilter: ratingFilter,
             minPrice: minPrice,
             maxPrice: maxPrice,

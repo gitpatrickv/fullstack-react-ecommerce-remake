@@ -6,6 +6,7 @@ interface Props {
   ratingFilter: number | null;
   setRatingFilter: (value: number | null) => void;
   sortBy: string;
+  sortDirection: string;
   minPrice: number | null;
   maxPrice: number | null;
 }
@@ -14,6 +15,7 @@ const RatingFilter = ({
   ratingFilter,
   setRatingFilter,
   sortBy,
+  sortDirection,
   minPrice,
   maxPrice,
 }: Props) => {
@@ -33,7 +35,9 @@ const RatingFilter = ({
   const updateUrl = (value: number) => {
     let newUrl = `/search?keyword=${encodeURIComponent(
       keyword
-    )}&sortBy=${encodeURIComponent(sortBy)}&ratingFilter=${value}`;
+    )}&sortBy=${encodeURIComponent(sortBy)}&dir=${encodeURIComponent(
+      sortDirection
+    )}&ratingFilter=${value}`;
 
     if (minPrice) {
       newUrl += `&minPrice=${minPrice.toString()}`;

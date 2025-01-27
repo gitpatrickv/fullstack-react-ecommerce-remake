@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 interface Props {
   sortBy: string;
   setSortBy: (value: string) => void;
+  setSortDirection: (value: string) => void;
   ratingFilter: number | null;
   minPrice: number | null;
   maxPrice: number | null;
@@ -12,6 +13,7 @@ interface Props {
 const SearchHeader = ({
   sortBy,
   setSortBy,
+  setSortDirection,
   ratingFilter,
   minPrice,
   maxPrice,
@@ -19,10 +21,10 @@ const SearchHeader = ({
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
 
-  const updateUrl = (value: string) => {
+  const updateUrl = (sortBy: string, direction: string) => {
     let newUrl = `/search?keyword=${encodeURIComponent(
       keyword
-    )}&sortBy=${encodeURIComponent(value)}`;
+    )}&sortBy=${encodeURIComponent(sortBy)}&dir=${direction}`;
 
     if (ratingFilter) {
       newUrl += `&ratingFilter=${ratingFilter.toString()}`;
@@ -37,7 +39,8 @@ const SearchHeader = ({
     }
 
     window.history.pushState(null, "", newUrl);
-    setSortBy(value);
+    setSortBy(sortBy);
+    setSortDirection(direction);
   };
 
   const buttonStyle = (value: string, sortBy: string) => {
@@ -64,19 +67,19 @@ const SearchHeader = ({
           Sort By
         </Text>
         <Card
-          onClick={() => updateUrl("productName")}
+          onClick={() => updateUrl("productName", "ASC")}
           {...buttonStyle("productName", sortBy)}
         >
           Relevance
         </Card>
         <Card
-          onClick={() => updateUrl("createdDate")}
+          onClick={() => updateUrl("createdDate", "DESC")}
           {...buttonStyle("createdDate", sortBy)}
         >
           Latest
         </Card>
         <Card
-          onClick={() => updateUrl("totalSold")}
+          onClick={() => updateUrl("totalSold", "DESC")}
           {...buttonStyle("totalSold", sortBy)}
         >
           Top Sales

@@ -10,6 +10,7 @@ interface Props {
   setMaxPrice: (value: number | null) => void;
   ratingFilter: number | null;
   sortBy: string;
+  sortDirection: string;
 }
 
 const PriceFilter = ({
@@ -19,6 +20,7 @@ const PriceFilter = ({
   setMaxPrice,
   ratingFilter,
   sortBy,
+  sortDirection,
 }: Props) => {
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
@@ -40,7 +42,9 @@ const PriceFilter = ({
 
     let newUrl = `/search?keyword=${encodeURIComponent(
       keyword
-    )}&sortBy=${encodeURIComponent(sortBy)}`;
+    )}&sortBy=${encodeURIComponent(sortBy)}&dir=${encodeURIComponent(
+      sortDirection
+    )}`;
 
     if (ratingFilter) {
       newUrl += `&ratingFilter=${ratingFilter.toString()}`;
@@ -59,11 +63,9 @@ const PriceFilter = ({
 
   return (
     <>
-      <Text fontWeight="semibold" mt="15px">
-        Price Range
-      </Text>
+      <Text fontWeight="semibold">Price Range</Text>
       <form onSubmit={handleSubmit}>
-        <Flex alignItems="center" mt="10px">
+        <Flex alignItems="center" mt="15px">
           <Input
             placeholder="₱ Min"
             mr="10px"
