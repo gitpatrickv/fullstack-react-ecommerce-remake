@@ -12,7 +12,6 @@ import { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useParams } from "react-router-dom";
 import ProductCard from "../../../components/product/ProductCard";
-import Banner from "../HomePage/components/Banner";
 
 import Filters from "../../../components/SortingAndFilter/Filters";
 import SortingHeader from "../../../components/SortingAndFilter/SortingHeader";
@@ -66,24 +65,14 @@ const ProductCategoryPage = () => {
     setFilters();
   }, []);
 
-  if (isLoading) {
-    return (
-      <Center height="70vh">
-        <Spinner size="lg" />
-      </Center>
-    );
-  }
-
   return (
     <Center mt="10px">
       <Box minWidth="1230px" maxWidth="1230px">
-        <Banner />
         <Card
           padding={4}
           borderRadius="none"
           borderBottom="4px solid"
           borderColor="#E64A19"
-          mt="10px"
         >
           <Text
             fontWeight="semibold"
@@ -123,13 +112,19 @@ const ProductCategoryPage = () => {
               hasMore={!!hasNextPage}
               loader={<Spinner />}
             >
-              <SimpleGrid columns={{ base: 5 }} spacing={2}>
-                {data?.pages.map((page) =>
-                  page.models.map((product) => (
-                    <ProductCard key={product.productId} product={product} />
-                  ))
-                )}
-              </SimpleGrid>
+              {isLoading ? (
+                <Center mt="50px">
+                  <Spinner />
+                </Center>
+              ) : (
+                <SimpleGrid columns={{ base: 5 }} spacing={2}>
+                  {data?.pages.map((page) =>
+                    page.models.map((product) => (
+                      <ProductCard key={product.productId} product={product} />
+                    ))
+                  )}
+                </SimpleGrid>
+              )}
             </InfiniteScroll>
           </Stack>
         </Flex>

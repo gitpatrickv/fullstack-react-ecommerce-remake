@@ -1,11 +1,11 @@
 import { Box, Card, Flex, Image, Spacer, Text } from "@chakra-ui/react";
 import { IoIosStar } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { ProductModels } from "../../entities/Product";
+import { ProductInfoResponse } from "../../entities/Product";
 import { formatCurrency } from "../../utilities/formatCurrency";
 
 interface Props {
-  product: ProductModels;
+  product: ProductInfoResponse;
 }
 
 const ProductCard = ({ product }: Props) => {
@@ -17,7 +17,7 @@ const ProductCard = ({ product }: Props) => {
   return (
     <Card cursor="pointer" borderRadius="none" onClick={handleNavigateClick}>
       <Image
-        src={product.productImages[0].productImage}
+        src={product.productImage}
         width="100%"
         height="100%"
         boxSize="200px"
@@ -32,7 +32,7 @@ const ProductCard = ({ product }: Props) => {
           {product.productName}
         </Text>
         <Text fontSize="md" color="#E64A19" fontWeight="semibold">
-          {formatCurrency(product.inventories[0].price)}
+          {formatCurrency(product.price)}
         </Text>
         <Flex alignItems="center" mt="20px">
           <Box color="#FF5722">

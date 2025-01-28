@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import GetAllProductResponse from "../../../../entities/Product";
+import { ProductCardInfoResponse } from "../../../../entities/Product";
 import { axiosInstance } from "../../../../services/api-client";
 
 const apiClient = axiosInstance;
@@ -10,10 +10,10 @@ interface PaginateProps {
 }
 
 const useGetStoreProductsByStoreId = ({ pageSize, storeId }: PaginateProps) => {
-  return useInfiniteQuery<GetAllProductResponse, Error>({
+  return useInfiniteQuery<ProductCardInfoResponse, Error>({
     queryKey: ["storeProducts", storeId],
     queryFn: async ({ pageParam = 0 }) => {
-      const { data } = await apiClient.get<GetAllProductResponse>(
+      const { data } = await apiClient.get<ProductCardInfoResponse>(
         `/product/${storeId}`,
         {
           params: {

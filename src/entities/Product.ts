@@ -26,3 +26,13 @@ export default interface GetAllProductResponse {
   models: ProductModels[];
   pageResponse: PageResponse;
 }
+
+export interface ProductInfoResponse extends Product {
+  price: number;
+  productImage: string;
+}
+
+export interface ProductCardInfoResponse {
+  models: ProductInfoResponse[];
+  pageResponse: PageResponse;
+}
