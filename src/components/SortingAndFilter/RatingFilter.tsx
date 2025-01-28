@@ -9,6 +9,7 @@ interface Props {
   minPrice: number | null;
   maxPrice: number | null;
   urlParam: string;
+  category?: string;
 }
 
 const RatingFilter = ({
@@ -19,6 +20,7 @@ const RatingFilter = ({
   minPrice,
   maxPrice,
   urlParam,
+  category,
 }: Props) => {
   const boxStyle = (value: number) => {
     return {
@@ -42,6 +44,10 @@ const RatingFilter = ({
 
     if (maxPrice) {
       newUrl += `&maxPrice=${maxPrice.toString()}`;
+    }
+
+    if (category) {
+      newUrl += `&category=${encodeURIComponent(category)}`;
     }
 
     window.history.pushState(null, "", newUrl);

@@ -3,6 +3,8 @@ import { CiFilter } from "react-icons/ci";
 import OrangeButton from "../Button/OrangeButton";
 import PriceFilter from "./PriceFilter";
 import RatingFilter from "./RatingFilter";
+import CategoryFilter from "./CategoryFilter";
+import { StoreCategoriesProps } from "../../pages/user/StorePage/hooks/useGetStoreCategories";
 
 interface Props {
   ratingFilter: number | null;
@@ -15,6 +17,10 @@ interface Props {
   setRatingFilter: (value: number | null) => void;
   handleResetFilterClick: () => void;
   urlParam: string;
+  isCategory: boolean;
+  getStoreCategories?: StoreCategoriesProps | undefined;
+  category?: string;
+  setCategory?: (value: string) => void;
 }
 
 const Filters = ({
@@ -28,9 +34,13 @@ const Filters = ({
   urlParam,
   setRatingFilter,
   handleResetFilterClick,
+  isCategory,
+  getStoreCategories,
+  category,
+  setCategory,
 }: Props) => {
   return (
-    <Box width="250px" mr="30px">
+    <Box width="250px" mr="30px" mb="50px">
       <Flex alignItems="center">
         <CiFilter size="25px" />
         <Text fontSize="lg" fontWeight="semibold" ml="10px">
@@ -45,6 +55,7 @@ const Filters = ({
         minPrice={minPrice}
         maxPrice={maxPrice}
         urlParam={urlParam || ""}
+        category={category}
       />
       <Divider mt="15px" mb="15px" borderColor="#BEBEBE" />
       <PriceFilter
@@ -56,8 +67,25 @@ const Filters = ({
         sortBy={sortBy}
         sortDirection={sortDirection}
         urlParam={urlParam || ""}
+        category={category}
       />
-      <Divider mt="30px" mb="30px" borderColor="#BEBEBE" />
+      {isCategory && (
+        <>
+          <Divider mt="25px" mb="15px" borderColor="#BEBEBE" />
+          <CategoryFilter
+            getStoreCategories={getStoreCategories}
+            category={category}
+            setCategory={setCategory}
+            urlParam={urlParam || ""}
+            ratingFilter={ratingFilter}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            sortBy={sortBy}
+            sortDirection={sortDirection}
+          />
+        </>
+      )}
+      <Divider mt="20px" mb="20px" borderColor="#BEBEBE" />
       <OrangeButton width="100%" onClick={handleResetFilterClick}>
         CLEAR ALL
       </OrangeButton>

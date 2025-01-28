@@ -89,6 +89,7 @@ const SearchPage = () => {
             setRatingFilter={setRatingFilter}
             handleResetFilterClick={handleResetFilterClick}
             urlParam={urlParam || ""}
+            isCategory={false}
           />
           {searchLength < 1 && !isLoading ? (
             <Box width="100%">

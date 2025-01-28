@@ -27,12 +27,16 @@ export const useProductFilters = () => {
     : null;
   const [maxPrice, setMaxPrice] = useState<number | null>(maxPriceParam);
 
+  const categoryParam = searchParams.get("category") || "";
+  const [category, setCategory] = useState(categoryParam);
+
   const resetFilters = () => {
     setRatingFilter(null);
     setSortBy("productName");
     setSortDirection("ASC");
     setMinPrice(null);
     setMaxPrice(null);
+    setCategory("");
   };
 
   const setFilters = () => {
@@ -41,6 +45,7 @@ export const useProductFilters = () => {
     if (sortDirectionParam) setSortDirection(sortDirectionParam);
     if (minPriceParam) setMinPrice(minPriceParam);
     if (maxPriceParam) setMaxPrice(maxPriceParam);
+    if (categoryParam) setCategory(categoryParam);
   };
 
   return {
@@ -61,5 +66,7 @@ export const useProductFilters = () => {
     maxPriceParam,
     resetFilters,
     setFilters,
+    category,
+    setCategory,
   };
 };

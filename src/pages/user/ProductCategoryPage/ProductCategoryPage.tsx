@@ -19,8 +19,7 @@ import { useProductFilters } from "../../../hooks/useProductFilters";
 import useGetAllProductsByCategory from "./hooks/useGetAllProductsByCategory";
 
 const ProductCategoryPage = () => {
-  const params = useParams<{ category: string }>();
-  const category = params.category;
+  const { category } = useParams<{ category: string }>();
   const formattedCategory = category?.replace(/_/g, " ");
   const urlParam = `/category/${encodeURIComponent(category!)}?`;
   const {
@@ -95,6 +94,7 @@ const ProductCategoryPage = () => {
             setRatingFilter={setRatingFilter}
             handleResetFilterClick={handleResetFilterClick}
             urlParam={urlParam || ""}
+            isCategory={false}
           />
           <Stack width="100%">
             <SortingHeader
@@ -106,17 +106,17 @@ const ProductCategoryPage = () => {
               maxPrice={maxPrice}
               urlParam={urlParam || ""}
             />
-            <InfiniteScroll
-              dataLength={fetchProductData}
-              next={fetchNextPage}
-              hasMore={!!hasNextPage}
-              loader={<Spinner />}
-            >
-              {isLoading ? (
-                <Center mt="50px">
-                  <Spinner />
-                </Center>
-              ) : (
+            {isLoading ? (
+              <Center mt="50px">
+                <Spinner />
+              </Center>
+            ) : (
+              <InfiniteScroll
+                dataLength={fetchProductData}
+                next={fetchNextPage}
+                hasMore={!!hasNextPage}
+                loader={<Spinner />}
+              >
                 <SimpleGrid columns={{ base: 5 }} spacing={2}>
                   {data?.pages.map((page) =>
                     page.models.map((product) => (
@@ -124,8 +124,8 @@ const ProductCategoryPage = () => {
                     ))
                   )}
                 </SimpleGrid>
-              )}
-            </InfiniteScroll>
+              </InfiniteScroll>
+            )}
           </Stack>
         </Flex>
       </Box>

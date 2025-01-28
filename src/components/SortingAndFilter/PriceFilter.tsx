@@ -11,6 +11,7 @@ interface Props {
   sortBy: string;
   sortDirection: string;
   urlParam: string;
+  category?: string;
 }
 
 const PriceFilter = ({
@@ -22,6 +23,7 @@ const PriceFilter = ({
   sortBy,
   sortDirection,
   urlParam,
+  category,
 }: Props) => {
   const minPriceRef = useRef<HTMLInputElement>(null);
   const maxPriceRef = useRef<HTMLInputElement>(null);
@@ -52,6 +54,10 @@ const PriceFilter = ({
 
     if (maxPriceValue) {
       newUrl += `&maxPrice=${maxPriceValue?.toString()}`;
+    }
+
+    if (category) {
+      newUrl += `&category=${encodeURIComponent(category)}`;
     }
 
     window.history.pushState(null, "", newUrl);

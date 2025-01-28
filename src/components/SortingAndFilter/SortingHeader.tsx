@@ -8,6 +8,7 @@ interface Props {
   minPrice: number | null;
   maxPrice: number | null;
   urlParam: string;
+  category?: string;
 }
 
 const SortingHeader = ({
@@ -18,6 +19,7 @@ const SortingHeader = ({
   minPrice,
   maxPrice,
   urlParam,
+  category,
 }: Props) => {
   const updateUrl = (sortBy: string, direction: string) => {
     let newUrl = `${urlParam}&sortBy=${encodeURIComponent(
@@ -34,6 +36,10 @@ const SortingHeader = ({
 
     if (maxPrice) {
       newUrl += `&maxPrice=${maxPrice.toString()}`;
+    }
+
+    if (category) {
+      newUrl += `&category=${encodeURIComponent(category)}`;
     }
 
     window.history.pushState(null, "", newUrl);

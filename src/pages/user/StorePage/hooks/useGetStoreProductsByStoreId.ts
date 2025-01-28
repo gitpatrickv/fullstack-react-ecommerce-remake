@@ -7,11 +7,35 @@ const apiClient = axiosInstance;
 interface PaginateProps {
   pageSize: number;
   storeId: string;
+  category?: string;
+  sortBy?: string;
+  sortDirection?: string;
+  ratingFilter?: number | null;
+  minPrice?: number | null;
+  maxPrice?: number | null;
 }
 
-const useGetStoreProductsByStoreId = ({ pageSize, storeId }: PaginateProps) => {
+const useGetStoreProductsByStoreId = ({
+  pageSize,
+  storeId,
+  category,
+  sortBy,
+  sortDirection,
+  ratingFilter,
+  minPrice,
+  maxPrice,
+}: PaginateProps) => {
   return useInfiniteQuery<ProductCardInfoResponse, Error>({
-    queryKey: ["storeProducts", storeId],
+    queryKey: [
+      "storeProducts",
+      storeId,
+      category,
+      sortBy,
+      sortDirection,
+      ratingFilter,
+      minPrice,
+      maxPrice,
+    ],
     queryFn: async ({ pageParam = 0 }) => {
       const { data } = await apiClient.get<ProductCardInfoResponse>(
         `/product/${storeId}`,
@@ -19,6 +43,12 @@ const useGetStoreProductsByStoreId = ({ pageSize, storeId }: PaginateProps) => {
           params: {
             pageNo: pageParam,
             pageSize: pageSize,
+            category: category,
+            sortBy: sortBy,
+            sortDirection: sortDirection,
+            ratingFilter: ratingFilter,
+            minPrice: minPrice,
+            maxPrice: maxPrice,
           },
         }
       );
