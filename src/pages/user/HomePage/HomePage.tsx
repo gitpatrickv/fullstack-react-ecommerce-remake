@@ -5,6 +5,7 @@ import ProductCard from "../../../components/product/ProductCard";
 import useGetAllProducts from "../../../hooks/useGetAllProducts";
 import Banner from "./components/Banner";
 import Category from "./components/Category";
+import LoadingSkeleton from "./components/LoadingSkeleton";
 const HomePage = () => {
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetAllProducts({
     pageSize: 12,
@@ -13,11 +14,7 @@ const HomePage = () => {
     data?.pages.reduce((total, page) => total + page.models.length, 0) || 0;
 
   if (isLoading) {
-    return (
-      <Center height="100vh">
-        <Spinner size="lg" />
-      </Center>
-    );
+    return <LoadingSkeleton />;
   }
 
   return (

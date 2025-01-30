@@ -88,9 +88,11 @@ const CartItemCard = ({ cartItem, handleAddRemoveIdChange }: Props) => {
   };
 
   const navigate = useNavigate();
-
+  const formattedProductName = cartItem.productName
+    .toLowerCase()
+    .replace(/ /g, "-");
   const handleNavigateClick = () => {
-    navigate(`/product/${cartItem.productId}/${cartItem.slug}`);
+    navigate(`/product/${cartItem.productId}/${formattedProductName}`);
   };
 
   return (

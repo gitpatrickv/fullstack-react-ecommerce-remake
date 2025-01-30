@@ -6,7 +6,6 @@ export interface CartItem {
   inventory: Inventory;
   productId: number;
   productName: string;
-  slug: string;
   productImage: string;
 }
 

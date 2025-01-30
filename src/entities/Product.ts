@@ -6,7 +6,6 @@ import { Store } from "./Store";
 export interface Product {
   productId: number;
   productName: string;
-  slug: string;
   description: string;
   totalSold: number;
   averageRating: number;
