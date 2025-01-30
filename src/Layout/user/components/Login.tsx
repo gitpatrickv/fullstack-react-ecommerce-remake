@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import OrangeButton from "../../../components/Button/OrangeButton";
 import PasswordInput from "../../../components/Input/PasswordInput";
 import TextInput from "../../../components/Input/TextInput";
 import useLogin from "../hooks/useLogin";
@@ -33,17 +33,15 @@ const Login = () => {
         placeholder="Password"
         label="Password"
       />
-      <Button
-        isLoading={loading}
-        type="submit"
+      <OrangeButton
+        type={"submit"}
         width="100%"
-        bg="orange.500"
-        _hover={{ bg: "orange.600" }}
-        mb="20px"
         mt={4}
+        isLoading={loading}
+        mb="20px"
       >
         Log In
-      </Button>
+      </OrangeButton>
     </form>
   );
 };

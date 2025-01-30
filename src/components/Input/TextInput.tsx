@@ -28,6 +28,7 @@ const TextInput = ({
         placeholder={placeholder}
         disabled={loading}
         {...props}
+        borderRadius="none"
       />
       {errors[name] && (
         <Text color="red">{errors[name].message?.toString()}</Text>

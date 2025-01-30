@@ -23,7 +23,12 @@ const useLogin = () => {
       apiClient.post("/auth/login", data).then((res) => res.data),
 
     onSuccess: (response) => {
-      // queryClient.invalidateQueries(["user"]);
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["store"],
+      });
       const jwtToken = response.jwtToken;
       setJwtToken(jwtToken);
       const role = response.role;

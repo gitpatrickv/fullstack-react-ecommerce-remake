@@ -38,6 +38,7 @@ const PasswordInput = ({
           placeholder={placeholder}
           disabled={loading}
           {...props}
+          borderRadius="none"
         />
         <InputRightElement>
           <IconButton

@@ -9,6 +9,7 @@ import { useAuthQueryStore } from "../../../store/auth-store";
 const apiClient = axiosInstance;
 
 const useRegister = () => {
+  const errorFields = ["name", "email", "password", "confirmPassword"];
   const queryClient = useQueryClient();
   const { handleSubmit, setError, control } = useForm<User>({
     resolver: zodResolver(schema),
@@ -21,7 +22,9 @@ const useRegister = () => {
       apiClient.post("/auth/register", data).then((res) => res.data),
 
     onSuccess: (response) => {
-      // queryClient.invalidateQueries(["user"]);
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
       const jwtToken = response.jwtToken;
       setJwtToken(jwtToken);
       const role = response.role;
@@ -30,30 +33,14 @@ const useRegister = () => {
     },
     onError: (error: any) => {
       setLoading(false);
-      if (error.response?.data.email) {
-        setError("email", {
-          type: "server",
-          message: error.response.data.email,
-        });
-      }
-      if (error.response?.data.name) {
-        setError("name", {
-          type: "server",
-          message: error.response.data.name,
-        });
-      }
-      if (error.response?.data.password) {
-        setError("password", {
-          type: "server",
-          message: error.response.data.password,
-        });
-      }
-      if (error.response?.data.userModel) {
-        setError("confirmPassword", {
-          type: "server",
-          message: error.response.data.userModel,
-        });
-      }
+      errorFields.forEach((field: any) => {
+        if (error.response?.data[field]) {
+          setError(field, {
+            type: "server",
+            message: error.response.data[field],
+          });
+        }
+      });
     },
   });
 

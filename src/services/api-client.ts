@@ -7,16 +7,15 @@ export const axiosInstance = axios.create({
   },
 });
 
-// axiosInstance.interceptors.request.use(
-//   (config) => {
-//     const jwtToken = localStorage.getItem("jwtToken"); // Adjust based on where you store the token
-//     if (jwtToken) {
-//       config.headers.Authorization = `Bearer ${jwtToken}`;
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     // Handle request error
-//     return Promise.reject(error);
-//   }
-// );
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const jwtToken = localStorage.getItem("jwtToken");
+    if (jwtToken) {
+      config.headers.Authorization = `Bearer ${jwtToken}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);

@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   FormControl,
   Radio,
   RadioGroup,
@@ -9,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
+import OrangeButton from "../../../components/Button/OrangeButton";
 import PasswordInput from "../../../components/Input/PasswordInput";
 import TextInput from "../../../components/Input/TextInput";
 import useRegister from "../hooks/useRegister";
@@ -83,16 +83,15 @@ const Register = () => {
             )}
           />
         </FormControl>
-        <Button
-          isLoading={loading}
-          type="submit"
+        <OrangeButton
+          type={"submit"}
           width="100%"
-          bg="orange.500"
-          _hover={{ bg: "orange.600" }}
+          mt="10px"
+          isLoading={loading}
           mb="20px"
         >
           Register
-        </Button>
+        </OrangeButton>
       </Stack>
     </form>
   );
