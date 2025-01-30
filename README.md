@@ -1,50 +1,68 @@
-# React + TypeScript + Vite
+# Ecommerce
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Sample Screenshots
+- **Home Page**
+![Image](https://github.com/user-attachments/assets/e288b351-ac31-4298-8e68-1be5aa211619)
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Store Page**
+![Image](https://github.com/user-attachments/assets/18259c98-124f-4bb7-8a72-190463ad20bf)
 
-## Expanding the ESLint configuration
+## Table of Contents
+- [Project Status](#project-status)
+- [Project Overview](#project-overview)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Entity Relationship Diagram](#entity-relationship-diagram)
+- [License](#license)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Project Status
+This project is a work in progress!
+More features are being added.
 
-- Configure the top-level `parserOptions` property like this:
+## Project Overview
+This is a personal project focused on creating an online shopping platform similar to Shopee.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Tech Stack
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **Frontend:** React v18, TypeScript, Chakra UI, React Query, Zustand
+- **Backend:** Spring Boot, Java 21, MySql
+- **Authentication:** Spring Security, JWT
+- **DevOps:** Docker, Github Actions
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Getting Started
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. Clone the Repository:
+
+- **For the frontend:**
+    ```bash
+    git@github.com:gitpatrickv/fullstack-react-ecommerce-remake.git
+    ```
+- **For the backend:**
+    ```bash
+    git@github.com:gitpatrickv/fullstack-springboot-ecommerce-remake.git
+    ```
+2. Install Frontend Dependencies in the terminal:
+   ```bash
+   npm install
+   ```
+
+3. Run the Application:
+    - **Start the frontend:**
+    ```bash
+    npm run dev
+    ```
+
+    - **Start the backend:**
+    ```bash
+    docker compose up
+    ```
+
+4. Open your browser and visit `http://localhost:5173` to access the application.
+
+
+## Entity Relationship Diagram
+![Image](https://github.com/user-attachments/assets/0a6f9fe3-5260-4957-a388-31981eaec15e)
+
+## License
+This project is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for more details.
