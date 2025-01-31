@@ -8,18 +8,18 @@ interface Props {
   favorite: boolean;
 }
 
-const useGetFavoriteStatus = (productId: string) => {
+const useGetFavoriteStatus = (productId: string, userId: number) => {
   const { authStore } = useAuthQueryStore();
   const jwtToken = authStore.jwtToken;
   return useQuery({
-    queryKey: ["favoriteStatus", productId],
+    queryKey: ["favoriteStatus", productId, userId],
     queryFn: async () => {
       const { data } = await apiClient.get<Props>(
-        `/product/${productId}/favorite-status`
+        `/product/${productId}/${userId}/favorite-status`
       );
       return data;
     },
-    enabled: !!jwtToken,
+    enabled: !!jwtToken && !!userId,
   });
 };
 

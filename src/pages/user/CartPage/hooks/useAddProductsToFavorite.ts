@@ -16,6 +16,9 @@ const useAddProductsToFavorite = () => {
       queryClient.invalidateQueries({
         queryKey: ["cartItem"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["favoriteProducts"],
+      });
       toast({
         description: "Added to favorites.",
         status: "success",

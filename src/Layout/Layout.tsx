@@ -12,7 +12,7 @@ const Layout = () => {
     useUserStore();
   useEffect(() => {
     if (getUserInfo) {
-      setUserId(getUserInfo?.userId);
+      setUserId(getUserInfo.userId);
       setName(getUserInfo.name);
       setPicture(getUserInfo.picture || null);
       setGender(getUserInfo.gender);

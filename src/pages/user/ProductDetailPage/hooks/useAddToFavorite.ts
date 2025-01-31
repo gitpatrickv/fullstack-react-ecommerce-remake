@@ -12,6 +12,9 @@ const useAddToFavorite = (productId: string) => {
       queryClient.invalidateQueries({
         queryKey: ["favoriteStatus", productId],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["favoriteProducts"],
+      });
     },
   });
 };
