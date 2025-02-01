@@ -1,7 +1,6 @@
 import {
   Avatar,
   Box,
-  Button,
   Card,
   Divider,
   Flex,
@@ -11,7 +10,6 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { AiOutlinePlusSquare } from "react-icons/ai";
 import { IoIosStar } from "react-icons/io";
 import { PiChatCircleDots } from "react-icons/pi";
 import { useLocation } from "react-router-dom";
@@ -20,6 +18,7 @@ import OrangeButton from "../../../../components/Button/OrangeButton";
 import ViewShopButton from "../../../../components/Button/ViewShopButton";
 import { Store } from "../../../../entities/Store";
 import { useAuthQueryStore } from "../../../../store/auth-store";
+import FollowStoreButton from "./FollowStoreButton";
 interface Props {
   store?: Store;
 }
@@ -62,22 +61,7 @@ const StoreInfoSection = ({ store }: Props) => {
                     storeName={store?.storeName || ""}
                   />
                 ) : (
-                  <Button
-                    borderRadius="none"
-                    alignItems="center"
-                    justifyContent="center"
-                    border="1px solid"
-                    cursor="pointer"
-                    width="130px"
-                    bg="none"
-                    borderColor="#DCDCDC"
-                    _hover={{ bg: "#F8F8F8" }}
-                    mr="10px"
-                    isDisabled={!jwtToken}
-                  >
-                    <AiOutlinePlusSquare size="25px" />
-                    <Text ml="5px">Follow</Text>
-                  </Button>
+                  <FollowStoreButton storeId={store?.storeId ?? 0} />
                 )}
               </Flex>
             </Stack>
