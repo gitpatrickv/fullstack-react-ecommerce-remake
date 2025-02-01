@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../../services/api-client";
-import { IdSetProps } from "../../CartPage/hooks/useDeleteAllSelectedItem";
 
 const apiClient = axiosInstance;
 
@@ -9,16 +8,21 @@ export interface CartTotalProps {
   totalItems: number;
 }
 
-const useGetCartTotal = ({ ids }: IdSetProps) => {
+export interface Props {
+  ids: number[];
+  cartId: number;
+}
+
+const useGetCartTotal = ({ ids, cartId }: Props) => {
   return useQuery({
-    queryKey: ["cartTotal", ids],
+    queryKey: ["cartTotal", ids, cartId],
     queryFn: async () => {
       const { data } = await apiClient.get<CartTotalProps>(
-        `/cart/${ids}/total`
+        `/cart/${ids}/${cartId}/total`
       );
       return data;
     },
-    enabled: ids.length > 0,
+    enabled: ids.length > 0 && !!cartId,
   });
 };
 

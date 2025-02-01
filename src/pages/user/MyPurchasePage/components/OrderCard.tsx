@@ -15,11 +15,13 @@ import useBuyAgain from "../hooks/useBuyAgain";
 import useUpdateOrderStatus from "../hooks/useUpdateOrderStatus";
 import OrderItemCard from "./OrderItemCard";
 import RateModal from "./RateModal";
+import { useUserStore } from "../../../../store/user-store";
 interface Props {
   order: Order;
 }
 
 const OrderCard = ({ order }: Props) => {
+  const { cartId } = useUserStore();
   const cardStyle = {
     padding: "16px",
     borderRadius: "none",
@@ -61,7 +63,7 @@ const OrderCard = ({ order }: Props) => {
     updateOrderStatus.mutate();
   };
 
-  const { mutate } = useBuyAgain(order.orderId);
+  const { mutate } = useBuyAgain(order.orderId, cartId ?? 0);
 
   const handleBuyAgainClick = () => {
     mutate();

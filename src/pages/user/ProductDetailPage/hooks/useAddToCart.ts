@@ -7,6 +7,7 @@ const apiClient = axiosInstance;
 export interface AddToCartProps {
   productId: string;
   quantity: number;
+  cartId: number;
 }
 
 const useAddToCart = () => {

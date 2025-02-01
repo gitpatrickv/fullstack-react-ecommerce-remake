@@ -4,11 +4,11 @@ import { axiosInstance } from "../../../../services/api-client";
 
 const apiClient = axiosInstance;
 
-const useBuyAgain = (orderId: number) => {
+const useBuyAgain = (orderId: number, cartId: number) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   return useMutation({
-    mutationFn: () => apiClient.post(`/order/${orderId}/add`, {}),
+    mutationFn: () => apiClient.post(`/order/${orderId}/${cartId}/add`, {}),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["cartItem"],
