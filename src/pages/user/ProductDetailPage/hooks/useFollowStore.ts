@@ -13,9 +13,9 @@ const useFollowStore = (storeId: number) => {
       queryClient.invalidateQueries({
         queryKey: ["followedStoreStatus", storeId],
       });
-      //    queryClient.invalidateQueries({
-      //      queryKey: ["favoriteProducts"],
-      //    });
+      queryClient.invalidateQueries({
+        queryKey: ["followedStores"],
+      });
     },
   });
 };
