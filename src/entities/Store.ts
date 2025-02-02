@@ -6,6 +6,7 @@ export interface Store {
   averageRating: number;
   reviewsCount: number;
   status: string;
+  createdDate: string;
 }
 
 export interface StoreInfo {

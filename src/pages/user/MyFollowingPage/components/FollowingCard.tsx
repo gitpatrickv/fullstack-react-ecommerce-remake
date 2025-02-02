@@ -16,9 +16,7 @@ const FollowingCard = ({ list }: Props) => {
     navigate(`/store/${list.storeId}/${formattedStoreName}`);
   };
   const { mutate: followStore } = useFollowStore(list.storeId);
-  const handleFollowStoreClick = () => {
-    followStore();
-  };
+
   return (
     <>
       <Card padding={4} borderRadius="none">
@@ -41,7 +39,7 @@ const FollowingCard = ({ list }: Props) => {
             {list.storeName}
           </Text>
           <Spacer />
-          <OrangeButton onClick={handleFollowStoreClick}>Unfollow</OrangeButton>
+          <OrangeButton onClick={() => followStore()}>Unfollow</OrangeButton>
         </Flex>
       </Card>
     </>

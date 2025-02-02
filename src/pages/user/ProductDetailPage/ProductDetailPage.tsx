@@ -7,8 +7,10 @@ import useGetOneResource from "../../../hooks/useGetOneResource";
 import { formatCurrency } from "../../../utilities/formatCurrency";
 import AddToCartButton from "./components/AddToCartButton";
 import AddToFavoriteButton from "./components/AddToFavoriteButton";
+import ProductDescription from "./components/ProductDescription";
 import ProductImages from "./components/ProductImages";
 import ProductQuantity from "./components/ProductQuantity";
+import ProductRatings from "./components/ProductRatings";
 import RatingsAndSold from "./components/RatingsAndSold";
 import StoreInfoSection from "./components/StoreInfoSection";
 import Variations from "./components/Variations";
@@ -122,6 +124,8 @@ const ProductDetailPage = () => {
           </Flex>
         </Card>
         <StoreInfoSection store={getProductDetail?.store} />
+        <ProductDescription description={getProductDetail?.description} />
+        <ProductRatings />
       </Box>
     </Center>
   );

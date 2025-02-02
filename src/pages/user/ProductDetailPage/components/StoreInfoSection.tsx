@@ -13,22 +13,26 @@ import {
 import { IoIosStar } from "react-icons/io";
 import { PiChatCircleDots } from "react-icons/pi";
 import { useLocation } from "react-router-dom";
+import ReactTimeAgo from "react-time-ago";
 import storePic from "../../../../assets/storePic.jpg";
 import OrangeButton from "../../../../components/Button/OrangeButton";
 import ViewShopButton from "../../../../components/Button/ViewShopButton";
 import { Store } from "../../../../entities/Store";
 import { useAuthQueryStore } from "../../../../store/auth-store";
+import useGetStoreMetrics from "../hooks/useGetStoreMetrics";
 import FollowStoreButton from "./FollowStoreButton";
 interface Props {
   store?: Store;
 }
 
 const StoreInfoSection = ({ store }: Props) => {
+  const time = new Date(store?.createdDate || new Date());
   const location = useLocation();
   const { authStore } = useAuthQueryStore();
   const jwtToken = authStore.jwtToken;
   const productLocation = location.pathname.startsWith("/product");
   const storeLocation = location.pathname.startsWith("/store");
+  const { data: storeMetrics } = useGetStoreMetrics(store?.storeId ?? 0);
   return (
     <Card borderRadius="none" padding={5} mt="10px">
       <Grid
@@ -84,7 +88,7 @@ const StoreInfoSection = ({ store }: Props) => {
                 {store?.averageRating ?? 0}
               </Text>
             </Flex>
-            <Text color="#E64A19">200</Text>
+            <Text color="#E64A19">{storeMetrics?.productCount ?? 0}</Text>
           </Stack>
         </GridItem>
         <GridItem
@@ -116,9 +120,11 @@ const StoreInfoSection = ({ store }: Props) => {
         </GridItem>
         <GridItem area="content7" display="flex" justifyContent="end">
           <Stack mt="20px">
-            <Text color="#E64A19">8 months ago</Text>
+            <Text color="#E64A19">
+              <ReactTimeAgo date={time} locale="en-US" />
+            </Text>
             <Text textAlign="end" color="#E64A19">
-              1.5k
+              {storeMetrics?.followerCount ?? 0}
             </Text>
           </Stack>
         </GridItem>

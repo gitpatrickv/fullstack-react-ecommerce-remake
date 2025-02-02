@@ -1,6 +1,7 @@
-import { Button, Text } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { AiOutlinePlusSquare } from "react-icons/ai";
+import WhiteButton from "../../../../components/Button/WhiteButton";
 import { useAuthQueryStore } from "../../../../store/auth-store";
 import useFollowStore from "../hooks/useFollowStore";
 import useGetFollowingStoreStatus from "../hooks/useGetFollowingStoreStatus";
@@ -14,29 +15,19 @@ const FollowStoreButton = ({ storeId }: Props) => {
   const jwtToken = authStore.jwtToken;
 
   const { mutate: followStore } = useFollowStore(storeId);
-  const handleFollowStoreClick = () => {
-    followStore();
-  };
 
-  const { data: getFollowStoreStatus } = useGetFollowingStoreStatus(storeId);
+  const { data: getFollowStoreStatus, isLoading } =
+    useGetFollowingStoreStatus(storeId);
   const [isHovered, setIsHovered] = useState(false);
   return (
     <>
-      <Button
-        borderRadius="none"
-        alignItems="center"
-        justifyContent="center"
-        border="1px solid"
-        cursor="pointer"
-        width="130px"
-        bg="none"
-        borderColor="#DCDCDC"
-        _hover={{ bg: "#F8F8F8" }}
-        mr="10px"
+      <WhiteButton
         isDisabled={!jwtToken}
-        onClick={handleFollowStoreClick}
+        onClick={() => followStore()}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        mr="10px"
+        isLoading={isLoading}
       >
         {getFollowStoreStatus?.following ? (
           isHovered ? (
@@ -50,7 +41,7 @@ const FollowStoreButton = ({ storeId }: Props) => {
             <Text ml="5px">Follow</Text>
           </>
         )}
-      </Button>
+      </WhiteButton>
     </>
   );
 };
