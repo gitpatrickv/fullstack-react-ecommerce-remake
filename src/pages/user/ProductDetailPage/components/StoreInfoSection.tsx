@@ -36,7 +36,7 @@ const StoreInfoSection = ({ store }: Props) => {
   return (
     <Card borderRadius="none" padding={5} mt="10px">
       <Grid
-        templateColumns="0.6fr 0.1fr 0.1fr 0.2fr 0.2fr 0.2fr 0.2fr"
+        templateColumns="0.6fr 0.1fr 50px 0.2fr 0.2fr 0.2fr 0.2fr"
         templateAreas={`"content1 content2 content3 content4 content5 content6 content7"`}
       >
         <GridItem area="content1">
@@ -78,7 +78,7 @@ const StoreInfoSection = ({ store }: Props) => {
             <Text mr="50px">Products</Text>
           </Stack>
         </GridItem>
-        <GridItem area="content3">
+        <GridItem area="content3" display="flex" justifyContent="end" mr="20px">
           <Stack mt="20px">
             <Flex alignItems="center">
               <Box color="#FF5722">
@@ -88,7 +88,9 @@ const StoreInfoSection = ({ store }: Props) => {
                 {store?.averageRating ?? 0}
               </Text>
             </Flex>
-            <Text color="#E64A19">{storeMetrics?.productCount ?? 0}</Text>
+            <Text color="#E64A19" textAlign="end">
+              {storeMetrics?.productCount ?? 0}
+            </Text>
           </Stack>
         </GridItem>
         <GridItem

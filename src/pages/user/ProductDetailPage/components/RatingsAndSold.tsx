@@ -1,6 +1,5 @@
-import { Box, Divider, Flex, Text } from "@chakra-ui/react";
-import { IoIosStar } from "react-icons/io";
-
+import { Divider, Flex, Text } from "@chakra-ui/react";
+import StarRating from "../../../../components/product/StarRating";
 interface Props {
   totalSold: number;
   averageRating: number;
@@ -8,7 +7,6 @@ interface Props {
 }
 
 const RatingsAndSold = ({ totalSold, averageRating, reviewsCount }: Props) => {
-  const ratings = [1, 2, 3, 4, 5];
   return (
     <>
       <Flex alignItems="center">
@@ -19,11 +17,7 @@ const RatingsAndSold = ({ totalSold, averageRating, reviewsCount }: Props) => {
         >
           {averageRating}
         </Text>
-        {ratings.map((s) => (
-          <Box key={s} color="#FF5722">
-            <IoIosStar />
-          </Box>
-        ))}
+        <StarRating averageRating={averageRating} />
         <Divider
           orientation="vertical"
           ml="10px"

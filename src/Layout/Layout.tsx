@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { Outlet } from "react-router";
+import { Outlet, ScrollRestoration } from "react-router";
 import CreateAddressModal from "../pages/user/AddressPage/components/CreateAddressModal";
 import { useUserStore } from "../store/user-store";
 import Navbar from "./user/components/Navbar";
@@ -27,6 +27,7 @@ const Layout = () => {
 
       <Box width="full">
         <Outlet />
+        <ScrollRestoration />
         <CreateAddressModal />
       </Box>
     </Box>

@@ -8,6 +8,7 @@ import { formatCurrency } from "../../../utilities/formatCurrency";
 import AddToCartButton from "./components/AddToCartButton";
 import AddToFavoriteButton from "./components/AddToFavoriteButton";
 import ProductDescription from "./components/ProductDescription";
+import ProductDetailPageSkeleton from "./components/ProductDetailPageSkeleton";
 import ProductImages from "./components/ProductImages";
 import ProductQuantity from "./components/ProductQuantity";
 import ProductRatings from "./components/ProductRatings";
@@ -19,10 +20,11 @@ const ProductDetailPage = () => {
   const params = useParams<{ productId: string }>();
   const productId = params.productId;
 
-  const { data: getProductDetail } = useGetOneResource<ProductModels>({
-    module: "product",
-    id: productId!,
-  });
+  const { data: getProductDetail, isLoading } =
+    useGetOneResource<ProductModels>({
+      module: "product",
+      id: productId!,
+    });
 
   const hasColorsOrSizes = getProductDetail?.inventories.some(
     (inv) => !!inv.color || !!inv.size
@@ -62,6 +64,10 @@ const ProductDetailPage = () => {
     (!hasColorsOrSizes &&
       (getProductDetail?.inventories[0]?.quantity ?? 0) < 1) ||
     (hasColorsOrSizes && (filteredInventory?.quantity ?? 0) < 1);
+
+  if (isLoading) {
+    return <ProductDetailPageSkeleton />;
+  }
 
   return (
     <Center mt="10px">
@@ -125,7 +131,7 @@ const ProductDetailPage = () => {
         </Card>
         <StoreInfoSection store={getProductDetail?.store} />
         <ProductDescription description={getProductDetail?.description} />
-        <ProductRatings />
+        <ProductRatings averageRating={getProductDetail?.averageRating ?? 0} />
       </Box>
     </Center>
   );
