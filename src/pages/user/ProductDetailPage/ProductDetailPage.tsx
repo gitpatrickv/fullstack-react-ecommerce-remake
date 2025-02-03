@@ -11,7 +11,7 @@ import ProductDescription from "./components/ProductDescription";
 import ProductDetailPageSkeleton from "./components/ProductDetailPageSkeleton";
 import ProductImages from "./components/ProductImages";
 import ProductQuantity from "./components/ProductQuantity";
-import ProductRatings from "./components/ProductRatings";
+import ProductRatingsAndReview from "./components/ProductRatingsAndReview";
 import RatingsAndSold from "./components/RatingsAndSold";
 import StoreInfoSection from "./components/StoreInfoSection";
 import Variations from "./components/Variations";
@@ -131,7 +131,9 @@ const ProductDetailPage = () => {
         </Card>
         <StoreInfoSection store={getProductDetail?.store} />
         <ProductDescription description={getProductDetail?.description} />
-        <ProductRatings averageRating={getProductDetail?.averageRating ?? 0} />
+        <ProductRatingsAndReview
+          averageRating={getProductDetail?.averageRating ?? 0}
+        />
       </Box>
     </Center>
   );
