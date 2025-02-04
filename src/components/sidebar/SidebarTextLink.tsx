@@ -15,6 +15,7 @@ const SidebarTextLink = ({ navLink, title }: Props) => {
           color={location.pathname === navLink ? "#FF5722" : "white.500"}
           cursor="pointer"
           _hover={{ color: "#FF5722" }}
+          userSelect="none"
         >
           {title}
         </Text>

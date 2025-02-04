@@ -1,7 +1,21 @@
-import React from "react";
+import useGetCustomerOrders from "../hooks/useGetCustomerOrders";
+import CustomerOrder from "./CustomerOrder";
 
 const CancelledCustomerOrders = () => {
-  return <div>CancelledCustomerOrders</div>;
+  const { data, fetchNextPage, hasNextPage, isLoading } = useGetCustomerOrders({
+    pageSize: 4,
+    status: "CANCELLED",
+  });
+  return (
+    <>
+      <CustomerOrder
+        data={data}
+        isLoading={isLoading}
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+      />
+    </>
+  );
 };
 
 export default CancelledCustomerOrders;

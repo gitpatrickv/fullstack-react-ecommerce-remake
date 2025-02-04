@@ -73,7 +73,6 @@ const ProductRatingsAndReview = ({ averageRating }: Props) => {
           <Flex mt="5px">
             <WhiteButton
               mr="10px"
-              bg="white"
               _hover={{ bg: "white" }}
               _active={{ bg: "white" }}
               onClick={() => setRating(null)}
@@ -85,7 +84,6 @@ const ProductRatingsAndReview = ({ averageRating }: Props) => {
             {ratings.map((rate) => (
               <WhiteButton
                 mr="10px"
-                bg="white"
                 _hover={{ bg: "white" }}
                 _active={{ bg: "white" }}
                 key={rate}

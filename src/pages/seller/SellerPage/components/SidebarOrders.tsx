@@ -15,7 +15,7 @@ const SidebarOrders = () => {
       />
       <Box ml="30px">
         <SidebarTextLink navLink="/seller/order/all" title="All" />
-        <SidebarTextLink navLink="/seller/order/unpaid" title="To Pay" />
+        <SidebarTextLink navLink="/seller/order/unpaid" title="To Confirm" />
         <SidebarTextLink navLink="/seller/order/to-ship" title="To Ship" />
         <SidebarTextLink navLink="/seller/order/shipping" title="Shipping" />
         <SidebarTextLink navLink="/seller/order/completed" title="Completed" />

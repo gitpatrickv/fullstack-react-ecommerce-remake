@@ -14,7 +14,7 @@ const WhiteButton = ({ children, type, ...props }: Props) => {
       border="1px solid"
       cursor="pointer"
       width="130px"
-      bg="none"
+      bg="white"
       borderColor="#DCDCDC"
       _hover={{ bg: "#F8F8F8" }}
       {...props}

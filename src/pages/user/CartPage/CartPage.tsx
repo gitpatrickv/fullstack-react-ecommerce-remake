@@ -141,7 +141,7 @@ const CartPage = () => {
     setCartTotal(total);
   }, [itemIds, getCartItems]);
 
-  if ((getCartItems?.length ?? 0) < 1 && !isLoading) {
+  if (getCartItems && (getCartItems?.length ?? 0) < 1) {
     return (
       <Center height="70vh" flexDirection="column">
         <FiShoppingCart size="100px" />
@@ -155,7 +155,7 @@ const CartPage = () => {
   return (
     <Center mt="10px">
       <Box minWidth="1200px">
-        {!isLoading && (
+        {getCartItems && (
           <CartHeader
             handleAddRemoveAllIdsChange={handleAddRemoveAllIdsChange}
             cartItemsSize={cartItemsSize}
@@ -202,7 +202,7 @@ const CartPage = () => {
             ))}
           </Box>
         ))}
-        {!isLoading && (
+        {getCartItems && (
           <CartFooter
             handleAddRemoveAllIdsChange={handleAddRemoveAllIdsChange}
             cartItemsSize={cartItemsSize}

@@ -1,12 +1,12 @@
-import { Box, Skeleton, Spinner } from "@chakra-ui/react";
+import { Skeleton, Spinner } from "@chakra-ui/react";
 import {
   InfiniteData,
   InfiniteQueryObserverResult,
 } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import OrderItemResponse from "../../../../entities/Order";
-import NoOrdersYet from "./NoOrdersYet";
-import OrderCard from "./OrderCard";
+import NoOrdersYet from "../../../user/MyPurchasePage/components/NoOrdersYet";
+import CustomerOrderCard from "./CustomerOrderCard";
 
 interface Props {
   data: InfiniteData<OrderItemResponse> | undefined;
@@ -17,11 +17,17 @@ interface Props {
   hasNextPage: boolean | undefined;
 }
 
-const Orders = ({ data, isLoading, fetchNextPage, hasNextPage }: Props) => {
+const CustomerOrder = ({
+  data,
+  isLoading,
+  fetchNextPage,
+  hasNextPage,
+}: Props) => {
   const ordersLength = data?.pages.flatMap((order) => order.models).length || 0;
 
   const fetchOrderData =
     data?.pages.reduce((total, page) => total + page.models.length, 0) || 0;
+
   const array = [1, 2, 3];
 
   if (isLoading) {
@@ -39,7 +45,7 @@ const Orders = ({ data, isLoading, fetchNextPage, hasNextPage }: Props) => {
   }
 
   return (
-    <Box>
+    <>
       <InfiniteScroll
         dataLength={fetchOrderData}
         next={fetchNextPage}
@@ -48,12 +54,12 @@ const Orders = ({ data, isLoading, fetchNextPage, hasNextPage }: Props) => {
       >
         {data?.pages.map((page) =>
           page.models.map((order) => (
-            <OrderCard key={order.orderId} order={order} />
+            <CustomerOrderCard key={order.orderId} order={order} />
           ))
         )}
       </InfiniteScroll>
-    </Box>
+    </>
   );
 };
 
-export default Orders;
+export default CustomerOrder;

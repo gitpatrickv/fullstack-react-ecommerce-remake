@@ -75,7 +75,7 @@ const OrderPage = () => {
       <Card borderRadius="none" padding="12px">
         <TabList display="flex" justifyContent="space-between">
           <Tab>All</Tab>
-          <Tab>To Pay</Tab>
+          <Tab>To Confirm</Tab>
           <Tab>To Ship</Tab>
           <Tab>Shipping</Tab>
           <Tab>Completed</Tab>
