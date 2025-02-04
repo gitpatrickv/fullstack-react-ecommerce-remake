@@ -1,10 +1,8 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
-import { Link, useLocation } from "react-router-dom";
 import SidebarNavLink from "../../../../components/sidebar/SidebarNavLink";
+import SidebarTextLink from "../../../../components/sidebar/SidebarTextLink";
 const SidebarProduct = () => {
-  const location = useLocation();
-
   return (
     <>
       <SidebarNavLink
@@ -16,32 +14,11 @@ const SidebarProduct = () => {
         titleMarginLeft="10px"
       />
       <Box ml="30px">
-        <Link to={`/seller/product`}>
-          <Text
-            mb="3px"
-            mt="3px"
-            color={
-              location.pathname === "/seller/product" ? "#FF5722" : "white.500"
-            }
-            cursor="pointer"
-            _hover={{ color: "#FF5722" }}
-          >
-            My Products
-          </Text>
-        </Link>
-        <Link to={`/seller/product/create`}>
-          <Text
-            color={
-              location.pathname === "/seller/product/create"
-                ? "#FF5722"
-                : "white.500"
-            }
-            cursor="pointer"
-            _hover={{ color: "#FF5722" }}
-          >
-            Add New Product
-          </Text>
-        </Link>
+        <SidebarTextLink navLink="/seller/product" title="My Products" />
+        <SidebarTextLink
+          navLink="/seller/product/create"
+          title="Add New Product"
+        />
       </Box>
     </>
   );

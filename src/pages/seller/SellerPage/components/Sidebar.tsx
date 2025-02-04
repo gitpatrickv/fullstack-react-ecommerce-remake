@@ -2,13 +2,13 @@ import { Avatar, Box, Card, Divider, Flex, Text } from "@chakra-ui/react";
 import { FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import storePic from "../../../../assets/storePic.jpg";
-import ColorModeSwitch from "../../../../components/ColorModeSwitch";
 import { useShopStore } from "../../../../store/shop-store";
 import SidebarAccount from "./SidebarAccount";
+import SidebarOrders from "./SidebarOrders";
 import SidebarProduct from "./SidebarProduct";
 const Sidebar = () => {
   const { storeName, picture } = useShopStore();
-  //TODO: remove dark mode
+
   return (
     <Card borderRadius="none" minHeight="100%" boxShadow="none">
       <Link to="/seller">
@@ -24,12 +24,11 @@ const Sidebar = () => {
           >
             {storeName}
           </Text>
-
-          <ColorModeSwitch />
         </Flex>
       </Link>
-      <Divider mt="15px" color="gray.500" />
+      <Divider mt="15px" color="#DCDCDC" />
       <Box ml="10px">
+        <SidebarOrders />
         <SidebarProduct />
         <SidebarAccount />
         <Link to="/">

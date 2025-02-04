@@ -24,7 +24,6 @@ import { RiStore2Line } from "react-icons/ri";
 import { SlLogout } from "react-icons/sl";
 import { Link, useNavigate } from "react-router-dom";
 import pic from "../../../assets/profpic.jpeg";
-import ColorModeSwitch from "../../../components/ColorModeSwitch";
 import useHandleLogout from "../../../hooks/useHandleLogout";
 import { useAuthQueryStore } from "../../../store/auth-store";
 import { useUserStore } from "../../../store/user-store";
@@ -57,7 +56,7 @@ const NavTop = () => {
   const handleNavigateSellerPageClick = () => {
     navigate(role === "SELLER" ? `/seller` : "/create/store");
   };
-  //TODO: remove dark mode
+
   return (
     <>
       {jwtToken ? (
@@ -70,7 +69,6 @@ const NavTop = () => {
             {role === "USER" ? "Start Selling" : "Seller Center"}
           </Text>
           <Spacer />
-          <ColorModeSwitch />
           <Menu>
             <MenuButton
               as={IconButton}

@@ -1,10 +1,9 @@
 import { Box, Text } from "@chakra-ui/react";
 import { FaRegUserCircle } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
 import SidebarNavLink from "../../../../components/sidebar/SidebarNavLink";
+import SidebarTextLink from "../../../../components/sidebar/SidebarTextLink";
 import useHandleLogout from "../../../../hooks/useHandleLogout";
 const SidebarAccount = () => {
-  const location = useLocation();
   const handleLogout = useHandleLogout();
 
   return (
@@ -18,21 +17,7 @@ const SidebarAccount = () => {
         titleMarginLeft="10px"
       />
       <Box ml="30px">
-        <Link to="/seller/account/info">
-          <Text
-            mb="3px"
-            mt="3px"
-            cursor="pointer"
-            color={
-              location.pathname === "/seller/account/info"
-                ? "#FF5722"
-                : "white.500"
-            }
-            _hover={{ color: "#FF5722" }}
-          >
-            Account Info
-          </Text>
-        </Link>
+        <SidebarTextLink navLink="/seller/account/info" title=" Account Info" />
         <Text
           mb="3px"
           cursor="pointer"

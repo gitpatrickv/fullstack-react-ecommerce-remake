@@ -1,6 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface Props {
   icon: React.ElementType;
@@ -21,6 +21,7 @@ const SidebarNavLink = ({
   title,
   titleMarginLeft,
 }: Props) => {
+  const location = useLocation();
   return (
     <>
       <Flex

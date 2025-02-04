@@ -18,12 +18,10 @@ interface Props {
 }
 
 const Orders = ({ data, isLoading, fetchNextPage, hasNextPage }: Props) => {
-  const ordersLength =
-    data?.pages.flatMap((order) => order.orderModels).length || 0;
+  const ordersLength = data?.pages.flatMap((order) => order.models).length || 0;
 
   const fetchOrderData =
-    data?.pages.reduce((total, page) => total + page.orderModels.length, 0) ||
-    0;
+    data?.pages.reduce((total, page) => total + page.models.length, 0) || 0;
   const array = [1, 2, 3];
 
   if (isLoading) {
@@ -49,7 +47,7 @@ const Orders = ({ data, isLoading, fetchNextPage, hasNextPage }: Props) => {
         loader={<Spinner />}
       >
         {data?.pages.map((page) =>
-          page.orderModels.map((order) => (
+          page.models.map((order) => (
             <OrderCard key={order.orderId} order={order} />
           ))
         )}

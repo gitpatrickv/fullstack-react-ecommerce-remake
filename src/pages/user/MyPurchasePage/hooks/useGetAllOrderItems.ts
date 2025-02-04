@@ -14,7 +14,7 @@ const useGetAllOrderItems = ({ pageSize, status }: PaginateProps) => {
   const { userId } = useUserStore();
   const id = userId ?? 0;
   return useInfiniteQuery<OrderItemResponse, Error>({
-    queryKey: ["allOrders", status, pageSize],
+    queryKey: ["allOrders", status],
     queryFn: async ({ pageParam = 0 }) => {
       const { data } = await apiClient.get<OrderItemResponse>(`/order`, {
         params: {

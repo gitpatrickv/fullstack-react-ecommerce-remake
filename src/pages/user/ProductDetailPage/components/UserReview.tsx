@@ -51,7 +51,7 @@ const UserReview = ({ productReview }: Props) => {
           <Text fontWeight="semibold" color="#E64A19">
             Seller's Response:
           </Text>
-          <Text mt="10px">{productReview?.sellerResponse} asdasd</Text>
+          <Text mt="10px">{productReview?.sellerResponse}</Text>
         </Card>
       )}
     </Box>
