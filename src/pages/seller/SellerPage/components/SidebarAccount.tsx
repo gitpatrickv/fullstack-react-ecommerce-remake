@@ -13,7 +13,7 @@ const SidebarAccount = () => {
         navLink="/seller/account/info"
         iconSize="20px"
         marginTop="15px"
-        title="My Product"
+        title="My Account"
         titleMarginLeft="10px"
       />
       <Box ml="30px">

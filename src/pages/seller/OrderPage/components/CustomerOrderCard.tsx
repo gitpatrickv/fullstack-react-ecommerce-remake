@@ -7,6 +7,7 @@ import { Order } from "../../../../entities/Order";
 import { formatCurrency } from "../../../../utilities/formatCurrency";
 import OrderItemCard from "../../../user/MyPurchasePage/components/OrderItemCard";
 import useUpdateOrderStatus from "../../../user/MyPurchasePage/hooks/useUpdateOrderStatus";
+import OrderDetail from "./OrderDetail";
 
 interface Props {
   order: Order;
@@ -58,9 +59,7 @@ const CustomerOrderCard = ({ order }: Props) => {
             <Text fontWeight="semibold" textTransform="capitalize">
               {order.recipientName}
             </Text>
-            <WhiteButton height="30px" ml="10px">
-              User Details
-            </WhiteButton>
+            <OrderDetail order={order} />
           </HStack>
           <Text color="#E64A19" fontWeight="semibold">
             {statusMapping[order.orderStatus] || ""}

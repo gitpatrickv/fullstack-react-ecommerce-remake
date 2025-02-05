@@ -15,7 +15,7 @@ const useGetProductReviews = ({ productId, rating, pageSize }: Props) => {
     queryKey: ["productReviews", productId, rating],
     queryFn: async ({ pageParam = 0 }) => {
       const { data } = await apiClient.get<GetReviewsResponse>(
-        `/product/${productId}/reviews`,
+        `/product/${productId}/product-reviews`,
         {
           params: {
             rating: rating,

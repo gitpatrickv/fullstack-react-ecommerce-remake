@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import storePic from "../../../../assets/storePic.jpg";
 import { useShopStore } from "../../../../store/shop-store";
 import SidebarAccount from "./SidebarAccount";
+import SidebarCustomerService from "./SidebarCustomerService";
 import SidebarOrders from "./SidebarOrders";
 import SidebarProduct from "./SidebarProduct";
 const Sidebar = () => {
@@ -30,6 +31,7 @@ const Sidebar = () => {
       <Box ml="10px">
         <SidebarOrders />
         <SidebarProduct />
+        <SidebarCustomerService />
         <SidebarAccount />
         <Link to="/">
           <Flex

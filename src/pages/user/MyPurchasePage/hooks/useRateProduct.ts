@@ -8,12 +8,19 @@ export interface RateProps {
   customerReview?: string;
 }
 
-const useRateProduct = (productId: number, orderId: number) => {
+const useRateProduct = (
+  productId: number,
+  orderId: number,
+  storeId: number
+) => {
   const toast = useToast();
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: RateProps) => {
-      await apiClient.post(`/product/${productId}/${orderId}/rate`, data);
+      await apiClient.post(
+        `/product/${productId}/${orderId}/${storeId}/rate`,
+        data
+      );
     },
     onSuccess: () => {
       queryClient.invalidateQueries({

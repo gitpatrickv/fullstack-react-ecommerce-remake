@@ -10,7 +10,7 @@ const useGetCustomerOrders = ({ pageSize, status }: PaginateProps) => {
   const { storeId } = useShopStore();
 
   return useInfiniteQuery<OrderItemResponse, Error>({
-    queryKey: ["allOrders", status],
+    queryKey: ["customerOrders", status],
     queryFn: async ({ pageParam = 0 }) => {
       const { data } = await apiClient.get<OrderItemResponse>(`/order`, {
         params: {

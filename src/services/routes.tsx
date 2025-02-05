@@ -19,6 +19,7 @@ import ShippingCustomerOrders from "../pages/seller/OrderPage/components/Shippin
 import ToShipCustomerOrders from "../pages/seller/OrderPage/components/ToShipCustomerOrders";
 import UnpaidCustomerOrders from "../pages/seller/OrderPage/components/UnpaidCustomerOrders";
 import OrderPage from "../pages/seller/OrderPage/OrderPage";
+import ReviewManagementPage from "../pages/seller/ReviewManagementPage/ReviewManagementPage";
 import Dashboard from "../pages/seller/SellerPage/components/Dashboard";
 import SellerPage from "../pages/seller/SellerPage/SellerPage";
 import AccountProfilePage from "../pages/user/AccountProfilePage/AccountProfilePage";
@@ -133,6 +134,10 @@ const router = createBrowserRouter([
       {
         path: "account/info",
         element: <AccountInfoPage />,
+      },
+      {
+        path: "customer/service/review",
+        element: <ReviewManagementPage />,
       },
       {
         path: "order",

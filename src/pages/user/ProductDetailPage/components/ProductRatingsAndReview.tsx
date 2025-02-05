@@ -47,7 +47,7 @@ const ProductRatingsAndReview = ({ averageRating }: Props) => {
     getReviews?.pages.flatMap((review) => review.models).length || 0;
 
   return (
-    <Card padding={5} mt="10px" borderRadius="none" minHeight="400px">
+    <Card padding={5} mt="10px" borderRadius="none" mb="40px">
       <Text fontSize="x-large" fontWeight="semibold" mb="10px">
         Product Rating
       </Text>
