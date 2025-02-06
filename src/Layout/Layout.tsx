@@ -8,11 +8,10 @@ import useGetCurrentUserInfo from "./user/hooks/useGetCurrentUserInfo";
 
 const Layout = () => {
   const { data: getUserInfo } = useGetCurrentUserInfo();
-  const { setUserId, setCartId, setName, setPicture, setGender, setEmail } =
+  const { setCartId, setName, setPicture, setGender, setEmail } =
     useUserStore();
   useEffect(() => {
     if (getUserInfo) {
-      setUserId(getUserInfo.userId);
       setCartId(getUserInfo.cartId);
       setName(getUserInfo.name);
       setPicture(getUserInfo.picture || null);

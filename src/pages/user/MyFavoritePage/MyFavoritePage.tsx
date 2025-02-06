@@ -1,15 +1,11 @@
-import { Card, Box, Text, SimpleGrid, Spinner, Center } from "@chakra-ui/react";
-import useGetFavorites from "./hooks/useGetFavorites";
-import { useUserStore } from "../../../store/user-store";
+import { Box, Card, Center, SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ProductCard from "../../../components/product/ProductCard";
+import useGetFavorites from "./hooks/useGetFavorites";
 
 const MyFavoritePage = () => {
-  const { userId } = useUserStore();
-
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetFavorites({
     pageSize: 15,
-    userId: userId ?? 0,
   });
 
   const fetchProductData =

@@ -4,24 +4,19 @@ import { useParams } from "react-router-dom";
 import { useAuthQueryStore } from "../../../../store/auth-store";
 import useAddToFavorite from "../hooks/useAddToFavorite";
 import useGetFavoriteStatus from "../hooks/useGetFavoriteStatus";
-import { useUserStore } from "../../../../store/user-store";
 
 const AddToFavoriteButton = () => {
   const params = useParams<{ productId: string }>();
   const productId = params.productId;
   const { authStore, onOpen } = useAuthQueryStore();
   const jwtToken = authStore.jwtToken;
-  const { userId } = useUserStore();
   const { mutate: addToFavorite } = useAddToFavorite(productId!);
 
   const handleAddToFavoriteClick = () => {
     addToFavorite();
   };
 
-  const { data: getFavoriteStatus } = useGetFavoriteStatus(
-    productId!,
-    userId ?? 0
-  );
+  const { data: getFavoriteStatus } = useGetFavoriteStatus(productId!);
 
   return (
     <Flex

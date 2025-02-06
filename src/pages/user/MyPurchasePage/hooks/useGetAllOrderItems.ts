@@ -1,7 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import OrderItemResponse from "../../../../entities/Order";
 import { axiosInstance } from "../../../../services/api-client";
-import { useUserStore } from "../../../../store/user-store";
 
 const apiClient = axiosInstance;
 
@@ -11,8 +10,6 @@ export interface PaginateProps {
 }
 
 const useGetAllOrderItems = ({ pageSize, status }: PaginateProps) => {
-  const { userId } = useUserStore();
-  const id = userId ?? 0;
   return useInfiniteQuery<OrderItemResponse, Error>({
     queryKey: ["allOrders", status],
     queryFn: async ({ pageParam = 0 }) => {
@@ -20,7 +17,6 @@ const useGetAllOrderItems = ({ pageSize, status }: PaginateProps) => {
         params: {
           pageNo: pageParam,
           pageSize: pageSize,
-          userId: id,
           status: status,
         },
       });
@@ -32,7 +28,6 @@ const useGetAllOrderItems = ({ pageSize, status }: PaginateProps) => {
       return pageNo + 1 < totalPages ? pageNo + 1 : undefined;
     },
     initialPageParam: 0,
-    enabled: !!id,
   });
 };
 

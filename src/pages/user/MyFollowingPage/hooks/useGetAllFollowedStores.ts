@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../../services/api-client";
-import { useUserStore } from "../../../../store/user-store";
 const apiClient = axiosInstance;
 
 export interface GetFollowedStoreProps {
@@ -10,16 +9,14 @@ export interface GetFollowedStoreProps {
 }
 
 const useGetAllFollowedStores = () => {
-  const { userId } = useUserStore();
   return useQuery({
     queryKey: ["followedStores"],
     queryFn: async () => {
       const { data } = await apiClient.get<GetFollowedStoreProps[]>(
-        `/store/${userId}/followed-stores`
+        `/store/followed-stores`
       );
       return data;
     },
-    enabled: !!userId,
   });
 };
 

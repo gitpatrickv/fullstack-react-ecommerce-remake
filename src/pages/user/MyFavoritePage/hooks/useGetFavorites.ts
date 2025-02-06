@@ -6,15 +6,14 @@ const apiClient = axiosInstance;
 
 interface PaginateProps {
   pageSize: number;
-  userId: number;
 }
 
-const useGetFavorites = ({ pageSize, userId }: PaginateProps) => {
+const useGetFavorites = ({ pageSize }: PaginateProps) => {
   return useInfiniteQuery<ProductCardInfoResponse, Error>({
-    queryKey: ["favoriteProducts", userId, pageSize],
+    queryKey: ["favoriteProducts", pageSize],
     queryFn: async ({ pageParam = 0 }) => {
       const { data } = await apiClient.get<ProductCardInfoResponse>(
-        `/product/${userId}/favorites`,
+        `/product/favorites`,
         {
           params: {
             pageNo: pageParam,
@@ -30,7 +29,6 @@ const useGetFavorites = ({ pageSize, userId }: PaginateProps) => {
       return pageNo + 1 < totalPages ? pageNo + 1 : undefined;
     },
     initialPageParam: 0,
-    enabled: !!userId,
   });
 };
 
