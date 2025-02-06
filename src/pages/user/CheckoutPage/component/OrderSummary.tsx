@@ -11,19 +11,17 @@ import { useState } from "react";
 import { ImCreditCard } from "react-icons/im";
 import { LiaMoneyBillAlt } from "react-icons/lia";
 import OrangeButton from "../../../../components/Button/OrangeButton";
+import { useAddressStore } from "../../../../store/address-store";
 import useCartStore from "../../../../store/cart-store";
 import { formatCurrency } from "../../../../utilities/formatCurrency";
 import useGetCartTotal from "../hooks/useGetCartTotal";
 import usePlaceOrder from "../hooks/usePlaceOrder";
-import { useAddressStore } from "../../../../store/address-store";
-import { useUserStore } from "../../../../store/user-store";
 
 interface Props {
   hasActiveAddress: boolean;
 }
 
 const OrderSummary = ({ hasActiveAddress }: Props) => {
-  const { cartId } = useUserStore();
   const boxStyle = {
     border: "1px solid",
     borderRadius: "4px",
@@ -37,7 +35,6 @@ const OrderSummary = ({ hasActiveAddress }: Props) => {
 
   const { data: getCartTotal } = useGetCartTotal({
     ids: cartItemIds,
-    cartId: cartId ?? 0,
   });
   const [paymentMethod, setPaymentMethod] =
     useState<string>("CASH_ON_DELIVERY");

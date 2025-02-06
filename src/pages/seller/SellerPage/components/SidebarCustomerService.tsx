@@ -8,7 +8,7 @@ const SidebarCustomerService = () => {
     <>
       <SidebarNavLink
         icon={LiaHandsHelpingSolid}
-        navLink="/seller/customer/service"
+        navLink="/seller/customer/service/review"
         iconSize="20px"
         marginTop="15px"
         title="Customer Service"

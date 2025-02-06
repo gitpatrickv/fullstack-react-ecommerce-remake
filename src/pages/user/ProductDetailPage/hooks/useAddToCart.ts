@@ -1,13 +1,12 @@
+import { useToast } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../../../services/api-client";
-import { useToast } from "@chakra-ui/react";
 
 const apiClient = axiosInstance;
 
 export interface AddToCartProps {
   productId: string;
   quantity: number;
-  cartId: number;
 }
 
 const useAddToCart = () => {

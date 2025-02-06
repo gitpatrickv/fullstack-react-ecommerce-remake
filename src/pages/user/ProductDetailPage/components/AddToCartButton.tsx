@@ -5,7 +5,6 @@ import OrangeButton from "../../../../components/Button/OrangeButton";
 import { useAuthQueryStore } from "../../../../store/auth-store";
 import useAddToCart from "../hooks/useAddToCart";
 import useAddToCartWithVariation from "../hooks/useAddToCartWithVariation";
-import { useUserStore } from "../../../../store/user-store";
 
 interface Props {
   count: number;
@@ -26,7 +25,6 @@ const AddToCartButton = ({
   const jwtToken = authStore.jwtToken;
   const params = useParams<{ productId: string }>();
   const productId = params.productId;
-  const { cartId } = useUserStore();
 
   const { mutate: addToCart } = useAddToCart();
 
@@ -34,7 +32,6 @@ const AddToCartButton = ({
     addToCart({
       productId: productId!,
       quantity: count,
-      cartId: cartId ?? 0,
     });
   };
 
@@ -47,7 +44,6 @@ const AddToCartButton = ({
     addToCartWithVariation({
       productId: productId!,
       quantity: count,
-      cartId: cartId ?? 0,
     });
   };
 

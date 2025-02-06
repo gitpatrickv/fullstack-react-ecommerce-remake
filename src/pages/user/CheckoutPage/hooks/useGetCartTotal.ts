@@ -10,19 +10,18 @@ export interface CartTotalProps {
 
 export interface Props {
   ids: number[];
-  cartId: number;
 }
 
-const useGetCartTotal = ({ ids, cartId }: Props) => {
+const useGetCartTotal = ({ ids }: Props) => {
   return useQuery({
-    queryKey: ["cartTotal", ids, cartId],
+    queryKey: ["cartTotal", ids],
     queryFn: async () => {
       const { data } = await apiClient.get<CartTotalProps>(
-        `/cart/${ids}/${cartId}/total`
+        `/cart/${ids}/total`
       );
       return data;
     },
-    enabled: ids.length > 0 && !!cartId,
+    enabled: ids.length > 0,
   });
 };
 
