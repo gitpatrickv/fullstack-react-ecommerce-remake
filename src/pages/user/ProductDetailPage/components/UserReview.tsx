@@ -12,7 +12,7 @@ const UserReview = ({ productReview }: Props) => {
   return (
     <Box padding={3}>
       <Flex>
-        <Avatar src={productReview.imageUrl || pic} size="sm" />
+        <Avatar src={productReview.userImageUrl || pic} size="sm" />
         <Box ml="10px" position="relative" top="-5px">
           <Flex alignItems="center">
             <Text mr="10px" textTransform="capitalize">

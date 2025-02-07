@@ -8,7 +8,9 @@ export interface ProductReview {
   sellerResponse?: string;
   createdDate: string;
   name: string;
-  imageUrl?: string;
+  userImageUrl?: string;
+  productName: string;
+  productImageUrl: string;
 }
 
 export interface GetReviewsResponse {

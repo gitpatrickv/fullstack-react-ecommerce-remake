@@ -6,12 +6,13 @@ import {
   GridItem,
   HStack,
   Image,
+  Spacer,
   Text,
 } from "@chakra-ui/react";
 import pic from "../../../../assets/profpic.jpeg";
-import OrangeButton from "../../../../components/Button/OrangeButton";
 import StarRating from "../../../../components/product/StarRating";
 import { ProductReview } from "../../../../entities/ProductReview";
+import ReplyToReviewModal from "./ReplyToReviewModal";
 
 interface Props {
   review: ProductReview;
@@ -22,7 +23,7 @@ const ManageReviewList = ({ review }: Props) => {
     <>
       <Card borderRadius="none" py={2} px={5} mt="10px">
         <HStack>
-          <Avatar src={review.imageUrl || pic} size="sm" />
+          <Avatar src={review.userImageUrl || pic} size="sm" />
           <Text fontWeight="semibold" textTransform="capitalize">
             {review.name}
           </Text>
@@ -39,9 +40,9 @@ const ManageReviewList = ({ review }: Props) => {
             borderColor="#E8E8E8"
           >
             <HStack>
-              <Image src={pic} boxSize="80px" />
-              <Text ml="10px" fontWeight="semibold">
-                Product Name
+              <Image src={review.productImageUrl} boxSize="80px" />
+              <Text ml="10px" fontWeight="semibold" textTransform="capitalize">
+                {review.productName}
               </Text>
             </HStack>
           </GridItem>
@@ -49,6 +50,8 @@ const ManageReviewList = ({ review }: Props) => {
             <Flex alignItems="center">
               <Text mr="10px">Rating:</Text>
               <StarRating averageRating={review.rating} />
+              <Spacer />
+              <Text>{review.createdDate}</Text>
             </Flex>
             {review.customerReview && (
               <Text>Review: {review.customerReview}</Text>
@@ -76,7 +79,10 @@ const ManageReviewList = ({ review }: Props) => {
             borderLeft="1px solid"
             borderColor="#E8E8E8"
           >
-            <OrangeButton width="150px">Reply</OrangeButton>
+            <ReplyToReviewModal
+              productReviewId={review.productReviewId}
+              sellerResponse={review.sellerResponse}
+            />
           </GridItem>
         </Grid>
       </Card>

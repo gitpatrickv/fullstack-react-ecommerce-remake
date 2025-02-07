@@ -13,6 +13,8 @@ const SellerPage = () => {
     setStoreContactNumber,
     setPicture,
     setStatus,
+    setAverageRating,
+    setReviewCount,
   } = useShopStore();
 
   useEffect(() => {
@@ -22,6 +24,8 @@ const SellerPage = () => {
       setStoreContactNumber(getUserStoreInfo.contactNumber);
       setPicture(getUserStoreInfo.picture || null);
       setStatus(getUserStoreInfo.status);
+      setAverageRating(getUserStoreInfo.averageRating);
+      setReviewCount(getUserStoreInfo.reviewsCount);
     }
   }, [getUserStoreInfo]);
 

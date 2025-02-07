@@ -10,7 +10,8 @@ import ProductsList from "./components/ProductsList";
 
 const MyProductsPage = () => {
   const navigate = useNavigate();
-  const [sortBy, setSortBy] = useState("");
+  const [sortBy, setSortBy] = useState("createdDate");
+  const [sortDirection, setSortDirection] = useState("DESC");
   const {
     data: getAllStoreProduct,
     fetchNextPage,
@@ -20,6 +21,7 @@ const MyProductsPage = () => {
     module: "product",
     pageSize: 12,
     sortBy: sortBy,
+    sortDirection: sortDirection,
   });
   const fetchProductData =
     getAllStoreProduct?.pages.reduce(
@@ -62,7 +64,12 @@ const MyProductsPage = () => {
 
   return (
     <>
-      <Header sortBy={sortBy} setSortBy={setSortBy} />
+      <Header
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+        sortDirection={sortDirection}
+        setSortDirection={setSortDirection}
+      />
       <ProductListHeader />
       <InfiniteScroll
         dataLength={fetchProductData}

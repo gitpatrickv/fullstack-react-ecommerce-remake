@@ -101,6 +101,7 @@ const StorePage = () => {
           <Stack width="100%">
             <SortingHeader
               sortBy={sortBy}
+              sortDirection={sortDirection}
               setSortBy={setSortBy}
               setSortDirection={setSortDirection}
               ratingFilter={ratingFilter}

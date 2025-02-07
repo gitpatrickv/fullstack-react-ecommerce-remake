@@ -84,8 +84,11 @@ const StoreInfoSection = ({ store }: Props) => {
               <Box color="#FF5722">
                 <IoIosStar />
               </Box>
-              <Text color="#E64A19" ml="3px">
+              <Text color="#E64A19" ml="2px">
                 {store?.averageRating ?? 0}
+                <Text as="span" ml="2px">
+                  ({store?.reviewsCount})
+                </Text>
               </Text>
             </Flex>
             <Text color="#E64A19" textAlign="end">

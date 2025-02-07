@@ -1,26 +1,26 @@
-import { Box, Button, Card, Divider, Text } from "@chakra-ui/react";
+import { Box, Card, Divider, Text } from "@chakra-ui/react";
+import useSortingButtonStyle from "../../../../hooks/useSortingButtonStyle";
 
 interface Props {
   sortBy: string;
   setSortBy: (value: string) => void;
+  sortDirection: string;
+  setSortDirection: (value: string) => void;
 }
 
-const Header = ({ sortBy, setSortBy }: Props) => {
-  const handleSortClick = (value: string) => {
+const Header = ({
+  sortBy,
+  setSortBy,
+  sortDirection,
+  setSortDirection,
+}: Props) => {
+  const handleSortClick = (value: string, dirValue: string) => {
     setSortBy(value);
+    setSortDirection(dirValue);
   };
 
-  const buttonStyle = (value: string, sortBy: string) => {
-    return {
-      width: "120px",
-      color: sortBy === value ? "#FF5722" : "white.500",
-      border: sortBy === value ? "1px solid #FF5722" : "none",
-      _hover: { color: "#E64A19" },
-      _active: { color: "none" },
-      borderRadius: "20px",
-      mr: "10px",
-    };
-  };
+  const { buttonStyle } = useSortingButtonStyle();
+
   return (
     <Card borderRadius="none">
       <Box padding={5}>
@@ -37,24 +37,24 @@ const Header = ({ sortBy, setSortBy }: Props) => {
           >
             Sort By
           </Text>
-          <Button
-            onClick={() => handleSortClick("createdDate")}
-            {...buttonStyle("createdDate", sortBy)}
+          <Card
+            onClick={() => handleSortClick("createdDate", "DESC")}
+            {...buttonStyle("createdDate", sortBy, sortDirection, "DESC")}
           >
             Latest
-          </Button>
-          <Button
-            onClick={() => handleSortClick("totalSold")}
-            {...buttonStyle("totalSold", sortBy)}
+          </Card>
+          <Card
+            onClick={() => handleSortClick("totalSold", "DESC")}
+            {...buttonStyle("totalSold", sortBy, sortDirection, "DESC")}
           >
             Top Sales
-          </Button>
-          <Button
-            onClick={() => handleSortClick("productName")}
-            {...buttonStyle("productName", sortBy)}
+          </Card>
+          <Card
+            onClick={() => handleSortClick("productName", "ASC")}
+            {...buttonStyle("productName", sortBy, sortDirection, "ASC")}
           >
-            Name
-          </Button>
+            A-Z
+          </Card>
         </Box>
       </Box>
     </Card>

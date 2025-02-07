@@ -8,20 +8,18 @@ interface Props {
   sortBy?: string;
   sortDirection?: string;
   pageSize: number;
-  storeId: number;
 }
 
 const useGetProductReviewsByStore = ({
   sortBy,
   sortDirection,
   pageSize,
-  storeId,
 }: Props) => {
   return useInfiniteQuery<GetReviewsResponse, Error>({
-    queryKey: ["reviews", sortBy, sortDirection, pageSize, storeId],
+    queryKey: ["reviews", sortBy, sortDirection, pageSize],
     queryFn: async ({ pageParam = 0 }) => {
       const { data } = await apiClient.get<GetReviewsResponse>(
-        `/product/${storeId}/reviews`,
+        `/product/reviews`,
         {
           params: {
             sortBy: sortBy,
@@ -39,7 +37,6 @@ const useGetProductReviewsByStore = ({
       return pageNo + 1 < totalPages ? pageNo + 1 : undefined;
     },
     initialPageParam: 0,
-    enabled: !!storeId,
   });
 };
 

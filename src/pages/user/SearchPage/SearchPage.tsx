@@ -109,6 +109,7 @@ const SearchPage = () => {
               </Flex>
               <SortingHeader
                 sortBy={sortBy}
+                sortDirection={sortDirection}
                 setSortBy={setSortBy}
                 setSortDirection={setSortDirection}
                 ratingFilter={ratingFilter}

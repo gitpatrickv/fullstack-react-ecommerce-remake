@@ -1,38 +1,51 @@
 import { Card, Flex, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import useSortingButtonStyle from "../../../../hooks/useSortingButtonStyle";
 
 interface Props {
   sortBy: string;
+  setSortBy: (value: string) => void;
   sortDirection: string;
+  setSortDirection: (value: string) => void;
 }
 
-const ReviewSortingHeader = ({ sortBy, sortDirection }: Props) => {
-  const buttonStyle = (value: string, sortBy: string) => {
-    return {
-      width: "120px",
-      bg: sortBy === value ? "#E64A19" : "white",
-      color: sortBy === value ? "white" : "black",
-      _hover: { bg: sortBy === value ? "#E64A19" : "white" },
-      _active: { bg: sortBy === value ? "#E64A19" : "white" },
-      mr: "10px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      cursor: "pointer",
-      borderRadius: "none",
-      height: "40px",
-      userSelect: "none" as "none",
-    };
+const ReviewSortingHeader = ({
+  sortBy,
+  setSortBy,
+  sortDirection,
+  setSortDirection,
+}: Props) => {
+  const handleSortingClick = (sortBy: string, sortDirection: string) => {
+    setSortBy(sortBy);
+    setSortDirection(sortDirection);
   };
+
+  const { buttonStyle } = useSortingButtonStyle();
+
   return (
     <Card borderRadius="none" padding={4}>
       <Flex alignItems="center">
         <Text fontSize="lg" fontWeight="semibold" mr="20px">
           Sort By
         </Text>
-        <Card {...buttonStyle("productName", sortBy)}>All</Card>
-        <Card {...buttonStyle("createdDate", sortBy)}>To Reply</Card>
-        <Card {...buttonStyle("totalSold", sortBy)}>Replied</Card>
+
+        <Card
+          {...buttonStyle("createdDate", sortBy, sortDirection, "DESC")}
+          onClick={() => handleSortingClick("createdDate", "DESC")}
+        >
+          Latest
+        </Card>
+        <Card
+          {...buttonStyle("sellerResponse", sortBy, sortDirection, "ASC")}
+          onClick={() => handleSortingClick("sellerResponse", "ASC")}
+        >
+          To Reply
+        </Card>
+        <Card
+          {...buttonStyle("sellerResponse", sortBy, sortDirection, "DESC")}
+          onClick={() => handleSortingClick("sellerResponse", "DESC")}
+        >
+          Replied
+        </Card>
       </Flex>
     </Card>
   );
