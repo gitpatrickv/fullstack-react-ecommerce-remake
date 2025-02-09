@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../../services/api-client";
+import { useAuthQueryStore } from "../../../../store/auth-store";
 
 const apiClient = axiosInstance;
 
@@ -8,6 +9,8 @@ interface Props {
 }
 
 const useGetFollowingStoreStatus = (storeId: number) => {
+  const { authStore } = useAuthQueryStore();
+  const jwtToken = authStore.jwtToken;
   return useQuery({
     queryKey: ["followedStoreStatus", storeId],
     queryFn: async () => {
@@ -16,7 +19,7 @@ const useGetFollowingStoreStatus = (storeId: number) => {
       );
       return data;
     },
-    enabled: !!storeId,
+    enabled: !!storeId && !!jwtToken,
   });
 };
 

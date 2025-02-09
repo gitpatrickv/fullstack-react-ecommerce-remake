@@ -25,6 +25,7 @@ const useSearchProduct = ({
     queryKey: [
       "searchedProduct",
       search,
+      pageSize,
       sortBy,
       sortDirection,
       ratingFilter,
@@ -55,6 +56,7 @@ const useSearchProduct = ({
       return pageNo + 1 < totalPages ? pageNo + 1 : undefined;
     },
     initialPageParam: 0,
+    enabled: !!search,
   });
 };
 
