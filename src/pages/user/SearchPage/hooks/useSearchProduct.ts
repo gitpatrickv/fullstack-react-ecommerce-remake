@@ -24,8 +24,8 @@ const useSearchProduct = ({
   return useInfiniteQuery<ProductCardInfoResponse, Error>({
     queryKey: [
       "searchedProduct",
-      search,
       pageSize,
+      search,
       sortBy,
       sortDirection,
       ratingFilter,

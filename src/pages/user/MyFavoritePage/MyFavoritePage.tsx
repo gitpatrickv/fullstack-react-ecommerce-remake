@@ -7,7 +7,8 @@ const MyFavoritePage = () => {
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetFavorites({
     pageSize: 15,
   });
-
+  const favoriteLength =
+    data?.pages?.flatMap((page) => page.models).length || 0;
   const fetchProductData =
     data?.pages.reduce((total, page) => total + page.models.length, 0) || 0;
 
@@ -28,20 +29,28 @@ const MyFavoritePage = () => {
           </Text>
         </Box>
       </Card>
-      <InfiniteScroll
-        dataLength={fetchProductData}
-        next={fetchNextPage}
-        hasMore={!!hasNextPage}
-        loader={<Spinner />}
-      >
-        <SimpleGrid columns={{ base: 5 }} spacing={2}>
-          {data?.pages.map((page) =>
-            page.models.map((product) => (
-              <ProductCard key={product.productId} product={product} />
-            ))
-          )}
-        </SimpleGrid>
-      </InfiniteScroll>
+      {favoriteLength < 1 ? (
+        <Center height="50vh">
+          <Text fontSize="x-large" fontWeight="semibold">
+            Your favorite products will appear here.
+          </Text>
+        </Center>
+      ) : (
+        <InfiniteScroll
+          dataLength={fetchProductData}
+          next={fetchNextPage}
+          hasMore={!!hasNextPage}
+          loader={<Spinner />}
+        >
+          <SimpleGrid columns={{ base: 5 }} spacing={2}>
+            {data?.pages.map((page) =>
+              page.models.map((product) => (
+                <ProductCard key={product.productId} product={product} />
+              ))
+            )}
+          </SimpleGrid>
+        </InfiniteScroll>
+      )}
     </>
   );
 };

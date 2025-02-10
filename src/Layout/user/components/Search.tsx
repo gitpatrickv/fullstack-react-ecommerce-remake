@@ -9,25 +9,32 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useSearchProduct from "../../../pages/user/SearchPage/hooks/useSearchProduct";
 
 const Search = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
   const [keyword, setKeyword] = useState<string>("");
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const query = searchParams.get("keyword") || "";
-
+  const [focusedIndex, setFocusedIndex] = useState(-1);
   const { data: search } = useSearchProduct({
-    pageSize: 5,
+    pageSize: 15,
     search: keyword,
+    sortBy: "productName",
+    sortDirection: "ASC",
+    ratingFilter: null,
+    minPrice: null,
+    maxPrice: null,
   });
+
+  const searchResults = search?.pages.flatMap((page) => page.models) || [];
+  const searchLength = searchResults.length;
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const text = event.target.value;
     setKeyword(text);
     setShowSuggestions(true);
+    setFocusedIndex(-1);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -37,6 +44,7 @@ const Search = () => {
   };
 
   const handleNavigateClick = (product: string) => {
+    setKeyword(product);
     navigate(`/search?keyword=${encodeURIComponent(product)}`);
     setShowSuggestions(false);
   };
@@ -60,6 +68,31 @@ const Search = () => {
     };
   }, []);
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const { key } = e;
+    let nextIndexCount = 0;
+
+    if (key === "ArrowDown") nextIndexCount = (focusedIndex + 1) % searchLength;
+
+    if (key === "ArrowUp")
+      nextIndexCount = (focusedIndex - 1 + searchLength) % searchLength;
+
+    if (key === "Enter" && focusedIndex >= 0) {
+      const selectedProduct = searchResults[focusedIndex];
+      if (selectedProduct) {
+        const productName = selectedProduct.productName.toLowerCase();
+        handleNavigateClick(productName);
+      }
+    }
+
+    if (key === "Escape") {
+      setKeyword("");
+      setShowSuggestions(false);
+    }
+
+    setFocusedIndex(nextIndexCount);
+  };
+
   return (
     <Box position="relative">
       <form onSubmit={handleSubmit}>
@@ -78,7 +111,8 @@ const Search = () => {
               border: "none",
               bg: "white",
             }}
-            defaultValue={query}
+            value={keyword}
+            onKeyDown={handleKeyDown}
           />
           <InputRightElement>
             <IconButton
@@ -104,21 +138,24 @@ const Search = () => {
           zIndex={10}
           ref={suggestionsRef}
         >
-          {search?.pages.flatMap((page) =>
-            page.models.map((product) => (
-              <Box
-                key={product.productId}
-                px={4}
-                py={2}
-                cursor="pointer"
-                _hover={{ bg: "#F8F8F8" }}
-                onClick={() =>
-                  handleNavigateClick(product.productName.toLowerCase())
-                }
-              >
-                <Text textTransform="lowercase">{product.productName}</Text>
-              </Box>
-            ))
+          {search?.pages.map((page, pageIndex) =>
+            pageIndex === 0
+              ? page.models.map((product, index) => (
+                  <Box
+                    key={product.productId}
+                    px={4}
+                    py={2}
+                    cursor="pointer"
+                    _hover={{ bg: "	#F5F5F5" }}
+                    bg={focusedIndex === index ? "	#F5F5F5" : "transparent"}
+                    onClick={() =>
+                      handleNavigateClick(product.productName.toLowerCase())
+                    }
+                  >
+                    <Text textTransform="lowercase">{product.productName}</Text>
+                  </Box>
+                ))
+              : null
           )}
         </Card>
       )}

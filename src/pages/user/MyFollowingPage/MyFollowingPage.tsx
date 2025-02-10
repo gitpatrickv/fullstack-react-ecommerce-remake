@@ -22,11 +22,19 @@ const MyFollowingPage = () => {
           </Text>
         </Box>
       </Card>
-      <SimpleGrid columns={{ base: 2 }} spacing={2}>
-        {data?.map((list) => (
-          <FollowingCard key={list.storeId} list={list} />
-        ))}
-      </SimpleGrid>
+      {data && data?.length < 1 ? (
+        <Center height="50vh">
+          <Text fontSize="x-large" fontWeight="semibold">
+            Your followed stores will appear here.
+          </Text>
+        </Center>
+      ) : (
+        <SimpleGrid columns={{ base: 2 }} spacing={2}>
+          {data?.map((list) => (
+            <FollowingCard key={list.storeId} list={list} />
+          ))}
+        </SimpleGrid>
+      )}
     </>
   );
 };
