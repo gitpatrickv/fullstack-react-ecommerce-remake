@@ -9,6 +9,7 @@ import ActiveAddress from "./component/ActiveAddress";
 import CheckoutHeader from "./component/CheckoutHeader";
 import CheckoutItemCard from "./component/CheckoutItemCard";
 import OrderSummary from "./component/OrderSummary";
+import { formatCurrency } from "../../../utilities/formatCurrency";
 
 const CheckoutPage = () => {
   const { data: getAllAddress } = useGetAllResources<GetAllAddressResponse>({
@@ -32,8 +33,21 @@ const CheckoutPage = () => {
     page.models.some((address) => address.status === "ACTIVE")
   );
 
+  const computeTotalAmountByStore = (storeName: string) => {
+    if (!getCartItems) return 0;
+
+    return getCartItems
+      ?.filter((store) => store.storeName === storeName)
+      .flatMap((store) => store.cartItems)
+      .filter((cartItem) => cartItemIds.includes(cartItem.cartItemId))
+      .reduce(
+        (acc, cartItem) => acc + cartItem.inventory.price * cartItem.quantity,
+        50
+      );
+  };
+
   return (
-    <Center mt="10px">
+    <Center mt="10px" mb="50px">
       <Box minWidth="1200px">
         <Flex>
           <Box width="100%" mr="10px">
@@ -56,7 +70,7 @@ const CheckoutPage = () => {
                   <Card
                     borderRadius="none"
                     borderBottom="1px solid"
-                    borderColor="	#E8E8E8"
+                    borderColor="#E8E8E8"
                     padding={5}
                   >
                     <Text fontWeight="semibold" textTransform="capitalize">
@@ -71,6 +85,38 @@ const CheckoutPage = () => {
                         cartItem={cartItem}
                       />
                     ))}
+
+                  <Card
+                    borderRadius="none"
+                    borderTop="1px solid"
+                    borderColor="#E8E8E8"
+                    padding={5}
+                  >
+                    <Text textAlign="end">
+                      Shipping Fee:{" "}
+                      <Text
+                        as="span"
+                        color="#E64A19"
+                        fontSize="lg"
+                        fontWeight="semibold"
+                      >
+                        {formatCurrency(50)}
+                      </Text>
+                    </Text>
+                    <Text textAlign="end">
+                      Order Total:{" "}
+                      <Text
+                        as="span"
+                        color="#E64A19"
+                        fontSize="lg"
+                        fontWeight="semibold"
+                      >
+                        {formatCurrency(
+                          computeTotalAmountByStore(storeName.storeName)
+                        )}
+                      </Text>
+                    </Text>
+                  </Card>
                 </Box>
               ))}
           </Box>

@@ -1,15 +1,27 @@
+import { Input } from "@chakra-ui/react";
+import { ChangeEvent } from "react";
 import OrangeButton from "../../../components/Button/OrangeButton";
 import PasswordInput from "../../../components/Input/PasswordInput";
-import TextInput from "../../../components/Input/TextInput";
 import useLogin from "../hooks/useLogin";
 
 const Login = () => {
+  const inputRef = (element: HTMLInputElement | null) => {
+    if (element) {
+      element.focus();
+    }
+  };
+
   const {
     handleSubmit,
     loading,
     onSubmit: onSubmitLogin,
     control,
+    setValue,
   } = useLogin();
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue("email", e.target.value);
+  };
 
   return (
     <form
@@ -18,13 +30,12 @@ const Login = () => {
         handleSubmit(onSubmitLogin)(event);
       }}
     >
-      <TextInput
-        control={control}
-        name="email"
-        loading={loading}
-        placeholder="Email"
-        label="Email"
+      <Input
+        onChange={handleInputChange}
         mb={4}
+        placeholder="Email"
+        borderRadius="none"
+        ref={inputRef}
       />
       <PasswordInput
         control={control}

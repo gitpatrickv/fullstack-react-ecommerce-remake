@@ -28,6 +28,7 @@ const OrderSummary = ({ hasActiveAddress }: Props) => {
     mt: "10px",
     _hover: { borderColor: "#E64A19" },
     cursor: "pointer",
+    overflow: "hidden",
   };
   const { onOpen } = useAddressStore();
   const { itemIds } = useCartStore();
@@ -109,11 +110,11 @@ const OrderSummary = ({ hasActiveAddress }: Props) => {
         <Text color="gray.500">
           Subtotal ({getCartTotal?.totalItems ?? 0} items)
         </Text>
-        <Text>{formatCurrency(getCartTotal?.totalAmount ?? 0)}</Text>
+        <Text>{formatCurrency(getCartTotal?.cartTotal ?? 0)}</Text>
       </Flex>
       <Flex justifyContent="space-between" mt="10px">
         <Text color="gray.500">Shipping Fee</Text>
-        <Text>{formatCurrency(100)}</Text>
+        <Text>{formatCurrency(getCartTotal?.totalShippingFee ?? 0)}</Text>
       </Flex>
       <Divider borderColor="#E8E8E8" mt="10px" mb="10px" />
       <Flex justifyContent="space-between">

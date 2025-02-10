@@ -33,7 +33,7 @@ const NavTop = () => {
   const handleLogout = useHandleLogout();
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState<boolean>(true);
-  const { picture } = useUserStore();
+  const { picture, name } = useUserStore();
   const { isOpen, onOpen, onClose } = useAuthQueryStore();
   const { authStore } = useAuthQueryStore();
   const jwtToken = authStore.jwtToken;
@@ -107,6 +107,7 @@ const NavTop = () => {
               </MenuItem>
             </MenuList>
           </Menu>
+          <Text color="white">{name}</Text>
         </Flex>
       ) : (
         <Flex justifyContent="end">

@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Skeleton } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { Outlet, ScrollRestoration } from "react-router";
 import CreateAddressModal from "../pages/user/AddressPage/components/CreateAddressModal";
@@ -7,7 +7,7 @@ import Navbar from "./user/components/Navbar";
 import useGetCurrentUserInfo from "./user/hooks/useGetCurrentUserInfo";
 
 const Layout = () => {
-  const { data: getUserInfo } = useGetCurrentUserInfo();
+  const { data: getUserInfo, isLoading } = useGetCurrentUserInfo();
   const { setName, setPicture, setGender, setEmail } = useUserStore();
   useEffect(() => {
     if (getUserInfo) {
@@ -20,7 +20,7 @@ const Layout = () => {
 
   return (
     <Box minWidth="1440px">
-      <Navbar />
+      {isLoading ? <Skeleton height="120px" width="100%" /> : <Navbar />}
 
       <Box width="full">
         <Outlet />

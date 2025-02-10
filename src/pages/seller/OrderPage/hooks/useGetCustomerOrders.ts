@@ -1,14 +1,11 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import OrderItemResponse from "../../../../entities/Order";
 import { axiosInstance } from "../../../../services/api-client";
-import { useShopStore } from "../../../../store/shop-store";
 import { PaginateProps } from "../../../user/MyPurchasePage/hooks/useGetAllOrderItems";
 
 const apiClient = axiosInstance;
 
 const useGetCustomerOrders = ({ pageSize, status }: PaginateProps) => {
-  const { storeId } = useShopStore();
-
   return useInfiniteQuery<OrderItemResponse, Error>({
     queryKey: ["customerOrders", status],
     queryFn: async ({ pageParam = 0 }) => {
@@ -16,7 +13,7 @@ const useGetCustomerOrders = ({ pageSize, status }: PaginateProps) => {
         params: {
           pageNo: pageParam,
           pageSize: pageSize,
-          storeId: storeId ?? 0,
+          isSellerPage: true,
           status: status,
         },
       });
@@ -28,7 +25,6 @@ const useGetCustomerOrders = ({ pageSize, status }: PaginateProps) => {
       return pageNo + 1 < totalPages ? pageNo + 1 : undefined;
     },
     initialPageParam: 0,
-    enabled: !!storeId,
   });
 };
 

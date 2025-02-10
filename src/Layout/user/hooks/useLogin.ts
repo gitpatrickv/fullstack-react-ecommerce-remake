@@ -16,7 +16,8 @@ const useLogin = () => {
   const [loading, setLoading] = useState(false);
   const { setJwtToken, setRole, onClose } = useAuthQueryStore();
 
-  const { handleSubmit, setError, reset, control } = useForm<FormData>();
+  const { handleSubmit, setError, reset, control, setValue } =
+    useForm<FormData>();
 
   const mutation = useMutation({
     mutationFn: (data: FormData) =>
@@ -59,6 +60,7 @@ const useLogin = () => {
     loading,
     onSubmit,
     control,
+    setValue,
   };
 };
 

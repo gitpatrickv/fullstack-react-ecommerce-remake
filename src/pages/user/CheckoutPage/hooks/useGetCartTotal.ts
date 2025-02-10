@@ -4,8 +4,10 @@ import { axiosInstance } from "../../../../services/api-client";
 const apiClient = axiosInstance;
 
 export interface CartTotalProps {
-  totalAmount: number;
+  cartTotal: number;
   totalItems: number;
+  totalShippingFee: number;
+  totalAmount: number;
 }
 
 export interface Props {

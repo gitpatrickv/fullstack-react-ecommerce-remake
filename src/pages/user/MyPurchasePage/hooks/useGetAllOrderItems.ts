@@ -17,6 +17,7 @@ const useGetAllOrderItems = ({ pageSize, status }: PaginateProps) => {
         params: {
           pageNo: pageParam,
           pageSize: pageSize,
+          isSellerPage: false,
           status: status,
         },
       });
