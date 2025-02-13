@@ -54,14 +54,14 @@ const RatingFilter = ({
     setRatingFilter(value);
   };
 
-  const ratings = [1, 2, 3, 4, 5];
+  const ratings = [5, 4, 3, 2, 1];
 
   return (
     <>
       <Text fontWeight="semibold" mt="15px" mb="5px">
         Rating
       </Text>
-      {ratings.reverse().map((rating) => (
+      {ratings.map((rating) => (
         <Flex
           key={rating}
           onClick={() => updateUrl(rating)}

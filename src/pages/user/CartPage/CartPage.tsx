@@ -15,6 +15,7 @@ import useCartStore from "../../../store/cart-store";
 import CartFooter from "./components/CartFooter";
 import CartHeader from "./components/CartHeader";
 import CartItemCard from "./components/CartItemCard";
+import useAddProductsToFavorite from "./hooks/useAddProductsToFavorite";
 import useDeleteAllSelectedItem from "./hooks/useDeleteAllSelectedItem";
 import useGetCartItemsGroupedByStore from "./hooks/useGetCartItemsGroupedByStore";
 
@@ -89,7 +90,6 @@ const CartPage = () => {
 
   const { mutate: deleteAllSelectedItem } = useDeleteAllSelectedItem();
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const handleDeleteAllSelectedItemClick = () => {
     deleteAllSelectedItem(
       {
@@ -99,6 +99,20 @@ const CartPage = () => {
         onSuccess: () => {
           resetItemIds();
           onClose();
+        },
+      }
+    );
+  };
+
+  const { mutate: addProductsToFavorite } = useAddProductsToFavorite();
+  const handleAddProductsToFavoriteClick = () => {
+    addProductsToFavorite(
+      {
+        ids: Array.from(itemIds),
+      },
+      {
+        onSuccess: () => {
+          resetItemIds();
         },
       }
     );
@@ -127,7 +141,7 @@ const CartPage = () => {
     setCartTotal(total);
   }, [itemIds, getCartItems]);
 
-  if ((getCartItems?.length ?? 0) < 1 && !isLoading) {
+  if (getCartItems && (getCartItems?.length ?? 0) < 1) {
     return (
       <Center height="70vh" flexDirection="column">
         <FiShoppingCart size="100px" />
@@ -141,7 +155,7 @@ const CartPage = () => {
   return (
     <Center mt="10px">
       <Box minWidth="1200px">
-        {!isLoading && (
+        {getCartItems && (
           <CartHeader
             handleAddRemoveAllIdsChange={handleAddRemoveAllIdsChange}
             cartItemsSize={cartItemsSize}
@@ -188,7 +202,7 @@ const CartPage = () => {
             ))}
           </Box>
         ))}
-        {!isLoading && (
+        {getCartItems && (
           <CartFooter
             handleAddRemoveAllIdsChange={handleAddRemoveAllIdsChange}
             cartItemsSize={cartItemsSize}
@@ -197,6 +211,7 @@ const CartPage = () => {
             isOpen={isOpen}
             onClose={onClose}
             onOpen={onOpen}
+            handleAddProductsToFavoriteClick={handleAddProductsToFavoriteClick}
           />
         )}
       </Box>

@@ -24,6 +24,7 @@ const useSearchProduct = ({
   return useInfiniteQuery<ProductCardInfoResponse, Error>({
     queryKey: [
       "searchedProduct",
+      pageSize,
       search,
       sortBy,
       sortDirection,
@@ -55,6 +56,7 @@ const useSearchProduct = ({
       return pageNo + 1 < totalPages ? pageNo + 1 : undefined;
     },
     initialPageParam: 0,
+    enabled: !!search,
   });
 };
 

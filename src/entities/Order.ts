@@ -17,6 +17,6 @@ export interface Order extends StoreInfo {
 }
 
 export default interface OrderItemResponse {
-  orderModels: Order[];
+  models: Order[];
   pageResponse: PageResponse;
 }

@@ -8,21 +8,24 @@ interface Props {
   module: string;
   pageSize?: number;
   sortBy?: string;
+  sortDirection?: string;
 }
 
 const useGetAllResources = <T extends { pageResponse: PageResponse }>({
   module,
   pageSize,
   sortBy,
+  sortDirection,
 }: Props) => {
   return useInfiniteQuery<T, Error>({
-    queryKey: ["allData", module, pageSize, sortBy],
+    queryKey: ["allData", module, pageSize, sortBy, sortDirection],
     queryFn: async ({ pageParam = 0 }) => {
       const { data } = await apiClient.get<T>(`/factory/${module}`, {
         params: {
           pageNo: pageParam,
           pageSize: pageSize,
           sortBy: sortBy,
+          sortDirection: sortDirection,
         },
       });
       return data;

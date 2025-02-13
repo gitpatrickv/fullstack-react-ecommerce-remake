@@ -19,9 +19,10 @@ import useRateProduct, { RateProps } from "../hooks/useRateProduct";
 interface Props {
   orderItem: OrderItem;
   orderId: number;
+  storeId: number;
 }
 
-const ProductsToRate = ({ orderItem, orderId }: Props) => {
+const ProductsToRate = ({ orderItem, orderId, storeId }: Props) => {
   const ratingDescriptions: Record<number, string> = {
     5: "Amazing",
     4: "Good",
@@ -33,7 +34,7 @@ const ProductsToRate = ({ orderItem, orderId }: Props) => {
   const ratings = [1, 2, 3, 4, 5];
   const [rating, setRating] = useState<number>(0);
   const { register, handleSubmit, setValue } = useForm<RateProps>();
-  const { mutate } = useRateProduct(orderItem.productId, orderId);
+  const { mutate } = useRateProduct(orderItem.productId, orderId, storeId);
 
   const handleRatingClick = (rate: number) => {
     setRating(rate);

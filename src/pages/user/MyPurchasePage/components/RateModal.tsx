@@ -68,7 +68,11 @@ const RateModal = ({
           {uniqueItems.map((item) => (
             <Box key={item.orderItemId}>
               <Divider />
-              <ProductsToRate orderItem={item} orderId={orderId} />
+              <ProductsToRate
+                orderItem={item}
+                orderId={orderId}
+                storeId={storeId}
+              />
             </Box>
           ))}
         </ModalContent>

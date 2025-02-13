@@ -12,8 +12,7 @@ import { useShopStore } from "../../../store/shop-store";
 import useUploadStoreAvatar from "./hooks/useUploadStoreAvatar";
 
 const AccountInfoPage = () => {
-  const { storeId, storeName, storeContactNumber, status, picture } =
-    useShopStore();
+  const { storeName, storeContactNumber, status, picture } = useShopStore();
   const queryClient = useQueryClient();
   const { handleSubmit, setError, control, setValue } = useForm<Store>({
     defaultValues: {
@@ -38,7 +37,6 @@ const AccountInfoPage = () => {
   const onSubmit: SubmitHandler<Store> = (data: Store) => {
     const requestData = {
       ...data,
-      storeId: storeId ?? 0,
     };
     setLoading(true);
     mutate(requestData, {

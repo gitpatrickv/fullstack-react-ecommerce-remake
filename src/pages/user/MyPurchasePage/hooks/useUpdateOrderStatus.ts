@@ -18,6 +18,9 @@ const useUpdateOrderStatus = ({ orderId, status }: ChangeStatusProps) => {
       queryClient.invalidateQueries({
         queryKey: ["allOrders"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["customerOrders"],
+      });
       onClose();
     },
   });

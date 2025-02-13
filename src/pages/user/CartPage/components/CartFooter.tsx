@@ -21,6 +21,7 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   onOpen: () => void;
+  handleAddProductsToFavoriteClick: () => void;
 }
 
 const CartFooter = ({
@@ -31,6 +32,7 @@ const CartFooter = ({
   isOpen,
   onClose,
   onOpen,
+  handleAddProductsToFavoriteClick,
 }: Props) => {
   const { itemIds } = useCartStore();
   const navigate = useNavigate();
@@ -78,6 +80,7 @@ const CartFooter = ({
             fontWeight="semibold"
             color="#E64A19"
             isDisabled={itemIds.size < 1}
+            onClick={handleAddProductsToFavoriteClick}
           >
             Add to Favorites
           </Button>

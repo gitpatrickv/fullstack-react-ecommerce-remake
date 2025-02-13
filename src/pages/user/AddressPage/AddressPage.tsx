@@ -1,4 +1,4 @@
-import { Card, Flex, SimpleGrid, Text } from "@chakra-ui/react";
+import { Card, Center, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import { GoPlus } from "react-icons/go";
 import OrangeButton from "../../../components/Button/OrangeButton";
 import GetAllAddressResponse from "../../../entities/Address";
@@ -10,6 +10,8 @@ const AddressPage = () => {
   const { data: getAllAddress } = useGetAllResources<GetAllAddressResponse>({
     module: "address",
   });
+  const addressLength =
+    getAllAddress?.pages?.flatMap((page) => page.models).length || 0;
   const { onOpen } = useAddressStore();
 
   return (
@@ -25,13 +27,21 @@ const AddressPage = () => {
           </OrangeButton>
         </Flex>
       </Card>
-      <SimpleGrid columns={3} spacing={2}>
-        {getAllAddress?.pages.map((page) =>
-          page.models.map((address) => (
-            <AddressCard key={address.addressId} address={address} />
-          ))
-        )}
-      </SimpleGrid>
+      {addressLength < 1 ? (
+        <Center height="50vh">
+          <Text fontSize="x-large" fontWeight="semibold">
+            Set up your delivery address now to start shopping!
+          </Text>
+        </Center>
+      ) : (
+        <SimpleGrid columns={3} spacing={2}>
+          {getAllAddress?.pages.map((page) =>
+            page.models.map((address) => (
+              <AddressCard key={address.addressId} address={address} />
+            ))
+          )}
+        </SimpleGrid>
+      )}
     </>
   );
 };

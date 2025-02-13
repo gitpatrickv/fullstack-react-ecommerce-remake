@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export interface User {
   userId: number;
+  cartId: number;
   email: string;
   password: string;
   confirmPassword: string;

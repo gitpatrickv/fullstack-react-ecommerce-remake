@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardBody,
   Center,
@@ -11,6 +10,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import OrangeButton from "../../../components/Button/OrangeButton";
 import TextInput from "../../../components/Input/TextInput";
 import { Store } from "../../../entities/Store";
 import useSaveResource from "../../../hooks/useSaveResource";
@@ -39,7 +39,9 @@ const CreateStorePage = () => {
           queryKey: ["store"],
         });
         setLoading(false);
-        navigate(`/seller`);
+        setTimeout(() => {
+          navigate(`/seller`);
+        }, 200);
       },
       onError: (error: any) => {
         setLoading(false);
@@ -76,8 +78,8 @@ const CreateStorePage = () => {
         left="2"
         top="2"
       />
-      <Center height="100vh">
-        <Card width="450px">
+      <Center height="90vh">
+        <Card width="450px" borderRadius="none">
           <CardBody>
             <Text textAlign="center" fontWeight="semibold" fontSize="xl">
               Create Store
@@ -104,17 +106,9 @@ const CreateStorePage = () => {
                 label="Contact Number"
                 mt={4}
               />
-              <Button
-                isLoading={loading}
-                type="submit"
-                width="100%"
-                bg="#FF5722"
-                _hover={{ bg: "#E64A19" }}
-                mb="10px"
-                mt={4}
-              >
+              <OrangeButton type="submit" width="100%" mt="10px">
                 Create Store
-              </Button>
+              </OrangeButton>
             </form>
           </CardBody>
         </Card>

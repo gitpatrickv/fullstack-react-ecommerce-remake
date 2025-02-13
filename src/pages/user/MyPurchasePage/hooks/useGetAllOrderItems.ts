@@ -11,12 +11,13 @@ export interface PaginateProps {
 
 const useGetAllOrderItems = ({ pageSize, status }: PaginateProps) => {
   return useInfiniteQuery<OrderItemResponse, Error>({
-    queryKey: ["allOrders", status, pageSize],
+    queryKey: ["allOrders", status],
     queryFn: async ({ pageParam = 0 }) => {
       const { data } = await apiClient.get<OrderItemResponse>(`/order`, {
         params: {
           pageNo: pageParam,
           pageSize: pageSize,
+          isSellerPage: false,
           status: status,
         },
       });

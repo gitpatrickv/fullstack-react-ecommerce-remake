@@ -1,31 +1,30 @@
-import { Box, Card, Center, Flex, Stack, Text } from "@chakra-ui/react";
+import { Box, Card, Center, Flex, HStack, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { FiShoppingCart } from "react-icons/fi";
 import { useParams } from "react-router-dom";
-import OrangeButton from "../../../components/Button/OrangeButton";
 import { Inventory } from "../../../entities/Inventory";
 import { ProductModels } from "../../../entities/Product";
 import useGetOneResource from "../../../hooks/useGetOneResource";
-import { useAuthQueryStore } from "../../../store/auth-store";
 import { formatCurrency } from "../../../utilities/formatCurrency";
+import AddToCartButton from "./components/AddToCartButton";
+import AddToFavoriteButton from "./components/AddToFavoriteButton";
+import ProductDescription from "./components/ProductDescription";
+import ProductDetailPageSkeleton from "./components/ProductDetailPageSkeleton";
 import ProductImages from "./components/ProductImages";
 import ProductQuantity from "./components/ProductQuantity";
+import ProductRatingsAndReview from "./components/ProductRatingsAndReview";
 import RatingsAndSold from "./components/RatingsAndSold";
 import StoreInfoSection from "./components/StoreInfoSection";
 import Variations from "./components/Variations";
-import useAddToCart from "./hooks/useAddToCart";
-import useAddToCartWithVariation from "./hooks/useAddToCartWithVariation";
 
 const ProductDetailPage = () => {
   const params = useParams<{ productId: string }>();
   const productId = params.productId;
-  const { authStore, onOpen } = useAuthQueryStore();
-  const jwtToken = authStore.jwtToken;
 
-  const { data: getProductDetail } = useGetOneResource<ProductModels>({
-    module: "product",
-    id: productId!,
-  });
+  const { data: getProductDetail, isLoading } =
+    useGetOneResource<ProductModels>({
+      module: "product",
+      id: productId!,
+    });
 
   const hasColorsOrSizes = getProductDetail?.inventories.some(
     (inv) => !!inv.color || !!inv.size
@@ -46,27 +45,6 @@ const ProductDetailPage = () => {
     if (productId) setCount(1);
   }, [productId, color, size]);
 
-  const { mutate: addToCart } = useAddToCart();
-
-  const handleAddToCartClick = () => {
-    addToCart({
-      productId: productId!,
-      quantity: count,
-    });
-  };
-
-  const { mutate: addToCartWithVariation } = useAddToCartWithVariation({
-    color: color,
-    size: size,
-  });
-
-  const handleAddToCartWithVariationClick = () => {
-    addToCartWithVariation({
-      productId: productId!,
-      quantity: count,
-    });
-  };
-
   const [filteredInventory, setFilteredInventory] = useState<Inventory | null>(
     null
   );
@@ -86,6 +64,10 @@ const ProductDetailPage = () => {
     (!hasColorsOrSizes &&
       (getProductDetail?.inventories[0]?.quantity ?? 0) < 1) ||
     (hasColorsOrSizes && (filteredInventory?.quantity ?? 0) < 1);
+
+  if (isLoading) {
+    return <ProductDetailPageSkeleton />;
+  }
 
   return (
     <Center mt="10px">
@@ -134,25 +116,24 @@ const ProductDetailPage = () => {
                 }
                 isOutOfStock={isOutOfStock}
               />
-
-              <OrangeButton
-                width="200px"
-                onClick={
-                  !jwtToken
-                    ? onOpen
-                    : hasColorsOrSizes
-                    ? handleAddToCartWithVariationClick
-                    : handleAddToCartClick
-                }
-                isDisabled={isOutOfStock ? true : false}
-              >
-                <FiShoppingCart size="25px" />
-                <Text ml="10px">Add To Cart</Text>
-              </OrangeButton>
+              <HStack>
+                <AddToCartButton
+                  count={count}
+                  color={color}
+                  size={size}
+                  hasColorsOrSizes={hasColorsOrSizes}
+                  isOutOfStock={isOutOfStock}
+                />
+                <AddToFavoriteButton />
+              </HStack>
             </Stack>
           </Flex>
         </Card>
         <StoreInfoSection store={getProductDetail?.store} />
+        <ProductDescription description={getProductDetail?.description} />
+        <ProductRatingsAndReview
+          averageRating={getProductDetail?.averageRating ?? 0}
+        />
       </Box>
     </Center>
   );

@@ -10,7 +10,7 @@ const useUpdateOneResource = <T>({ module }: ModuleProps) => {
   const mutation = useMutation<T, Error, T>({
     mutationFn: (data: T) =>
       apiClient
-        .put(`/factory/${module}`, JSON.stringify(data))
+        .put(`/factory/${module}/update`, JSON.stringify(data))
         .then((res) => res.data),
   });
   return {

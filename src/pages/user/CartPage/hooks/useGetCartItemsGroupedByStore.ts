@@ -11,7 +11,9 @@ const useGetCartItemsGroupedByStore = () => {
   return useQuery({
     queryKey: ["cartItem"],
     queryFn: async () => {
-      const { data } = await apiClient.get<CartItemsResponse>(`/cart`);
+      const { data } = await apiClient.get<CartItemsResponse>(
+        `/cart/cart-items`
+      );
       return data;
     },
     enabled: !!jwtToken,

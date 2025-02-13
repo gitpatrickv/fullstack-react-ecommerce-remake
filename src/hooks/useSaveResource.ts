@@ -14,7 +14,7 @@ const useSaveResource = <T>({ module }: ModuleProps) => {
   const mutation = useMutation<T, Error, T>({
     mutationFn: (data: T) =>
       apiClient
-        .post(`/factory/${module}`, JSON.stringify(data))
+        .post(`/factory/${module}/save`, JSON.stringify(data))
         .then((res) => res.data),
   });
 

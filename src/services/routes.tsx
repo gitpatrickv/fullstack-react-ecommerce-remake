@@ -11,6 +11,15 @@ import AccountInfoPage from "../pages/seller/AccountInfoPage/AccountInfoPage";
 import CreateProductPage from "../pages/seller/CreateProductPage/CreateProductPage";
 import CreateStorePage from "../pages/seller/CreateStorePage/CreateStorePage";
 import MyProductsPage from "../pages/seller/MyProductsPage/MyProductsPage";
+import AllCustomerOrders from "../pages/seller/OrderPage/components/AllCustomerOrders";
+import CancelledCustomerOrders from "../pages/seller/OrderPage/components/CancelledCustomerOrders";
+import CompletedCustomerOrders from "../pages/seller/OrderPage/components/CompletedCustomerOrders";
+import RatedCustomerOrders from "../pages/seller/OrderPage/components/RatedCustomerOrders";
+import ShippingCustomerOrders from "../pages/seller/OrderPage/components/ShippingCustomerOrders";
+import ToShipCustomerOrders from "../pages/seller/OrderPage/components/ToShipCustomerOrders";
+import UnpaidCustomerOrders from "../pages/seller/OrderPage/components/UnpaidCustomerOrders";
+import OrderPage from "../pages/seller/OrderPage/OrderPage";
+import ReviewManagementPage from "../pages/seller/ReviewManagementPage/ReviewManagementPage";
 import Dashboard from "../pages/seller/SellerPage/components/Dashboard";
 import SellerPage from "../pages/seller/SellerPage/SellerPage";
 import AccountProfilePage from "../pages/user/AccountProfilePage/AccountProfilePage";
@@ -125,6 +134,23 @@ const router = createBrowserRouter([
       {
         path: "account/info",
         element: <AccountInfoPage />,
+      },
+      {
+        path: "customer/service/review",
+        element: <ReviewManagementPage />,
+      },
+      {
+        path: "order",
+        element: <OrderPage />,
+        children: [
+          { path: "all", element: <AllCustomerOrders /> },
+          { path: "unpaid", element: <UnpaidCustomerOrders /> },
+          { path: "to-ship", element: <ToShipCustomerOrders /> },
+          { path: "shipping", element: <ShippingCustomerOrders /> },
+          { path: "completed", element: <CompletedCustomerOrders /> },
+          { path: "rated", element: <RatedCustomerOrders /> },
+          { path: "cancelled", element: <CancelledCustomerOrders /> },
+        ],
       },
     ],
   },

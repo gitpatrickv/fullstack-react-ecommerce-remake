@@ -98,6 +98,7 @@ const ProductCategoryPage = () => {
           />
           <Stack width="100%">
             <SortingHeader
+              sortDirection={sortDirection}
               sortBy={sortBy}
               setSortBy={setSortBy}
               setSortDirection={setSortDirection}

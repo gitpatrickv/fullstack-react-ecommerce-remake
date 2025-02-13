@@ -14,12 +14,19 @@ import { FiHeart } from "react-icons/fi";
 import { RiStore2Line } from "react-icons/ri";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import pic from "../../../assets/profpic.jpeg";
-import { useUserStore } from "../../../store/user-store";
 import SidebarNavLink from "../../../components/sidebar/SidebarNavLink";
+import SidebarTextLink from "../../../components/sidebar/SidebarTextLink";
+import { useUserStore } from "../../../store/user-store";
 const UserPage = () => {
   const location = useLocation();
   const profileLocation = location.pathname.startsWith("/user/account");
   const { picture, name } = useUserStore();
+  const link = ["/user/account/profile", "/user/account/address"].includes(
+    location.pathname
+  )
+    ? location.pathname
+    : "/user/account/profile";
+
   return (
     <Grid
       templateColumns="0.3fr 0.2fr 0.8fr 0.3fr"
@@ -45,7 +52,7 @@ const UserPage = () => {
           <Divider mt="16px" mb="15px" borderColor="#BEBEBE" />
           <SidebarNavLink
             icon={FaRegUser}
-            navLink="/user/account/profile"
+            navLink={link}
             iconSize="20px"
             marginTop="10px"
             marginLeft="15px"
@@ -53,33 +60,15 @@ const UserPage = () => {
             titleMarginLeft="20px"
           />
           {profileLocation && (
-            <Box ml="55px" mt="10px">
-              <Link to="/user/account/profile">
-                <Text
-                  cursor="pointer"
-                  mb="5px"
-                  color={
-                    location.pathname === "/user/account/profile"
-                      ? "#FF5722"
-                      : "white.500"
-                  }
-                >
-                  Profile
-                </Text>
-              </Link>
-              <Link to="/user/account/address">
-                <Text
-                  cursor="pointer"
-                  mb="5px"
-                  color={
-                    location.pathname === "/user/account/address"
-                      ? "#FF5722"
-                      : "white.500"
-                  }
-                >
-                  Address Book
-                </Text>
-              </Link>
+            <Box ml="55px" mt="5px">
+              <SidebarTextLink
+                navLink="/user/account/profile"
+                title="Profile"
+              />
+              <SidebarTextLink
+                navLink="/user/account/address"
+                title="Address Book"
+              />
             </Box>
           )}
           <SidebarNavLink

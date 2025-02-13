@@ -3,7 +3,6 @@ import {
   Box,
   Divider,
   Flex,
-  IconButton,
   Menu,
   MenuButton,
   MenuItem,
@@ -24,7 +23,6 @@ import { RiStore2Line } from "react-icons/ri";
 import { SlLogout } from "react-icons/sl";
 import { Link, useNavigate } from "react-router-dom";
 import pic from "../../../assets/profpic.jpeg";
-import ColorModeSwitch from "../../../components/ColorModeSwitch";
 import useHandleLogout from "../../../hooks/useHandleLogout";
 import { useAuthQueryStore } from "../../../store/auth-store";
 import { useUserStore } from "../../../store/user-store";
@@ -34,7 +32,7 @@ const NavTop = () => {
   const handleLogout = useHandleLogout();
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState<boolean>(true);
-  const { picture } = useUserStore();
+  const { picture, name } = useUserStore();
   const { isOpen, onOpen, onClose } = useAuthQueryStore();
   const { authStore } = useAuthQueryStore();
   const jwtToken = authStore.jwtToken;
@@ -57,7 +55,7 @@ const NavTop = () => {
   const handleNavigateSellerPageClick = () => {
     navigate(role === "SELLER" ? `/seller` : "/create/store");
   };
-  //TODO: remove dark mode
+
   return (
     <>
       {jwtToken ? (
@@ -70,15 +68,24 @@ const NavTop = () => {
             {role === "USER" ? "Start Selling" : "Seller Center"}
           </Text>
           <Spacer />
-          <ColorModeSwitch />
           <Menu>
-            <MenuButton
-              as={IconButton}
-              aria-label="menu"
-              icon={<Avatar src={picture || pic} size="xs" />}
-              variant="none"
-            />
-            <MenuList>
+            <MenuButton aria-label="menu" mt="5px" mb="10px" userSelect="none">
+              <Flex>
+                <Avatar src={picture || pic} size="xs" />
+                <Text color="white" ml="5px">
+                  {name}
+                </Text>
+              </Flex>
+            </MenuButton>
+            <MenuList borderRadius="none" mt="10px" position="relative" py={0}>
+              <Box
+                borderLeft="8px solid transparent"
+                borderRight="8px solid transparent"
+                borderBottom="18px solid white"
+                position="absolute"
+                top="-18px"
+                left="40px"
+              />
               <Link to="/user/account/profile">
                 <MenuItem paddingBottom={3} paddingTop={3}>
                   <FaRegUser size="20px" />
