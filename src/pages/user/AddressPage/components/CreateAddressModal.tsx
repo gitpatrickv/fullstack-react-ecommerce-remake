@@ -59,6 +59,7 @@ const CreateAddressModal = () => {
         setLoading(false);
         onClose();
         reset();
+        setAddressType("");
         if (!isSetAsDefault) {
           queryClient.invalidateQueries({
             queryKey: ["allData", "address"],

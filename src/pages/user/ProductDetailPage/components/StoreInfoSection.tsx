@@ -18,7 +18,6 @@ import storePic from "../../../../assets/storePic.jpg";
 import OrangeButton from "../../../../components/Button/OrangeButton";
 import ViewShopButton from "../../../../components/Button/ViewShopButton";
 import { Store } from "../../../../entities/Store";
-import { useAuthQueryStore } from "../../../../store/auth-store";
 import useGetStoreMetrics from "../hooks/useGetStoreMetrics";
 import FollowStoreButton from "./FollowStoreButton";
 interface Props {
@@ -28,8 +27,8 @@ interface Props {
 const StoreInfoSection = ({ store }: Props) => {
   const time = new Date(store?.createdDate || new Date());
   const location = useLocation();
-  const { authStore } = useAuthQueryStore();
-  const jwtToken = authStore.jwtToken;
+  // const { authStore } = useAuthQueryStore();
+  // const jwtToken = authStore.jwtToken;
   const productLocation = location.pathname.startsWith("/product");
   const storeLocation = location.pathname.startsWith("/store");
   const { data: storeMetrics } = useGetStoreMetrics(store?.storeId ?? 0);
@@ -54,7 +53,7 @@ const StoreInfoSection = ({ store }: Props) => {
               <Flex flexDirection={storeLocation ? "row-reverse" : "row"}>
                 <OrangeButton
                   mr={productLocation ? "10px" : "0"}
-                  isDisabled={!jwtToken}
+                  isDisabled={true}
                 >
                   <PiChatCircleDots size="23px" />
                   <Text ml="10px">Chat now</Text>

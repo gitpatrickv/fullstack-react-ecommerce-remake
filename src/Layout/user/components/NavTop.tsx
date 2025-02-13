@@ -3,7 +3,6 @@ import {
   Box,
   Divider,
   Flex,
-  IconButton,
   Menu,
   MenuButton,
   MenuItem,
@@ -70,13 +69,23 @@ const NavTop = () => {
           </Text>
           <Spacer />
           <Menu>
-            <MenuButton
-              as={IconButton}
-              aria-label="menu"
-              icon={<Avatar src={picture || pic} size="xs" />}
-              variant="none"
-            />
-            <MenuList>
+            <MenuButton aria-label="menu" mt="5px" mb="10px" userSelect="none">
+              <Flex>
+                <Avatar src={picture || pic} size="xs" />
+                <Text color="white" ml="5px">
+                  {name}
+                </Text>
+              </Flex>
+            </MenuButton>
+            <MenuList borderRadius="none" mt="10px" position="relative" py={0}>
+              <Box
+                borderLeft="8px solid transparent"
+                borderRight="8px solid transparent"
+                borderBottom="18px solid white"
+                position="absolute"
+                top="-18px"
+                left="40px"
+              />
               <Link to="/user/account/profile">
                 <MenuItem paddingBottom={3} paddingTop={3}>
                   <FaRegUser size="20px" />
@@ -107,7 +116,6 @@ const NavTop = () => {
               </MenuItem>
             </MenuList>
           </Menu>
-          <Text color="white">{name}</Text>
         </Flex>
       ) : (
         <Flex justifyContent="end">

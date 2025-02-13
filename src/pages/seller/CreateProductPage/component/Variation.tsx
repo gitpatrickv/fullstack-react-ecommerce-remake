@@ -128,10 +128,12 @@ const Variation = ({ register, control }: Props) => {
                   <Input
                     placeholder="Variation"
                     {...register(`inventories.${index}.color`)}
+                    borderRadius="none"
                   />
                   <Input
                     placeholder="Size"
                     {...register(`inventories.${index}.size`)}
+                    borderRadius="none"
                   />
                 </>
               )}
@@ -139,6 +141,7 @@ const Variation = ({ register, control }: Props) => {
               <Input
                 type="number"
                 placeholder="Price"
+                borderRadius="none"
                 {...register(`inventories.${index}.price`, {
                   required: true,
                 })}
@@ -146,6 +149,7 @@ const Variation = ({ register, control }: Props) => {
               <Input
                 type="number"
                 placeholder="Quantity"
+                borderRadius="none"
                 {...register(`inventories.${index}.quantity`, {
                   required: true,
                 })}
@@ -159,6 +163,7 @@ const Variation = ({ register, control }: Props) => {
           ))}
           <Button
             mt="15px"
+            mb="15px"
             leftIcon={<AddIcon />}
             _hover={{ color: "orange.400" }}
             onClick={() =>
@@ -180,6 +185,7 @@ const Variation = ({ register, control }: Props) => {
               Price
             </Text>
             <Input
+              borderRadius="none"
               maxWidth="20%"
               mb="10px"
               type="number"
@@ -193,6 +199,7 @@ const Variation = ({ register, control }: Props) => {
               Quantity
             </Text>
             <Input
+              borderRadius="none"
               maxWidth="20%"
               mb="10px"
               type="number"

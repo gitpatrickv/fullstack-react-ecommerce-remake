@@ -1,23 +1,25 @@
-import { Box, Card, Center, Flex, Text } from "@chakra-ui/react";
+import { Box, Card, Center, Flex, Spacer, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
+import { IoLocation } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import GetAllAddressResponse from "../../../entities/Address";
 import useGetAllResources from "../../../hooks/useGetAllResources";
+import { useAddressStore } from "../../../store/address-store";
 import useCartStore from "../../../store/cart-store";
+import { formatCurrency } from "../../../utilities/formatCurrency";
 import useGetCartItemsGroupedByStore from "../CartPage/hooks/useGetCartItemsGroupedByStore";
 import ActiveAddress from "./component/ActiveAddress";
 import CheckoutHeader from "./component/CheckoutHeader";
 import CheckoutItemCard from "./component/CheckoutItemCard";
 import OrderSummary from "./component/OrderSummary";
-import { formatCurrency } from "../../../utilities/formatCurrency";
-
 const CheckoutPage = () => {
-  const { data: getAllAddress } = useGetAllResources<GetAllAddressResponse>({
-    module: "address",
-  });
   const { itemIds } = useCartStore();
   const navigate = useNavigate();
   const cartItemIds = Array.from(itemIds);
+  const { onOpen } = useAddressStore();
+  const handleNavigateClick = () => {
+    navigate("/user/account/address");
+  };
 
   useEffect(() => {
     if (itemIds.size < 1) navigate("/cart");
@@ -27,11 +29,15 @@ const CheckoutPage = () => {
     return null;
   }
 
-  const { data: getCartItems } = useGetCartItemsGroupedByStore();
+  const { data: getAllAddress } = useGetAllResources<GetAllAddressResponse>({
+    module: "address",
+  });
 
   const hasActiveAddress = getAllAddress?.pages.some((page) =>
     page.models.some((address) => address.status === "ACTIVE")
   );
+
+  const { data: getCartItems } = useGetCartItemsGroupedByStore();
 
   const computeTotalAmountByStore = (storeName: string) => {
     if (!getCartItems) return 0;
@@ -51,13 +57,36 @@ const CheckoutPage = () => {
       <Box minWidth="1200px">
         <Flex>
           <Box width="100%" mr="10px">
-            {getAllAddress?.pages.map((page) =>
-              page.models
-                .filter((address) => address.status === "ACTIVE")
-                .map((address) => (
-                  <ActiveAddress key={address.addressId} address={address} />
-                ))
-            )}
+            <Card borderRadius="none" padding={5} mb="10px">
+              <Flex alignItems="center">
+                <IoLocation size="20px" color="#E64A19" />
+                <Text ml="5px" fontWeight="semibold" color="#E64A19" mr="10px">
+                  Shipping Address
+                </Text>
+                <Spacer />
+                <Text
+                  onClick={hasActiveAddress ? handleNavigateClick : onOpen}
+                  cursor="pointer"
+                  color="#1877F2"
+                  fontWeight="semibold"
+                >
+                  {hasActiveAddress ? "Change" : "Add"}
+                </Text>
+              </Flex>
+              {!hasActiveAddress && (
+                <Text mt="5px" ml="5px">
+                  To place an order, please add a delivery address and set it as
+                  default.
+                </Text>
+              )}
+              {getAllAddress?.pages.map((page) =>
+                page.models
+                  .filter((address) => address.status === "ACTIVE")
+                  .map((address) => (
+                    <ActiveAddress key={address.addressId} address={address} />
+                  ))
+              )}
+            </Card>
             <CheckoutHeader />
             {getCartItems
               ?.filter((store) =>

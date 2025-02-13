@@ -109,7 +109,11 @@ const CreateProductPage = () => {
           />
 
           <FormControl isRequired mb="10px" mt="10px">
-            <Select id="categories" {...register("category")}>
+            <Select
+              id="categories"
+              {...register("category")}
+              borderRadius="none"
+            >
               <option value="" hidden>
                 Category
               </option>
