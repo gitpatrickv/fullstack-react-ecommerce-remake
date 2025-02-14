@@ -16,7 +16,6 @@ const PasswordInput = ({
   name,
   loading,
   placeholder,
-  label,
   ...props
 }: TextInputProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -42,7 +41,7 @@ const PasswordInput = ({
         />
         <InputRightElement>
           <IconButton
-            aria-label={label}
+            aria-label="password"
             icon={
               showPassword ? (
                 <MdLockOpen size="25px" />
