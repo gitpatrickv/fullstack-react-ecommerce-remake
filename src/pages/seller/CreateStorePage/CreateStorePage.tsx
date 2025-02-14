@@ -96,14 +96,12 @@ const CreateStorePage = () => {
                 name="storeName"
                 loading={loading}
                 placeholder="Store Name"
-                label="Store Name"
               />
               <TextInput
                 control={control}
                 name="contactNumber"
                 loading={loading}
                 placeholder="Contact Number"
-                label="Contact Number"
                 mt={4}
               />
               <OrangeButton type="submit" width="100%" mt="10px">

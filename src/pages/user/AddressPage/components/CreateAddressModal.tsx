@@ -141,14 +141,12 @@ const CreateAddressModal = () => {
                 name="fullName"
                 loading={loading}
                 placeholder="Full Name"
-                label="Full Name"
               />
               <TextInput
                 control={control}
                 name="contactNumber"
                 loading={loading}
                 placeholder="Contact No."
-                label="Contact Number"
                 mt="10px"
               />
 
@@ -157,7 +155,6 @@ const CreateAddressModal = () => {
                 name="streetAddress"
                 loading={loading}
                 placeholder="Complete Address"
-                label="Contact Number"
                 mt="10px"
               />
 
@@ -166,7 +163,6 @@ const CreateAddressModal = () => {
                 name="city"
                 loading={loading}
                 placeholder="City"
-                label="City"
                 mt="10px"
               />
               <TextInput
@@ -174,7 +170,6 @@ const CreateAddressModal = () => {
                 name="postCode"
                 loading={loading}
                 placeholder="Post Code"
-                label="Post Code"
                 mt="10px"
               />
 

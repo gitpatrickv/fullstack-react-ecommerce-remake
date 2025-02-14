@@ -34,28 +34,24 @@ const Register = () => {
           name="name"
           loading={loading}
           placeholder="Full Name"
-          label="full name"
         />
         <TextInput
           control={control}
           name="email"
           loading={loading}
           placeholder="Email"
-          label="email"
         />
         <PasswordInput
           control={control}
           name="password"
           loading={loading}
           placeholder="Password"
-          label="Password"
         />
         <PasswordInput
           control={control}
           name="confirmPassword"
           loading={loading}
           placeholder="Confirm Password"
-          label="Confirm Password"
         />
         <FormControl isRequired>
           <Text fontSize="xs" mb="2px">

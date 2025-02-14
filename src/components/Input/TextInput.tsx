@@ -6,7 +6,6 @@ export interface TextInputProps extends InputProps {
   name: string;
   loading: boolean;
   placeholder: string;
-  label: string;
 }
 
 const TextInput = ({
@@ -14,7 +13,6 @@ const TextInput = ({
   name,
   loading,
   placeholder,
-  label,
   ...props
 }: TextInputProps) => {
   const {

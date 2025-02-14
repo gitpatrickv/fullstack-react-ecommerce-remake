@@ -119,7 +119,6 @@ const UpdateAddressModal = ({ address }: Props) => {
                 name="fullName"
                 loading={loading}
                 placeholder="Full Name"
-                label="Full Name"
               />
               <Text mt="10px" fontSize="sm" color="#E64A19">
                 Address
@@ -130,7 +129,6 @@ const UpdateAddressModal = ({ address }: Props) => {
                 name="streetAddress"
                 loading={loading}
                 placeholder="Complete Address"
-                label="Contact Number"
               />
               <Text mt="10px" fontSize="sm" color="#E64A19">
                 City
@@ -141,7 +139,6 @@ const UpdateAddressModal = ({ address }: Props) => {
                 name="city"
                 loading={loading}
                 placeholder="City"
-                label="City"
               />
               <Text mt="10px" fontSize="sm" color="#E64A19">
                 Postcode
@@ -152,7 +149,6 @@ const UpdateAddressModal = ({ address }: Props) => {
                 name="postCode"
                 loading={loading}
                 placeholder="Post Code"
-                label="Post Code"
               />
               <Text mt="10px" fontSize="sm" color="#E64A19">
                 Contact Number
@@ -163,7 +159,6 @@ const UpdateAddressModal = ({ address }: Props) => {
                 name="contactNumber"
                 loading={loading}
                 placeholder="Contact No."
-                label="Contact Number"
               />
               <Text mb="5px" mt="10px">
                 Label As:

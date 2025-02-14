@@ -42,7 +42,6 @@ const Login = () => {
         name="password"
         loading={loading}
         placeholder="Password"
-        label="Password"
       />
       <OrangeButton
         type={"submit"}
