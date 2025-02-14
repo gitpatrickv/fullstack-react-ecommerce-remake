@@ -97,14 +97,12 @@ const CreateProductPage = () => {
             name="productName"
             loading={loading}
             placeholder="Product Name"
-            label="Product Name"
           />
           <TextInput
             control={control}
             name="description"
             loading={loading}
             placeholder="Description"
-            label="Description"
             mt="10px"
           />
 

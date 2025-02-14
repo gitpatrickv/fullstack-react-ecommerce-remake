@@ -113,7 +113,6 @@ const UpdateButton = ({ product }: Props) => {
                             name="productName"
                             loading={loading}
                             placeholder="Product Name"
-                            label="Product Name"
                             size="sm"
                           />
                         </Box>
@@ -145,7 +144,6 @@ const UpdateButton = ({ product }: Props) => {
                           name="description"
                           loading={loading}
                           placeholder="Description"
-                          label="Description"
                           size="sm"
                         />
                       </Box>

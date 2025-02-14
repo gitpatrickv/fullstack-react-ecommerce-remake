@@ -108,7 +108,6 @@ const AccountInfoPage = () => {
                 name="storeName"
                 loading={loading}
                 placeholder="Store Name"
-                label="Store Name"
                 width="300px"
               />
             </Flex>
@@ -126,7 +125,6 @@ const AccountInfoPage = () => {
                 name="contactNumber"
                 loading={loading}
                 placeholder="Contact Number"
-                label="Contact Number"
                 width="300px"
               />
             </Flex>
