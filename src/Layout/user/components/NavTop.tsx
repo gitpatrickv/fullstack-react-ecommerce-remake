@@ -43,6 +43,10 @@ const NavTop = () => {
     onOpen();
   };
 
+  const handleNavigateSellerPageClick = () => {
+    navigate(role === "SELLER" ? `/seller` : "/create/store");
+  };
+
   const textStyles = {
     cursor: "pointer",
     userSelect: "none" as "none",
@@ -52,9 +56,32 @@ const NavTop = () => {
     color: "white",
   };
 
-  const handleNavigateSellerPageClick = () => {
-    navigate(role === "SELLER" ? `/seller` : "/create/store");
-  };
+  const menuList = [
+    {
+      key: "1",
+      link: "/user/account/profile",
+      icon: <FaRegUser size="20px" />,
+      title: "My Account",
+    },
+    {
+      key: "2",
+      link: "/user/favorites",
+      icon: <FiHeart size="20px" />,
+      title: "My Favorites",
+    },
+    {
+      key: "3",
+      link: "/user/following",
+      icon: <RiStore2Line size="20px" />,
+      title: "My Following",
+    },
+    {
+      key: "4",
+      link: "/user/purchase",
+      icon: <BiPurchaseTag size="20px" />,
+      title: "My Purchase",
+    },
+  ];
 
   return (
     <>
@@ -86,30 +113,14 @@ const NavTop = () => {
                 top="-18px"
                 left="40px"
               />
-              <Link to="/user/account/profile">
-                <MenuItem paddingBottom={3} paddingTop={3}>
-                  <FaRegUser size="20px" />
-                  <Text ml="10px">My Account</Text>
-                </MenuItem>
-              </Link>
-              <Link to="/user/favorites">
-                <MenuItem paddingBottom={3} paddingTop={3}>
-                  <FiHeart size="20px" />
-                  <Text ml="10px">My Favorites</Text>
-                </MenuItem>
-              </Link>
-              <Link to="/user/following">
-                <MenuItem paddingBottom={3} paddingTop={3}>
-                  <RiStore2Line size="20px" />
-                  <Text ml="10px">My Following</Text>
-                </MenuItem>
-              </Link>
-              <Link to="/user/purchase">
-                <MenuItem paddingBottom={3} paddingTop={3}>
-                  <BiPurchaseTag size="20px" />
-                  <Text ml="10px">My Purchase</Text>
-                </MenuItem>
-              </Link>
+              {menuList.map((list) => (
+                <Link to={list.link} key={list.key}>
+                  <MenuItem paddingBottom={3} paddingTop={3}>
+                    {list.icon}
+                    <Text ml="10px">{list.title}</Text>
+                  </MenuItem>
+                </Link>
+              ))}
               <MenuItem onClick={handleLogout} paddingBottom={3} paddingTop={3}>
                 <SlLogout size="20px" />
                 <Text ml="10px">Logout</Text>
